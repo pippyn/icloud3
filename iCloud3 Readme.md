@@ -15,7 +15,7 @@ To integrate iCloud in Home Assistant, add the following section to your  `confi
 # Example configuration.yaml entry
 device_tracker:
   - platform: icloud
-    username: USERNAME
+    username: USERNAME 
     password: PASSWORD
     account_name: accountname
 
@@ -68,5 +68,5 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODA2OTE5MjUzXX0=
+eyJoaXN0b3J5IjpbLTMxNzcxNTc3Nyw4MDY5MTkyNTNdfQ==
 -->
