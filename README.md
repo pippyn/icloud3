@@ -51,7 +51,7 @@ Low  `max_interval`  may cause battery drainage as it wakes up your device to ge
 
  
 
-### ABOUT YOUR IACCOUNT
+### ABOUT YOUR ICLOUD ACCOUNT
 
 You may receive an email from Apple stating that someone has logged into your account.
 
@@ -68,5 +68,5 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU3MTMyMjQxMF19
+eyJoaXN0b3J5IjpbODA2OTE5MjUzXX0=
 -->
