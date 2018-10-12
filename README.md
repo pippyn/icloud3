@@ -49,7 +49,7 @@ Default value: 1000
 
 Low  `max_interval`  may cause battery drainage as it wakes up your device to get the current location.
 
-###About Your Apple iCloud Account
+About Your Apple iCloud Account
 
 You may receive an email from Apple stating that someone has logged into your account.
 
@@ -66,5 +66,5 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA0NDM3NzUyMV19
+eyJoaXN0b3J5IjpbLTE4NTc3NTcyOF19
 -->
