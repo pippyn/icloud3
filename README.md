@@ -23,7 +23,7 @@ device_tracker:
 
 ### [](https://www.home-assistant.io/components/device_tracker.icloud/#configuration-variables)CONFIGURATION VARIABLES
 
-[](https://www.home-assistant.io/components/device_tracker.icloud/#username)username
+[](https://www.home-assistant.io/components/device_tracker.icloud/#username)**username**
 
 (string)(Required)The username for the iCloud account.
 
@@ -64,5 +64,5 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ1MTE5MjMzMV19
+eyJoaXN0b3J5IjpbNzA1MDkzMjNdfQ==
 -->
