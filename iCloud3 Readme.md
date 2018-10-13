@@ -43,7 +43,7 @@ device_tracker:
 
 **gps_accuracy_threshold**
 
-(integer)(Optional) iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried in 2 minutes to see if the accuracy has improved. This will be tried 5 times, after Wich, the n
+(integer)(Optional) iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried in 2 minutes to see if the accuracy has improved. This will be retriedm5 times, after which, the normal polling interval
 
 Default value: 1000
 
@@ -68,6 +68,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEzNjI1Mzk3OSwtMzE3NzE1Nzc3LDgwNj
-kxOTI1M119
+eyJoaXN0b3J5IjpbLTExMzc4Nzc4NzYsLTMxNzcxNTc3Nyw4MD
+Y5MTkyNTNdfQ==
 -->
