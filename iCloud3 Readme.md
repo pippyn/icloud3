@@ -28,10 +28,11 @@ Note: The  `pyicloud.py`  Python component is part of Home Assistant and used to
 
 The Home Assistant `IOS `  is all. You do not need  `Owntracks`  or other location based trackers and you do not need  `nmap` ,`netgear` , `ping` or any network monitor. Beacons are also not needed. `IOS` will notify Home Assistant when you leave home using it's 'Zone enter/exit', 'Background fetch' and 'Significant location change's location setting enabled. 
 
-**Apple iCloud account 
+
 The  `icloud`  platform allows you to detect presence using the  [iCloud](https://www.icloud.com/)  service. iCloud allows users to track their location on iOS devices.
 
 It does require that your device is registered with “Find My iPhone”.
+
 
 To integrate iCloud in Home Assistant, add the following section to your  `configuration.yaml`  file:
 
@@ -99,6 +100,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQwMzYwNTk4NSwtMzE3NzE1Nzc3LDgwNj
-kxOTI1M119
+eyJoaXN0b3J5IjpbMzYwNjUxMzUwLC0zMTc3MTU3NzcsODA2OT
+E5MjUzXX0=
 -->
