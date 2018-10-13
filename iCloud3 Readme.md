@@ -23,7 +23,7 @@ The above analysis results in a polling interval. The further away from home and
 Note: The  `pyicloud.py`  Python component is part of Home Assistant and used to poll the device, requesting location and other information. If the iCloud account is associated with multiple devices, all of the devices are polled, whether or not the device is being tracked by Home Assistant. This is a limitation of pyicloud.py. 
 
 **What other programs do I need**
-The Home Assistant `IOS `  is all. You do not need  `Owntracks`  or other location based trackers and you do not need  `nmap` ,`netgear` , `ping` or any network monitor. Beacons are also not needed. `IOS` will notify 
+The Home Assistant `IOS `  is all. You do not need  `Owntracks`  or other location based trackers and you do not need  `nmap` ,`netgear` , `ping` or any network monitor. Beacons are also not needed. `IOS` will notify Home Assistant when you leave home using it's zone enter/exit notification feature so you have to have that enabled. 
 
 
 ---------
@@ -97,6 +97,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MTcxOTMzMjMsLTMxNzcxNTc3Nyw4MD
-Y5MTkyNTNdfQ==
+eyJoaXN0b3J5IjpbLTMwMjM0NzY4LC0zMTc3MTU3NzcsODA2OT
+E5MjUzXX0=
 -->
