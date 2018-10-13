@@ -37,13 +37,13 @@ device_tracker:
 
 **inzone_interval**
 
-(Optional) The interval between location upates when the device is in a zone. This can be in minutes or hours, e.g., 1 hr, 45 min, or 30. (Minutes are assumed if no time qualifier is specified.) (Default: 1 hr)
+(Optional) The interval between location upates when the device is in a zone. This can be in minutes or hours, e.g., 1 hr, 45 min, or 30. Minutes are assumed if no time qualifier is specified. Default: 1 hr.
 
  This tracker uses dynamic intervals for requesting location updates. When iphone is stationary, interval will eventually be set to  `max_interval`  to save battery. When iphone starts moving again interval will be dynamically updated to 1 min. Note that updating interval to 1 min might be delayed by maximum  `max_interval`  minutes. Minimum value is 1 
 
 **gps_accuracy_threshold**
 
-(integer)(Optional) iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried in 2 minutes (up to 5 times) to see if the accuracy has improved. The accuracy and retry count are displayed in the Info attribute (ex. GPS.Accuracy-263(2)) and on the poll_count attribute (GPS
+(integer)(Optional) iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried in 2 minutes (up to 5 times) to see if the accuracy has improved. The accuracy and retry count are displayed in the info attribute (ex. GPS.Accuracy-263(2)) and on the poll_count attribute (2-GPS)
 
 Default value: 1000
 
@@ -68,6 +68,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTEwNDczMjk5MCwtMzE3NzE1Nzc3LDgwNj
+eyJoaXN0b3J5IjpbMTk3Njk5NTk1NCwtMzE3NzE1Nzc3LDgwNj
 kxOTI1M119
 -->
