@@ -17,7 +17,7 @@ iCloud3 polls the device on a dynamic schedule based on:
 . The battery level.
 . The accuracy of the GPS location or if the last poll returned a location that the iCloud service determined was 'old'.
 
-The above analysis results in a polling interval. The further away from home and the longer the travel time, the longer the interval; the closer to home, the shorter the interval. The polling interval checks each device being tracked every 15 seconds to see if it's location should be updated. If so, it and all of the other devices being tracked are updated (more about this below). Using a 15 second interval lets you track the distance down 1/10 of a mile or kilometer. This gives a much more accurate number to trigger automations. You no longer have to on use 
+The above analysis results in a polling interval. The further away from home and the longer the travel time, the longer the interval; the closer to home, the shorter the interval. The polling interval checks each device being tracked every 15 seconds to see if it's location should be updated. If so, it and all of the other devices being tracked are updated (more about this below). Using a 15 second interval lets you track the distance down 1/10 of a mile or kilometer. This gives a much more accurate number to trigger automations. You no longer limited to entering or editing a zone. More importantly, --
 
 
 
@@ -96,6 +96,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0NTMwMDU2NTQsLTMxNzcxNTc3Nyw4MD
-Y5MTkyNTNdfQ==
+eyJoaXN0b3J5IjpbMTg3MzQxODEyLC0zMTc3MTU3NzcsODA2OT
+E5MjUzXX0=
 -->
