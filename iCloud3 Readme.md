@@ -37,7 +37,7 @@ device_tracker:
 
 **inzone_interval**
 
-(integer)(Optional) The interval between location upates when the device is in a zone in minutes or hours. Examples are: 1 hr, 45 min, 30. Minutes are assumed if no time qualifier is specified.
+(integer)(Optional) The interval between location upates when the device is in a zone. This can be in minutes or hours, e.g., 1 hr, 45 min, or 30. (Minutes are assumed if no time qualifier is specified.)
 
  This tracker uses dynamic intervals for requesting location updates. When iphone is stationary, interval will eventually be set to  `max_interval`  to save battery. When iphone starts moving again interval will be dynamically updated to 1 min. Note that updating interval to 1 min might be delayed by maximum  `max_interval`  minutes. Minimum value is 1 
 
@@ -68,6 +68,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNjE5NTAzMzAsLTMxNzcxNTc3Nyw4MD
-Y5MTkyNTNdfQ==
+eyJoaXN0b3J5IjpbMTE0ODA4NTkxMiwtMzE3NzE1Nzc3LDgwNj
+kxOTI1M119
 -->
