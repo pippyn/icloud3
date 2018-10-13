@@ -45,7 +45,7 @@ Default: 1 hr.
 
 **gps_accuracy_threshold**
 
-(integer)(Optional) iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried in 2 minutes (up to 5 times) to see if the accuracy has improved. 
+(integer)(Optional) iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried in 2 minutes (up to 5 times) to see if the accuracy has improved. At that time, the normal interval based on distance from ho
 
 Note: The accuracy and retry count are displayed in the info attribute (GPS.Accuracy-263(2)) and on the poll_count attribute (2-GPS)
 
@@ -72,6 +72,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ2MzI1MDM3NywtMzE3NzE1Nzc3LDgwNj
-kxOTI1M119
+eyJoaXN0b3J5IjpbLTE1ODg2NTE0MDEsLTMxNzcxNTc3Nyw4MD
+Y5MTkyNTNdfQ==
 -->
