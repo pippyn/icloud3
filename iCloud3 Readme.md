@@ -76,7 +76,7 @@ exclude_devices**
 
 Include or exclude devices that should be tracked. 
 
-`Note: Exclude takes presidency over include. You can include an ip
+`Note: Exclude takes presidence over include. You can include the iphone device type and then exclude lillianiphone a
 
 **inzone_interval**
 
@@ -115,6 +115,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4OTA5MDM4MTQsLTMxNzcxNTc3Nyw4MD
-Y5MTkyNTNdfQ==
+eyJoaXN0b3J5IjpbNDI4NDE1MzI5LC0zMTc3MTU3NzcsODA2OT
+E5MjUzXX0=
 -->
