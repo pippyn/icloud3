@@ -62,7 +62,10 @@ device_tracker:
 
 (string)(Optional) The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email addresPhone
 
-**include_device_type, include_device_typ
+**include_device_type, include_device_types**
+
+Include device type
+
 **inzone_interval**
 
 (Optional) The interval between location upates when the device is in a zone. This can be in minutes or hours, e.g., 1 hr, 45 min, or 30. Minutes are assumed if no time qualifier is specified. 
@@ -100,6 +103,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg4MDU1MzY1LC0zMTc3MTU3NzcsODA2OT
-E5MjUzXX0=
+eyJoaXN0b3J5IjpbLTE0MTMxODIyOTEsLTMxNzcxNTc3Nyw4MD
+Y5MTkyNTNdfQ==
 -->
