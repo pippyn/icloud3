@@ -5,7 +5,9 @@
 
 ----------
 
-ICloud3 is a much improved location tracker than the original iCloud tracker installed with Home Assistant. It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. 
+ICloud3 is a much improved location tracker than the original iCloud tracker installed with Home Assistant. It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. 
+
+
 
 
 ---------
@@ -18,7 +20,7 @@ To integrate iCloud in Home Assistant, add the following section to your  `confi
 ```
 # Example configuration.yaml entry
 device_tracker:
-  - platform: icloud
+  - platform: icloud3
     username: USERNAME 
     password: PASSWORD
     account_name: accountname
@@ -79,6 +81,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTgwODQ3ODgzNywtMzE3NzE1Nzc3LDgwNj
-kxOTI1M119
+eyJoaXN0b3J5IjpbLTE2Njk2NzgwMjYsLTMxNzcxNTc3Nyw4MD
+Y5MTkyNTNdfQ==
 -->
