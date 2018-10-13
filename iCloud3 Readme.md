@@ -67,7 +67,7 @@ include_device_types
 exclude_device_type
 exclude_device_types**
 
-Include or excldevice type(s) that should be tracked. 
+Include or exclude device type(s) that should be tracked. 
 
 **inzone_interval**
 
@@ -106,6 +106,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQwMDIwNjgyMCwtMzE3NzE1Nzc3LDgwNj
+eyJoaXN0b3J5IjpbLTExMDU3MTg5MCwtMzE3NzE1Nzc3LDgwNj
 kxOTI1M119
 -->
