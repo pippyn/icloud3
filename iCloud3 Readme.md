@@ -13,7 +13,9 @@ iCloud3 polls the device on a varying schedule based on:
 . If the device in a zone.
 . The distance from 'home' to your current location. Two methods are used to determine the distance – (1) a calculation giving the 'line-of-sight' distance based on the GPS coordinates of both locations and (2) from Waze, the map/driving/direction service, to get the driving distance based on the most direct route. 
 . The travel time to 'home' if the Waze service is being used. 
-. If you are going ho
+. If you are going towards home, away from home or stationary. 
+. The battery level.
+. 
 
 
 
@@ -91,6 +93,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk3NzY4NzU4MywtMzE3NzE1Nzc3LDgwNj
-kxOTI1M119
+eyJoaXN0b3J5IjpbLTE5NjMwMTI3NDcsLTMxNzcxNTc3Nyw4MD
+Y5MTkyNTNdfQ==
 -->
