@@ -43,6 +43,7 @@ device_tracker:
     username: USERNAME 
     password: PASSWORD
     account_name: accountname
+    include_devive_type: iphone
 
 ```
 
@@ -100,6 +101,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzYwNjUxMzUwLC0zMTc3MTU3NzcsODA2OT
-E5MjUzXX0=
+eyJoaXN0b3J5IjpbLTE1NjgzNzI0NTAsLTMxNzcxNTc3Nyw4MD
+Y5MTkyNTNdfQ==
 -->
