@@ -5,7 +5,7 @@
 
 ----------
 
-
+ICloud3 is a much improved location tracker than the original iCloud tracker installed with Home Assistant. It is installed as a 
 
 
 ---------
@@ -79,6 +79,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzNDE3NTExNTUsLTMxNzcxNTc3Nyw4MD
+eyJoaXN0b3J5IjpbLTIxMzk5ODM1MzEsLTMxNzcxNTc3Nyw4MD
 Y5MTkyNTNdfQ==
 -->
