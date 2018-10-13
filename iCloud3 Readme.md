@@ -10,14 +10,13 @@ ICloud3 is a much improved location tracker than the original iCloud tracker ins
 **How it works**
 
 iCloud3 polls the device on a dynamic schedule based on:
-. 
 
- - List item
-
-If the device in a zone.
-The distance from 'home' to your current location. Two methods are used to determine the distance – (1) a calculation giving the 'line-of-sight' distance based on the GPS    coordinates of both locations and (2) from Waze, the map/driving/direction service, to get the driving distance based on the most direct route. 
-The travel time to 'home' if the Waze service is being used. 
-If you are going towards home, away from    home or stationary.  . The battery level. . The accuracy of the GPS    location or if the last poll returned a location that the iCloud    service determined was 'old'.
+ - If the device in a zone.
+ - The distance from 'home' to your current location. Two methods are used to determine the distance – (1) a calculation giving the 'line-of-sight' distance based on the GPS    coordinates of both locations and (2) from Waze, the map/driving/direction service, to get the driving distance based on the most direct route. 
+ - The travel time to 'home' if the Waze service is being used. 
+ - If you are going towards home, away from home or stationary.
+ - The battery level.
+ - The accuracy of the GPS location or if the last poll returned a location that the iCloud    service determined was 'old'.
 
 The above analysis results in a polling interval. The further away from home and the longer the travel time, the longer the interval; the closer to home, the shorter the interval. The polling interval checks each device being tracked every 15 seconds to see if it's location should be updated. If so, it and all of the other devices being tracked are updated (more about this below). Using a 15 second interval lets you track the distance down 1/10 of a mile/kilometer. This gives a much more accurate number to trigger automations. You no longer limited to entering or editing a zone. *And you do not need other device trackers like Owntracks, you do not need network monitors like nmap, ping, netgear*
 
@@ -98,6 +97,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5NTU2NDIxNTEsLTMxNzcxNTc3Nyw4MD
-Y5MTkyNTNdfQ==
+eyJoaXN0b3J5IjpbLTQyODc0Mjk0NywtMzE3NzE1Nzc3LDgwNj
+kxOTI1M119
 -->
