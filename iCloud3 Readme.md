@@ -62,9 +62,12 @@ device_tracker:
 
 (string)(Optional) The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email addresPhone
 
-**include_device_type, include_device_types**
+**include_device_type
+include_device_types
+exclude_device_type
+exclude_device_types**
 
-Include device type
+Include or excldevice type(s) that should be tracked. 
 
 **inzone_interval**
 
@@ -103,6 +106,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0MTMxODIyOTEsLTMxNzcxNTc3Nyw4MD
-Y5MTkyNTNdfQ==
+eyJoaXN0b3J5IjpbMTQwMDIwNjgyMCwtMzE3NzE1Nzc3LDgwNj
+kxOTI1M119
 -->
