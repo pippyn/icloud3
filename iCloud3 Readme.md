@@ -69,6 +69,9 @@ exclude_device_types**
 
 Include or exclude device type(s) that should be tracked. 
 
+**include_device
+
+
 **inzone_interval**
 
 (Optional) The interval between location upates when the device is in a zone. This can be in minutes or hours, e.g., 1 hr, 45 min, or 30. Minutes are assumed if no time qualifier is specified. 
@@ -106,6 +109,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMDU3MTg5MCwtMzE3NzE1Nzc3LDgwNj
-kxOTI1M119
+eyJoaXN0b3J5IjpbLTEzOTIwMzIxNDksLTMxNzcxNTc3Nyw4MD
+Y5MTkyNTNdfQ==
 -->
