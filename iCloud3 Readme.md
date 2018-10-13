@@ -17,7 +17,7 @@ iCloud3 polls the device on a dynamic schedule based on:
 . The battery level.
 . The accuracy of the GPS location or if the last poll returned a location that the iCloud service determined was 'old'.
 
-The above analysis results in a polling interval. The further away from home and the longer the travel time, the longer the interval. 
+The above analysis results in a polling interval. The further away from home and the longer the travel time, the longer the interval; the closer to home, the shorter the interval. Home Assistant 
 
 
 
@@ -96,6 +96,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMDU0MDI2ODcsLTMxNzcxNTc3Nyw4MD
-Y5MTkyNTNdfQ==
+eyJoaXN0b3J5IjpbOTY1OTY0OTMyLC0zMTc3MTU3NzcsODA2OT
+E5MjUzXX0=
 -->
