@@ -15,7 +15,7 @@ iCloud3 polls the device on a varying schedule based on:
 . The travel time to 'home' if the Waze service is being used. 
 . If you are going towards home, away from home or stationary. 
 . The battery level.
-. 
+. The accuracy of the GPS location or if the last poll returned a location that the iCloud service dete
 
 
 
@@ -93,6 +93,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5NjMwMTI3NDcsLTMxNzcxNTc3Nyw4MD
-Y5MTkyNTNdfQ==
+eyJoaXN0b3J5IjpbMTkxNTUzMDMyMiwtMzE3NzE1Nzc3LDgwNj
+kxOTI1M119
 -->
