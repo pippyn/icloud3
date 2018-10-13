@@ -18,9 +18,10 @@ iCloud3 polls the device on a dynamic schedule based on:
  - The battery level.
  - The accuracy of the GPS location or if the last poll returned a location that the iCloud    service determined was 'old'.
 
-The above analysis results in a polling interval. The further away from home and the longer the travel time, the longer the interval; the closer to home, the shorter the interval. The polling interval checks each device being tracked every 15 seconds to see if it's location should be updated. If so, it and all of the other devices being tracked are updated (more about this below). Using a 15 second interval lets you track the distance down 1/10 of a mile/kilometer. This gives a much more accurate number to trigger automations. You no longer limited to entering or editing a zone. ***And you do not need other device trackers like Owntracks or ????? and you do not need network monitors like nmap, ping, or netgear*** iCloud3, together
+The above analysis results in a polling interval. The further away from home and the longer the travel time, the longer the interval; the closer to home, the shorter the interval. The polling interval checks each device being tracked every 15 seconds to see if it's location should be updated. If so, it and all of the other devices being tracked are updated (more about this below). Using a 15 second interval lets you track the distance down 1/10 of a mile/kilometer. This gives a much more accurate number to trigger automations. You no longer limited to entering or editing a zone. 
 
 Note: The  `pyicloud.py`  Python component is part of Home Assistant and used to poll the device, requesting location and other information. If the iCloud account is associated with multiple devices, all of the devices are polled, whether or not the device is being tracked by Home Assistant. This is a limitation of pyicloud.py. 
+
 
 
 ---------
@@ -94,6 +95,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc3MDE4NDIwMCwtMzE3NzE1Nzc3LDgwNj
+eyJoaXN0b3J5IjpbLTg4MDg3MTQxMCwtMzE3NzE1Nzc3LDgwNj
 kxOTI1M119
 -->
