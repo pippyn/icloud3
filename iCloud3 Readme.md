@@ -9,7 +9,7 @@ ICloud3 is a much improved location tracker than the original iCloud tracker ins
 
 **How it works**
 
-The  `pyicloud.py`  Python component is part of Home Assistant and used to poll the device, requesting location and other information. If the iCloud account is associated with multiple devices, all of the devi
+The  `pyicloud.py`  Python component is part of Home Assistant and used to poll the device, requesting location and other information. If the iCloud account is associated with multiple devices, all of the devices are polled, regardless of the device is being tracked by Home Assistant or not. This is a
 
 
 ---------
@@ -83,6 +83,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0NjM5OTQxMjcsLTMxNzcxNTc3Nyw4MD
-Y5MTkyNTNdfQ==
+eyJoaXN0b3J5IjpbMTM1MTUxNTM1MiwtMzE3NzE1Nzc3LDgwNj
+kxOTI1M119
 -->
