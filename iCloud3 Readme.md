@@ -7,10 +7,10 @@
 
 ICloud3 is a much improved location tracker than the original iCloud tracker installed with Home Assistant. It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. 
 
+
 **How it works**
 
 iCloud3 polls the device on a dynamic schedule based on:
-
  - If the device in a zone.
  - The distance from 'home' to your current location. Two methods are used to determine the distance – (1) a calculation giving the 'line-of-sight' distance based on the GPS coordinates of both locations and (2) from Waze, the map/driving/direction service, to get the driving distance based on the most direct route. 
  - The travel time to 'home' if the Waze service is being used. 
@@ -22,6 +22,8 @@ The above analysis results in a polling interval. The further away from home and
 
 Note: The  `pyicloud.py`  Python component is part of Home Assistant and used to poll the device, requesting location and other information. If the iCloud account is associated with multiple devices, all of the devices are polled, whether or not the device is being tracked by Home Assistant. This is a limitation of pyicloud.py. 
 
+**What other programs do I need**
+The 
 
 
 ---------
@@ -95,6 +97,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg4MDg3MTQxMCwtMzE3NzE1Nzc3LDgwNj
+eyJoaXN0b3J5IjpbMTI3MzU3MTM4NiwtMzE3NzE1Nzc3LDgwNj
 kxOTI1M119
 -->
