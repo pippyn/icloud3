@@ -11,7 +11,8 @@ ICloud3 is a much improved location tracker than the original iCloud tracker ins
 
 iCloud3 polls the device on a varying schedule based on:
 . Is the device in a zone
-. The distance from home. Two methods are used to determine the distance between your current location and 'home'– (1) a calculation giving the 'line-of-sight' distance based on the GPS coordinates of both locations and (2) from Waze, the map/driving/direction service, to get the Route
+. The distance from home. Two methods are used to determine the distance between your current location and 'home'– (1) a calculation giving the 'line-of-sight' distance based on the GPS coordinates of both locations and (2) from Waze, the map/driving/direction service, to get the driving distance based on the most direct route. 
+. 
 
 
 
@@ -89,6 +90,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE5MDk1MTQ3OSwtMzE3NzE1Nzc3LDgwNj
-kxOTI1M119
+eyJoaXN0b3J5IjpbOTAwMDcxNTMyLC0zMTc3MTU3NzcsODA2OT
+E5MjUzXX0=
 -->
