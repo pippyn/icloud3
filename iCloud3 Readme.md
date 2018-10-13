@@ -5,6 +5,10 @@
 
 ----------
 
+
+
+
+---------
 The  `icloud`  platform allows you to detect presence using the  [iCloud](https://www.icloud.com/)  service. iCloud allows users to track their location on iOS devices.
 
 It does require that your device is registered with “Find My iPhone”.
@@ -20,6 +24,9 @@ device_tracker:
     account_name: accountname
 
 ```
+
+
+
 
 ### CONFIGURATION VARIABLES
 
@@ -72,6 +79,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1MTQyODk0NDAsLTMxNzcxNTc3Nyw4MD
+eyJoaXN0b3J5IjpbLTEzNDE3NTExNTUsLTMxNzcxNTc3Nyw4MD
 Y5MTkyNTNdfQ==
 -->
