@@ -33,15 +33,13 @@ device_tracker:
 
 [](https://www.home-assistant.io/components/device_tracker.icloud/#account_name)**account_name**
 
-(string)(Optional)The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email address).
+(string)(Optional)The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email address)
 
-[](https://www.home-assistant.io/components/device_tracker.icloud/#max_interval)**max_interval**
+)**max_interval**
 
-(integer)(Optional)Maximum interval in minutes between subsequent location upates. This tracker uses dynamic intervals for requesting location updates. When iphone is stationary, interval will eventually be set to  `max_interval`  to save battery. When iphone starts moving again interval will be dynamically updated to 1 min. Note that updating interval to 1 min might be delayed by maximum  `max_interval`  minutes. Minimum value is 1 min.
+(integer)(Optional)Maximum interval in minutes between subsequent location upates. This tracker uses dynamic intervals for requesting location updates. When iphone is stationary, interval will eventually be set to  `max_interval`  to save battery. When iphone starts moving again interval will be dynamically updated to 1 min. Note that updating interval to 1 min might be delayed by maximum  `max_interval`  minutes. Minimum value is 1 
 
-Default value: 30
-
-[](https://www.home-assistant.io/components/device_tracker.icloud/#gps_accuracy_threshold)**gps_accuracy_threshold**
+**gps_accuracy_threshold**
 
 (integer)(Optional)iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location update. Less accurate updates will be discarded by this tracker. This allows more precise location monitoring and fewer false positive zone changes.
 
@@ -68,5 +66,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMxNzcxNTc3Nyw4MDY5MTkyNTNdfQ==
+eyJoaXN0b3J5IjpbLTE3MTg0ODc5MjUsLTMxNzcxNTc3Nyw4MD
+Y5MTkyNTNdfQ==
 -->
