@@ -29,13 +29,13 @@ device_tracker:
 
 **password**
 
-(string)(Required)The password for your given username.
+(string)(Required)The password for The username. 
 
-[](https://www.home-assistant.io/components/device_tracker.icloud/#account_name)**account_name**
+**account_name**
 
 (string)(Optional)The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email address)
 
-)**max_interval**
+**nzone_interval**
 
 (integer)(Optional)Maximum interval in minutes between subsequent location upates. This tracker uses dynamic intervals for requesting location updates. When iphone is stationary, interval will eventually be set to  `max_interval`  to save battery. When iphone starts moving again interval will be dynamically updated to 1 min. Note that updating interval to 1 min might be delayed by maximum  `max_interval`  minutes. Minimum value is 1 
 
@@ -66,6 +66,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM1MjE0MjkwLC0zMTc3MTU3NzcsODA2OT
+eyJoaXN0b3J5IjpbMzMwODQ1MjE3LC0zMTc3MTU3NzcsODA2OT
 E5MjUzXX0=
 -->
