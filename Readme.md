@@ -6,7 +6,7 @@
 
 ----------
 
-ICloud3 is a much improved location tracker than the original iCloud tracker installed with Home Assistant. It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. 
+iCloud3 is a much improved location tracker than the original iCloud tracker installed with Home Assistant. It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. 
 
 
 **How it works**
@@ -72,7 +72,9 @@ Include or exclude device type(s) that should be tracked.
 **exclude_devices**  
 Include or exclude devices that should be tracked. 
 
-Note: Exclude takes presidence over include. You can include the `iphone` device type and then exclude `lillianiphone`  and all iPhones, except `lillianiphone` will be tracked.
+Note: 
+ - Exclude takes presidence over include. You can include the ```iphone``` device type and then exclude ```lillianiphone```  and all iPhones, except ```lillianiphone``` will be tracked.
+ - If you don't specify the devices or the device types to include, all devices associated with the iCloud account will be tracked.
 
 **inzone_interval**
 (Optional) The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified). (Default: 1 hr)
