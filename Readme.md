@@ -72,7 +72,7 @@ Include or exclude device type(s) that should be tracked.
 **exclude_devices**  
 Include or exclude devices that should be tracked. 
 
-Note: 
+Note:
  - Exclude takes presidence over include. You can include the ```iphone``` device type and then exclude ```lillianiphone```  and all iPhones, except ```lillianiphone``` will be tracked.
  - If you don't specify the devices or the device types to include, all devices associated with the iCloud account will be tracked.
 
