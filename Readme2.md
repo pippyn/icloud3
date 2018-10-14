@@ -61,9 +61,13 @@ device_tracker:
 (string)(Optional) The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email address).
 
 **include_device_type**
+
 **include_device_types**
+
 **exclude_device_type**
+
 **exclude_device_types**
+
 Include or exclude device type(s) that should be tracked. 
 
 **include_device**
