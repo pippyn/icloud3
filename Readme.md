@@ -75,7 +75,7 @@ Include or exclude devices that should be tracked.
 Note: Exclude takes presidence over include. You can include the `iphone` device type and then exclude `lillianiphone`  and all iPhones, except `lillianiphone` will be tracked.
 
 **inzone_interval**
-(Optional) The interval between location upates when the device is in a zone. This can be in minutes or hours, e.g., 1 hr, 45 min, or 30. Minutes are assumed if no time qualifier is specified. (Default: 1 hr)
+(Optional) The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified. (Default: 1 hr)
 
 
 **gps_accuracy_threshold**
@@ -104,6 +104,6 @@ To disable the drainage of the battery, a dynamic interval is being used for eac
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjMzMjM5NjM2LC0zMTc3MTU3NzcsODA2OT
-E5MjUzXX0=
+eyJoaXN0b3J5IjpbLTcwMDE5NDAyMyw2MzMyMzk2MzYsLTMxNz
+cxNTc3Nyw4MDY5MTkyNTNdfQ==
 -->
