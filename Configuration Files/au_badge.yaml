@@ -1,0 +1,51 @@
+#########################################################
+#
+#   BADGE TEMPLATE SENSORS
+#
+#########################################################
+
+#sensor:
+
+
+#--- Gary/Lillian location badge --------------------
+- platform: template
+  sensors:
+    gary_badge:
+      value_template: >-
+        {% if states("device_tracker.garyiphone") %}
+          {% if states("device_tracker.garyiphone") != "not_home" %}
+            {{ states("device_tracker.garyiphone") | title }}
+          {% elif state_attr("device_tracker.garyiphone","distance") %}
+            {{ state_attr("device_tracker.garyiphone","distance") }} mi
+          {% else %}
+            Waiting
+          {% endif %} 
+        {% endif %}            
+      entity_picture_template: /local/gary.png
+
+#--- Garage Door Open/Closed --------------------
+- platform: template
+  sensors:
+    garage_door_badge:
+      value_template: >-
+        {{states.sensor.garage_door.state}} 
+      entity_picture_template: >-
+        {% if states.sensor.garage_door.state == "Closed" %}
+          /local/garage-door-closed.png
+        {% else %}
+          /local/garage-door-open.png 
+        {% endif %}
+              
+#--- Hot Water Heater On/Off  --------------------
+- platform: template
+  sensors:
+    hot_water_heater_badge:
+      value_template: >-
+        {{states.sensor.hot_water_heater_temp.state}} °F
+      entity_picture_template: >-
+        {% if states.switch.hot_water_heater.state == "on" %}
+          /local/hot-water-heater-on.png
+        {% else %}
+          /local/hot-water-heater-off.png
+        {% endif %}
+              

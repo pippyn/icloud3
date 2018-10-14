@@ -1,0 +1,35 @@
+#########################################################
+#
+#   DEVICE_TRACKERS
+#
+#########################################################
+
+#----  iCloud iPhone Location Services ------------------------
+- platform: icloud3
+  username: !secret icloud_username
+  password: !secret icloud_password
+  account_name: gary_icloud
+  unit_of_measurement: mi
+  gps_accuracy_threshold: 75
+  include_device: 
+    - garyiphone
+    - lillianiphone
+    
+    
+    
+  #include_device:
+  #  -  ipadmini
+  #include_device_types: 
+  #  - iphone
+  #exclude_devices: 
+  #  - lillianiphone
+  #  - conniesipad
+  #exclude_device_types: ipad
+  #inzone_interval: 45
+  #travel_time_factor: .8
+
+  #waze_region: US
+  #waze_min_distance: .5
+  #waze_max_distance: 200
+  #waze_realtime: False
+  #distance_method: calc

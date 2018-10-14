@@ -1,0 +1,65 @@
+#########################################################
+#
+#   AUTOMATION
+#   ----------
+#
+#   TURN ON/OFF HOT WATER HEATER AUTOMATIONS
+#
+#   Note:   The input_boolean.hot_water_flag is used
+#           to control the hot water heater switch operation.
+#           It must be 'on' to automatically switch the
+#           hot water heater on or off.
+#
+#########################################################
+
+#automation_old:
+
+#--------------------------------------------------------------
+#   Gary and Lillian are more than 5 miles from home
+#       - Turn off Hot Water Heater
+#--------------------------------------------------------------
+- alias: Gary is Far Away
+  id: gary_lillian_far_away
+  trigger:
+    - platform: state
+      entity_id: input_boolean.gary_far_away_flag
+      to: 'on'
+  condition:
+      condition: state
+      entity_id: input_boolean.lillian_far_away_flag
+      state: 'on'
+  action:
+    - service: script.turn_off_hot_water_heater
+#--------------------------------------------------------------
+- alias: Lillian is Far Away
+  id: lillian_gary_far_away
+  trigger:
+    - platform: state
+      entity_id: input_boolean.lillian_far_away_flag
+      to: 'on'
+  condition:
+      condition: state
+      entity_id: input_boolean.gary_far_away_flag
+      state: 'on'
+  action:
+    - service: script.turn_off_hot_water_heater
+
+#--------------------------------------------------------------
+#   Gary or Lillian are less than 5 miles from home
+#       - Turn on Hot Water Heater
+#--------------------------------------------------------------
+- alias: Someone not Far Away
+  id: someone_not_far_away_is
+  trigger:
+    - platform: state
+      entity_id: input_boolean.gary_far_away_flag
+      to: 'off'
+
+    - platform: state
+      entity_id: input_boolean.lillian_far_away_flag
+      to: 'off'
+
+  condition:
+  action:
+    - service: script.turn_on_hot_water_heater
+

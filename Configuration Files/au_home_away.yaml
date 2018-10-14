@@ -1,0 +1,173 @@
+################################################################
+#
+#       GARY HOME/AWAY ACTIONS
+#
+################################################################
+
+#automation_old:
+
+#--------------------------------------------------------------
+
+#   Gary Arrives/ 'Home' actions:
+#       - Set/reset flags
+#       - Open Garage Door
+#--------------------------------------------------------------
+
+- alias: gary_arrives_home
+  trigger:
+
+    - platform: state
+      entity_id: device_tracker.garyiphone
+      to: 'home'
+
+    - platform: state
+      entity_id: device_tracker.garyiphone
+      to: 'near_home'
+
+    - platform: numeric_state
+      entity_id: device_tracker.garyiphone
+      value_template: '{{float(state.attributes.distance)}}'
+      below: .25
+      
+  condition: 
+    - condition: state
+      entity_id: input_boolean.gary_driving_flag
+      state: 'on'
+      
+  action:
+    - service: script.icloud_command_garyiphone_zone_home
+    
+    - service: notify.ios_garyiphone
+      data_template:
+        title: 'Location Change'
+        message: 'Gary Arrives Home-Zone={{ states("device_tracker.garyiphone") }}, 
+                  Dist={{ state_attr("device_tracker.garyiphone","distance") }}'
+
+    - service: mqtt.publish
+      data_template:
+        topic: 'location/gary' 
+        payload: 'home'
+
+    # Open garage door if driving flag is set
+    - service: script.open_garage_door
+
+    # Turn off 'Away' flags
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.gary_driving_flag
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.gary_far_away_flag
+    
+#--------------------------------------------------------------
+#   Gary Leaves 'Home' actions:
+#       - Set/reset flags
+#       - Change garyiphone poll interval to 0
+#--------------------------------------------------------------
+- alias: gary_leaves_home
+  trigger:
+    - platform: state
+      entity_id: device_tracker.garyiphone
+      to: 'not_home'
+      
+    - platform: numeric_state
+      entity_id: device_tracker.garyiphone
+      value_template: '{{float(state.attributes.distance)}}'
+      above: .25
+      
+  condition:
+    - condition: template
+      value_template: '{{states.device_tracker.garyiphone.state|lower() == "home"}}'
+
+  action:
+    - service: script.icloud_command_garyiphone_zone_not_home
+    
+    - service: notify.ios_garyiphone
+      data_template:
+        title: 'Location Change'
+        message: 'Gary Leaves Home-dt.GiPhone={{trigger.from_state.device_tracker.garyiphone}}/, dt.Gary={{states.device_tracker.gary.state}}/, Dist={{state_attr("device_tracker.garyiphone","distance")}}'
+
+    - service: mqtt.publish
+      data_template:
+        topic: 'location/gary' 
+        payload: 'not_home'
+
+#--------------------------------------------------------------
+#   Gary leaves another zone:
+#       - Set/reset flags
+#
+#--------------------------------------------------------------
+- alias: gary_leaves_zone
+  trigger:
+    - platform: state
+      entity_id: device_tracker.garyiphone
+      to: 'not_home'
+      
+  condition: 
+    - condition: template
+      value_template: '{{ trigger.from_state.device_tracker.garyiphone != "not_home" }}'
+      
+  action:
+    - service: notify.ios_garyiphone
+      data_template:
+        title: 'Location Change'
+        message: 'Gary Leaves Zone-/{{trigger.from_state.device_tracker.garyiphone}}-->{{trigger.to_state.device_tracker.garyiphone}}/'
+
+    - service: mqtt.publish
+      data_template:
+        topic: 'location/gary' 
+        payload: '{{trigger.to_state.device_tracker.garyiphone}}'
+
+#--------------------------------------------------------------
+#   Turn on Gary's Driving Flag
+#--------------------------------------------------------------
+- alias: gary_driving_flag_turn_on
+  trigger:
+    - platform: numeric_state
+      entity_id: device_tracker.garyiphone
+      value_template: '{{float(state.attributes.distance)}}'
+      above: 1
+      
+  condition:
+    condition: state
+    entity_id: input_boolean.gary_driving_flag
+    state: 'off'
+    
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.gary_driving_flag
+
+#--------------------------------------------------------------
+#   Turn on/off Gary's Far Away Flag
+#--------------------------------------------------------------
+- alias: gary_far_away_flag_turn_on
+  trigger:
+    platform: numeric_state
+    entity_id: device_tracker.garyiphone
+    value_template: '{{float(state.attributes.distance)}}'
+    above: 5
+    
+  condition:
+    condition: state
+    entity_id: input_boolean.gary_far_away_flag
+    state: 'off'
+    
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.gary_far_away_flag
+#--------------------------------------------------------------
+- alias: gary_far_away_flag_turn_off
+  trigger:
+    platform: numeric_state
+    entity_id: device_tracker.garyiphone
+    value_template: '{{float(state.attributes.distance)}}'
+    below: 5
+    
+  condition:
+    condition: state
+    entity_id: input_boolean.gary_far_away_flag
+    state: 'on'
+    
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.gary_far_away_flag
+
+    

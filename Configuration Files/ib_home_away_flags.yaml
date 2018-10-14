@@ -1,0 +1,21 @@
+#########################################################
+#
+#   ICLOUD3 DEVICE_TRACKER INPUT_BOOLEANS
+#
+#########################################################
+
+#input_boolean:
+
+#--------------------------------------------------------------
+#   Gary - Driving Flags
+#-------------------------------------------------------------
+
+#Set in au_home_away.
+#Used in au_home_away>gary_arrives_home to know if gary wad driving
+gary_driving_flag:
+  name: Gary Driving Flag
+
+#Set in au_home_away. 
+#Used au_how_water_heater to turn hot water on/off when 5mi from home.
+gary_far_away_flag:
+  name: Gary Far Away Flag
