@@ -80,6 +80,7 @@ include_device_types:
 ```
 
 
+
 **include_device**  
 **include_devices**  
 **exclude_device**  
@@ -95,6 +96,8 @@ exclude_device:
 ```
 
 *Note:* If you don't specify the devices or the device types to include, all devices associated with the iCloud account will be tracked.
+
+
 
 
 **inzone_interval**  
