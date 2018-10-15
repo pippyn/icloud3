@@ -51,10 +51,10 @@ device_tracker:
 ### CONFIGURATION VARIABLES
 
 **username**  
-  (string)(Required) The username (email address) for the iCloud account. 
+    *(string)(Required)* The username (email address) for the iCloud account. 
 
 **password**  
-  (string)(Required) The password for the username. 
+    *(string)(Required)* The password for the username. 
 
 **account_name**  
   (string)(Optional) The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email address).
