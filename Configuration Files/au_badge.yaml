@@ -41,7 +41,7 @@
   sensors:
     hot_water_heater_badge:
       value_template: >-
-        {{states.sensor.hot_water_heater_temp.state}} °F
+        {{states.sensor.hot_water_heater_temp.state}} Â°F
       entity_picture_template: >-
         {% if states.switch.hot_water_heater.state == "on" %}
           /local/hot-water-heater-on.png
@@ -49,3 +49,4 @@
           /local/hot-water-heater-off.png
         {% endif %}
               
+ 
