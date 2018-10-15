@@ -53,11 +53,14 @@ device_tracker:
 **username**  
 *(string)(Required)* The username (email address) for the iCloud account. 
 
+
 **password**  
 *(string)(Required)* The password for the username. 
 
+
 **account_name**  
 *(string)(Optional)* The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email address).
+
 
 **include_device_type**  
 **include_device_types**  
@@ -76,6 +79,7 @@ include_device_types:
   - ipad
 ```
 
+
 **include_device**  
 **include_devices**  
 **exclude_device**  
@@ -90,9 +94,8 @@ exclude_device:
   - lillianiphone
 ```
 
-Note:
- - Exclude takes presidence over include. You can include the `iphone` device type and then exclude `lillianiphone` and all iPhones, except `lillianiphone` will be tracked.
- - If you don't specify the devices or the device types to include, all devices associated with the iCloud account will be tracked.
+*Note:* If you don't specify the devices or the device types to include, all devices associated with the iCloud account will be tracked.
+
 
 **inzone_interval**  
   (Optional) The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified). (Default: 1 hr)
