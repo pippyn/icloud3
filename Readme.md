@@ -65,11 +65,30 @@ device_tracker:
 **exclude_device_types**  
 Include or exclude device type(s) that should be tracked. 
 
+```
+# Example yaml
+include_device_type: iphone
+```
+```
+# Example yaml
+include_device_types:
+  - iphone
+  - ipad
+```
+
 **include_device**  
 **include_devices**  
 **exclude_device**  
 **exclude_devices**  
 Include or exclude devices that should be tracked. 
+
+```
+# Example yaml
+include_device_type:
+  - iphone
+exclude_device:
+  - lillianiphone
+```
 
 Note:
  - Exclude takes presidence over include. You can include the `iphone` device type and then exclude `lillianiphone` and all iPhones, except `lillianiphone` will be tracked.
