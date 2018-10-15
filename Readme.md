@@ -19,23 +19,22 @@ iCloud3 polls the device on a dynamic schedule based on:
  - The battery level.
  - The accuracy of the GPS location or if the last poll returned a location that the iCloud    service determined was 'old'.
 
-The above analysis results in a polling interval. The further away from home and the longer the travel time, the longer the interval; the closer to home,
- the shorter the interval. The polling interval checks each device being tracked every 15 seconds to see if it's location should be updated. If so, it and all of the other devices being tracked are updated (more about this below). Using a 15 second interval lets you track the distance down 1/10 of a mile/kilometer. This gives a much more accurate number to trigger automations. You no longer limited to entering or editing a zone. 
+The above analysis results in a polling interval. The further away from home and the longer the travel time, the longer the interval; the closer to home, the shorter the interval. The polling interval checks each device being tracked every 15 seconds to see if it's location should be updated. If so, it and all of the other devices being tracked are updated (more about this below). Using a 15 second interval lets you track the distance down 1/10 of a mile/kilometer. This gives a much more accurate number to trigger automations. You no longer limited to entering or editing a zone. 
 
-Note: The  `pyicloud.py`  Python component is part of Home Assistant and used to poll the device, requesting location and other information. If the iCloud account is associated with multiple devices, all of the devices are polled, whether or not the device is being tracked by Home Assistant. This is a limitation of pyicloud.py. 
+Note: The `pyicloud.py` Python component is part of Home Assistant and used to poll the device, requesting location and other information. If the iCloud account is associated with multiple devices, all of the devices are polled, whether or not the device is being tracked by Home Assistant. This is a limitation of pyicloud.py. 
 
 
 **What other programs do I need**
 
-The Home Assistant `IOS `  is all. You do not need  `Owntracks`  or other location based trackers and you do not need  `nmap` ,`netgear` , `ping` or any network monitor. Beacons are also not needed. `IOS` will notify Home Assistant when you leave home using it's 'Zone enter/exit', 'Background fetch' and 'Significant location change's location setting enabled. 
+The Home Assistant `IOS` is all. You do not need `Owntracks` or other location based trackers and you do not need  `nmap`,`netgear`, `ping` or any network monitor. `IOS` will notify Home Assistant when you leave home using it's 'Zone enter/exit', 'Background fetch' and 'Significant location change's location setting enabled. 
 
 
-The  `icloud`  platform allows you to detect presence using the  [iCloud](https://www.icloud.com/)  service. iCloud allows users to track their location on iOS devices.
+The `iCloud` platform allows you to detect presence using the  [iCloud](https://www.icloud.com/) service. iCloud allows users to track their location on iOS devices.
 
 It does require that your device is registered with “Find My iPhone”.
 
 
-To integrate iCloud in Home Assistant, add the following section to your  `configuration.yaml`  file:
+To integrate iCloud in Home Assistant, add the following section to your `configuration.yaml` file:
 
 ```
 # Example configuration.yaml entry
@@ -51,14 +50,14 @@ device_tracker:
 
 ### CONFIGURATION VARIABLES
 
-**username**
-(string)(Required) The username (email address) for the iCloud account. 
+**username**  
+  (string)(Required) The username (email address) for the iCloud account. 
 
-**password**
-(string)(Required) The password for the username. 
+**password**  
+  (string)(Required) The password for the username. 
 
-**account_name**
-(string)(Optional) The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email address).
+**account_name**  
+  (string)(Optional) The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email address).
 
 **include_device_type**  
 **include_device_types**  
@@ -73,17 +72,17 @@ Include or exclude device type(s) that should be tracked.
 Include or exclude devices that should be tracked. 
 
 Note:
- - Exclude takes presidence over include. You can include the ```iphone``` device type and then exclude ```lillianiphone```  and all iPhones, except ```lillianiphone``` will be tracked.
+ - Exclude takes presidence over include. You can include the `iphone` device type and then exclude `lillianiphone` and all iPhones, except `lillianiphone` will be tracked.
  - If you don't specify the devices or the device types to include, all devices associated with the iCloud account will be tracked.
 
-**inzone_interval**
-(Optional) The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified). (Default: 1 hr)
+**inzone_interval**  
+  (Optional) The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified). (Default: 1 hr)
 
 
-**gps_accuracy_threshold**
-(integer)(Optional) iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried in 2 minutes (up to 5 times) to see if the accuracy has improved. At that time, the normal interval based on distance from home, waze travel time and direction will be used. (Default: 1000)
+**gps_accuracy_threshold**  
+  (integer)(Optional) iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried in 2 minutes (up to 5 times) to see if the accuracy has improved. At that time, the normal interval based on distance from home, waze travel time and direction will be used. (Default: 1000)
 
-Note: The accuracy and retry count are displayed in the  `info`  attribute (ex. GPS.Accuracy-263(2)) and on the  `poll_count`  attribute (2-GPS).
+Note: The accuracy and retry count are displayed in the `info` attribute (ex. GPS.Accuracy-263(2)) and on the  `poll_count`  attribute (2-GPS).
 
 
 
