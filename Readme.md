@@ -51,20 +51,20 @@ device_tracker:
 ### CONFIGURATION VARIABLES
 
 **username**  
-*(string)(Required)* The username (email address) for the iCloud account. 
+*(Required)* The username (email address) for the iCloud account. 
 
     
 **password**  
-*(string)(Required)* The password for the username. 
+*(Required)* The password for the username. 
 
 **account_name**  
-*(string)(Optional)* The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email address).
+*(Optional)* The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email address).
 
 **include_device_type**  
 **include_device_types**  
 **exclude_device_type**  
 **exclude_device_types**  
-Include or exclude device type(s) that should be tracked. 
+*(Optional)* Include or exclude device type(s) that should be tracked. 
 
 ```
 # Example yaml
@@ -81,7 +81,7 @@ include_device_types:
 **include_devices**  
 **exclude_device**  
 **exclude_devices**  
-Include or exclude devices that should be tracked. 
+*(Optional)* Include or exclude devices that should be tracked. 
 
 ```
 # Example yaml
@@ -90,17 +90,16 @@ include_device_type:
 exclude_device:
   - lillianiphone
 ```
-
 *Note:* If you don't specify the devices or the device types to include, all devices associated with the iCloud account will be tracked.
 
 **inzone_interval**  
-  (Optional) The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified). (Default: 1 hr)
+(Optional) The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified). *Default: 1 hr*
 
 
 **gps_accuracy_threshold**  
-  (integer)(Optional) iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried in 2 minutes (up to 5 times) to see if the accuracy has improved. At that time, the normal interval based on distance from home, waze travel time and direction will be used. (Default: 1000)
+*(Optional)* iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried again in 2 minutes to see if the accuracy has improved. After 5 retries, the normal interval that is based on the distance from home, the waze travel time and the direction will be used. *Default: 1000*
 
-Note: The accuracy and retry count are displayed in the `info` attribute (ex. GPS.Accuracy-263(2)) and on the  `poll_count`  attribute (2-GPS).
+*Note:* The accuracy and retry count are displayed in the `info` attribute field (*GPS.Accuracy-263(2)*) and on the `poll_count`  attribute field (*2-GPS*). In this example, the accuracy has been poor for 2 polling cycles.
 
 
 
