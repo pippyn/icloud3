@@ -52,8 +52,8 @@ device_tracker:
 
 **username**  
 *(Required)* The username (email address) for the iCloud account. 
-
-    
+|  
+|  
 **password**  
 *(Required)* The password for the username. 
 
