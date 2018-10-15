@@ -52,10 +52,10 @@ device_tracker:
 
 **username**  
 *(Required)* The username (email address) for the iCloud account. 
-###    ###
+
 **password**  
 *(Required)* The password for the username. 
-##    ##
+
 **account_name**  
 *(Optional)* The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (so the part before the  `@`  in the email address).
 
