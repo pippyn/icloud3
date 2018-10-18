@@ -51,13 +51,13 @@ device_tracker:
 ### CONFIGURATION VARIABLES
 
 **username**  
-*(Required)* The username (email address) for the iCloud account. 
+    *(Required)* The username (email address) for the iCloud account. 
 
 **password**  
 *(Required)* The password for the username. 
 
 **account_name**  
-*(Optional)* The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (the part before the  `@`  in the email address).
+    *(Optional)* The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (the part before the  `@`  in the email address).
 
 **include_device_type**  
 **include_device_types**  
@@ -100,7 +100,9 @@ exclude_device:
 *Note:* The accuracy and retry count are displayed in the `info` attribute field (*GPS.Accuracy-263(2)*) and on the `poll_count`  attribute field (*2-GPS*). In this example, the accuracy has been poor for 2 polling cycles.  
 
 **unit_of_measurement**  
-The unit of measure of distances. *Valid values are 'km'for kilometers, 'mi' for miles*
+    The unit of measure of distances.  
+    *Valid values: 'km', 'mi' for kilometers, miles*
+    *Default: mi *
 
  
 
