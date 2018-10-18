@@ -100,7 +100,7 @@ The unit of measure of distances.
 *Valid values: 'km', 'mi' (for kilometers, miles), Default: mi *
   
 **distance_method**  
-iCloud3 uses two methods of determining the distance between home and your current location — by calculating the straight line distance using geometry formulas (like the Proximity sensor) and by using the Waze Route Tracker to determine the distance based on the driving route. This attribute lets you select the method you want to use.  
+iCloud3 uses two methods of determining the distance between home and your current location — by calculating the straight line distance using geometry formulas (like the Proximity sensor) and by using the Waze Route Tracker to determine the distance based on the driving route.   
 *Valid values: 'calc', 'waze'. Default: waze*  
   
 *Note:* The Waze distance becomes less accurate when you are close to home. At distances less than 1 kilometer or 1 mile, the calculation method is used.  
