@@ -59,8 +59,8 @@ device_tracker:
 **account_name**  
     *(Optional)* The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (the part before the  `@`  in the email address).
 
-**include_device_type**  or  **include_device_types**  
-**exclude_device_type**  or  **exclude_device_types**  
+**include_device_types**  (or  **include_device_type**)  
+**exclude_device_types**  (or  **exclude_device_type**)  
 *(Optional)* Include or exclude device type(s) that should be tracked. 
 
 ```
@@ -74,8 +74,8 @@ include_device_types:
   - ipad
 ```
 
-**include_device**  or  **include_devices**  
-**exclude_device**  or  **exclude_devices**  
+**include_devices**  (or  **include_device**)  
+**exclude_devices**  (or  **exclude_device**)  
 *(Optional)* Include or exclude devices that should be tracked. 
 
 ```
@@ -97,16 +97,15 @@ exclude_device:
 
 **unit_of_measurement**  
 The unit of measure of distances.  
-*Valid values: 'km', 'mi' for kilometers, miles*  
-*Default: mi *
+*Valid values: 'km', 'mi' (for kilometers, miles), Default: mi *
   
-**distance_method**
+**distance_method**  
 iCloud3 uses two methods of determining the distance between home and your current location — by calculating the straight line distance using geometry formulas (like the Proximity sensor) and by using the Waze Route Tracker to determine the distance based on the driving route. This attribute lets you select the method you want to use.  
 *Valid values: 'calc', 'waze'. Default: waze*  
   
 *Note:* The Waze distance becomes less accurate when you are close to home. At distances less than 1 kilometer or 1 mile, the calculation method is used.  
   
-**waze_min_distance, waze_max_distance**
+**waze_min_distance, waze_max_distance**  
 These values are also used to determine if the polling internal should be based on the Waze distance. The calculated distance must be between these values for the Waze distance to be used.  
 *Default: min=0, max=1000*  
 
