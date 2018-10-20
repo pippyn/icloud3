@@ -114,6 +114,10 @@ These values are also used to determine if the polling internal should be based 
 
 *Note:* If you are a long way from home, it probably doesn't make sense to use the Waze distance. You probably don't have any automations that would be triggered from that far away. 
   
+**waze_real_time**  
+Waze reports the travel time estimate two ways — by taking the current, real time traffic conditions into consideration (True) or as an average travel time for the time of day (False).
+*Valid values: True, False. Default: False*  
+
 **travel_time_factor**  
 When using Waze and the distance from your current location to home is more than 3 kilometers/miles, the polling interval is calculated by multiplying the driving time to home by the `travel_time_factor`.  
 *Default: .75*  
