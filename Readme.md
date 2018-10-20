@@ -111,6 +111,11 @@ These values are also used to determine if the polling internal should be based 
 
 *Note:* If you are a long way from home, it probably doesn't make sense to use the Waze distance. You probably don't have any automations that would be triggered from that far away. 
   
+**travel_time_factor**  
+When using Waze and the distance from your current location to home is more than 3 kilometers/miles, the polling interval is calculated by multiplying the driving time to home by the `travel_time_factor`.  
+*Default: .75*  
+
+*Note:* Using the default value, the next update will be 3/4 of the time it takes to drive home from your current location. The one after that will be 3/4 of the time from that point. The result is a smaller interval as you get closer to home and a larger one as you get furthet away.  
  
 
 ### ABOUT YOUR ICLOUD ACCOUNT
