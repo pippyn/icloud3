@@ -117,7 +117,11 @@ These values are also used to determine if the polling internal should be based 
 **waze_real_time**  
 Waze reports the travel time estimate two ways — by taking the current, real time traffic conditions into consideration (True) or as an average travel time for the time of day (False).  
 *Valid values: True, False. Default: False*  
-
+  
+**waze_region**  
+The area used by Waze to determine the distance and travel time.  
+*Valid values: US (United States), NA (North America), EU (Europe), IL (Isreal). Default: US*  
+  
 **travel_time_factor**  
 When using Waze and the distance from your current location to home is more than 3 kilometers/miles, the polling interval is calculated by multiplying the driving time to home by the `travel_time_factor`.  
 *Default: .75*  
