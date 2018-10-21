@@ -12,7 +12,7 @@ It is installed as a custom device_tracker component in the config/custom_compon
 
 iCloud3 polls the device on a dynamic schedule based on:
  - The device in a zone or not in a zone.
- - The distance from 'home' to your current location. Two methods are used to determine the distance – (1) a calculation giving the 'line-of-sight' distance based on the GPS coordinates of both locations and (2) from [__Waze__](http://www.waze.com), the map/driving/direction service, to get the driving distance based on the most direct route. 
+ - The distance from 'home' to your current location. Two methods are used to determine the distance – (1) a calculation giving the 'line-of-sight' distance based on the GPS coordinates of both locations and (2) from [_Waze_](http://www.waze.com), the map/driving/direction service, to get the driving distance based on the most direct route. 
  - The travel time to 'home' if the Waze service is being used. 
  - The direction you are going — towards home, away from home or stationary.
  - The battery level.
