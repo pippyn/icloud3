@@ -27,7 +27,7 @@ Note: The `pyicloud.py` Python component is part of Home Assistant and used to p
 
 **What other programs do I need**
 
-The Home Assistant IOS app is all. You do not need `Owntracks` or other location based trackers and you do not need  `nmap`, `netgear`, `ping` or any network monitor. The `IOS` app will notify Home Assistant when you leave home and iCloud3 will start keeping up with the device's location, the distance to home and the time it will take to get there.  
+The Home Assistant IOS app is all. You do not need `OwnTracks` or other location based trackers and you do not need  `nmap`, `netgear`, `ping` or any network monitor. The `IOS` app will notify Home Assistant when you leave home and iCloud3 will start keeping up with the device's location, the distance to home and the time it will take to get there.  
    
 *Note:* The IOS App settings `Zone enter/exit`, `Background fetch` and `Significant location change` location settings need to be enabled. 
 
