@@ -52,17 +52,18 @@ device_tracker:
 ### CONFIGURATION VARIABLES
 
 **username**  
-  *(Required)* The username (email address) for the iCloud account. 
+*(Required)* The username (email address) for the iCloud account. 
 
 **password**  
 *(Required)* The password for the username. 
 
 **account_name**  
-    *(Optional)* The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (the part before the  `@`  in the email address).
+The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (the part before the  `@`  in the email address).
 
 **include_device_types**  (or  **include_device_type**)  
 **exclude_device_types**  (or  **exclude_device_type**)  
-*(Optional)* Include or exclude device type(s) that should be tracked. 
+Include or exclude device type(s) that should be tracked.  
+*Default: Include all device types associated with the account*  
 
 ```
 # Example yaml
@@ -77,7 +78,8 @@ include_device_types:
 
 **include_devices**  (or  **include_device**)  
 **exclude_devices**  (or  **exclude_device**)  
-*(Optional)* Include or exclude devices that should be tracked. 
+Include or exclude devices that should be tracked. 
+*Default: Include all devices associated with the account*  
 
 ```
 # Example yaml
@@ -86,25 +88,25 @@ include_device_type:
 exclude_device:
   - lillianiphone
 ```
-*Note:* If you don't specify the devices or the device types to include, all devices associated with the iCloud account will be tracked.
+*Note:* It is recommended that to you specify the devices or the device types you want to track to avoid confusion or errors. All of the devices you are tracking are shown in the `devices_tracked ` attribute.*  
 
 **inzone_interval**  
-(Optional) The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified).  
+The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified).  
 *Default: 1 hr*
 
 **gps_accuracy_threshold**  
-*(Optional)* iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried again in 2 minutes to see if the accuracy has improved. After 5 retries, the normal interval that is based on the distance from home, the waze travel time and the direction will be used.  
+iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried again in 2 minutes to see if the accuracy has improved. After 5 retries, the normal interval that is based on the distance from home, the waze travel time and the direction will be used.  
 *Default: 1000*
 
 *Note:* The accuracy and retry count are displayed in the `info` attribute field (*GPS.Accuracy-263(2)*) and on the `poll_count`  attribute field (*2-GPS*). In this example, the accuracy has been poor for 2 polling cycles.  
 
 **unit_of_measurement**  
-The unit of measure of distances.  
-*Valid values: 'km', 'mi' (kilometers, miles), Default: mi*
-  
+The unit of measure for distances in miles or kilometers.   
+*Valid values: mi, km. Default: mi*
+ 
 **distance_method**  
 iCloud3 uses two methods of determining the distance between home and your current location — by calculating the straight line distance using geometry formulas (like the Proximity sensor) and by using the Waze Route Tracker to determine the distance based on the driving route.   
-*Valid values: 'calc', 'waze'. Default: waze*  
+*Valid values: waze, calc. Default: waze*  
   
 *Note:* The Waze distance becomes less accurate when you are close to home. At distances less than 1 kilometer or 1 mile, the calculation method is used.  
   
@@ -126,7 +128,7 @@ The area used by Waze to determine the distance and travel time.
 When using Waze and the distance from your current location to home is more than 3 kilometers/miles, the polling interval is calculated by multiplying the driving time to home by the `travel_time_factor`.  
 *Default: .75*  
 
-*Note:* Using the default value, the next update will be 3/4 of the time it takes to drive home from your current location. The one after that will be 3/4 of the time from that point. The result is a smaller interval as you get closer to home and a larger one as you get furthet away.  
+*Note:* Using the default value, the next update will be 3/4 of the time it takes to drive home from your current location. The one after that will be 3/4 of the time from that point. The result is a smaller interval as you get closer to home and a larger one as you get further away.  
  
 
 ### ABOUT YOUR ICLOUD ACCOUNT
