@@ -1,38 +1,41 @@
-
-# icloud3
-
 # iCloud3
 [\](https://github.com/gcobb321/icloud3/blob/master/README.md)]
 
 ----------
 
-iCloud3 is a much improved location tracker than the original iCloud tracker installed with Home Assistant. It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. 
+iCloud3 is an improved version of the iCloud device_tracker component installed with Home Assistant.  
+  
+It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. 
 
 
 **How it works**
 
 iCloud3 polls the device on a dynamic schedule based on:
- - If the device in a zone.
- - The distance from 'home' to your current location. Two methods are used to determine the distance – (1) a calculation giving the 'line-of-sight' distance based on the GPS coordinates of both locations and (2) from Waze, the map/driving/direction service, to get the driving distance based on the most direct route. 
+ - The device in a zone or not in a zone.
+ - The distance from 'home' to your current location. Two methods are used to determine the distance:
+    - A calculation giving the 'line-of-sight' distance based on the GPS coordinates of both locations.
+    - From [Waze](http://www.waze.com), the map/driving/direction service, to get the driving distance based on the most direct route. 
  - The travel time to 'home' if the Waze service is being used. 
- - If you are going towards home, away from home or stationary.
+ - The direction you are going — towards home, away from home or stationary.
  - The battery level.
- - The accuracy of the GPS location or if the last poll returned a location that the iCloud    service determined was 'old'.
+ - The accuracy of the GPS location or if the last poll returned a location that the iCloud service determined was 'old'.
 
-The above analysis results in a polling interval. The further away from home and the longer the travel time, the longer the interval; the closer to home, the shorter the interval. The polling interval checks each device being tracked every 15 seconds to see if it's location should be updated. If so, it and all of the other devices being tracked are updated (more about this below). Using a 15 second interval lets you track the distance down 1/10 of a mile/kilometer. This gives a much more accurate number to trigger automations. You no longer limited to entering or editing a zone. 
+The above analysis results in a polling interval. The further away from home and the longer the travel time back to home, the longer the interval; the closer to home, the shorter the interval. The polling interval checks each device being tracked every 15 seconds to see if it's location should be updated. If so, it and all of the other devices being tracked with iCloud3 are updated (more about this below). With a 15 second interval, you track the distance down 1/10 of a mile/kilometer. This gives a much more accurate distance number that can used to trigger automations. You no longer limited to entering or exiting a zone. 
 
 Note: The `pyicloud.py` Python component is part of Home Assistant and used to poll the device, requesting location and other information. If the iCloud account is associated with multiple devices, all of the devices are polled, whether or not the device is being tracked by Home Assistant. This is a limitation of pyicloud.py. 
 
 
 **What other programs do I need**
 
-The Home Assistant `IOS` is all. You do not need `Owntracks` or other location based trackers and you do not need  `nmap`,`netgear`, `ping` or any network monitor. `IOS` will notify Home Assistant when you leave home using it's 'Zone enter/exit', 'Background fetch' and 'Significant location change's location setting enabled. 
+The Home Assistant IOS app is all. You do not need `Owntracks` or other location based trackers and you do not need  `nmap`, `netgear`, `ping` or any network monitor. The `IOS` app will notify Home Assistant when you leave home and iCloud3 will start keeping up with the device's location, the distance to home and the time it will take to get there.  
+   
+*Note:* The IOS App settings `Zone enter/exit`, `Background fetch` and `Significant location change` location settings need to be enabled. 
 
 
-The `iCloud` platform allows you to detect presence using the  [iCloud](https://www.icloud.com/) service. iCloud allows users to track their location on iOS devices.
-
-It does require that your device is registered with “Find My iPhone”.
-
+The `iCloud` platform allows you to detect presence using the  [iCloud](https://www.icloud.com/) service. iCloud allows users to track their location on iOS devices. Your device needs to be registered with “Find My iPhone”.
+  
+  
+**Home Assistant Configuration**
 
 To integrate iCloud in Home Assistant, add the following section to your `configuration.yaml` file:
 
@@ -51,17 +54,18 @@ device_tracker:
 ### CONFIGURATION VARIABLES
 
 **username**  
-  *(Required)* The username (email address) for the iCloud account. 
+*(Required)* The username (email address) for the iCloud account. 
 
 **password**  
 *(Required)* The password for the username. 
 
 **account_name**  
-    *(Optional)* The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (the part before the  `@`  in the email address).
+The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (the part before the  `@`  in the email address).
 
 **include_device_types**  (or  **include_device_type**)  
 **exclude_device_types**  (or  **exclude_device_type**)  
-*(Optional)* Include or exclude device type(s) that should be tracked. 
+Include or exclude device type(s) that should be tracked.  
+*Default: Include all device types associated with the account*  
 
 ```
 # Example yaml
@@ -76,7 +80,8 @@ include_device_types:
 
 **include_devices**  (or  **include_device**)  
 **exclude_devices**  (or  **exclude_device**)  
-*(Optional)* Include or exclude devices that should be tracked. 
+Include or exclude devices that should be tracked. 
+*Default: Include all devices associated with the account*  
 
 ```
 # Example yaml
@@ -85,23 +90,25 @@ include_device_type:
 exclude_device:
   - lillianiphone
 ```
-*Note:* If you don't specify the devices or the device types to include, all devices associated with the iCloud account will be tracked.
+*Note:* It is recommended that to you specify the devices or the device types you want to track to avoid confusion or errors. All of the devices you are tracking are shown in the `devices_tracked ` attribute.  
 
 **inzone_interval**  
-(Optional) The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified). *Default: 1 hr*
+The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified).  
+*Default: 1 hr*
 
 **gps_accuracy_threshold**  
-*(Optional)* iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried again in 2 minutes to see if the accuracy has improved. After 5 retries, the normal interval that is based on the distance from home, the waze travel time and the direction will be used. *Default: 1000*
+iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried again in 2 minutes to see if the accuracy has improved. After 5 retries, the normal interval that is based on the distance from home, the waze travel time and the direction will be used.  
+*Default: 1000*
 
 *Note:* The accuracy and retry count are displayed in the `info` attribute field (*GPS.Accuracy-263(2)*) and on the `poll_count`  attribute field (*2-GPS*). In this example, the accuracy has been poor for 2 polling cycles.  
 
 **unit_of_measurement**  
-The unit of measure of distances.  
-*Valid values: 'km', 'mi' (kilometers, miles), Default: mi*
-  
+The unit of measure for distances in miles or kilometers.   
+*Valid values: mi, km. Default: mi*
+ 
 **distance_method**  
 iCloud3 uses two methods of determining the distance between home and your current location — by calculating the straight line distance using geometry formulas (like the Proximity sensor) and by using the Waze Route Tracker to determine the distance based on the driving route.   
-*Valid values: 'calc', 'waze'. Default: waze*  
+*Valid values: waze, calc. Default: waze*  
   
 *Note:* The Waze distance becomes less accurate when you are close to home. At distances less than 1 kilometer or 1 mile, the calculation method is used.  
   
@@ -111,6 +118,19 @@ These values are also used to determine if the polling internal should be based 
 
 *Note:* If you are a long way from home, it probably doesn't make sense to use the Waze distance. You probably don't have any automations that would be triggered from that far away. 
   
+**waze_real_time**  
+Waze reports the travel time estimate two ways — by taking the current, real time traffic conditions into consideration (True) or as an average travel time for the time of day (False).  
+*Valid values: True, False. Default: False*  
+  
+**waze_region**  
+The area used by Waze to determine the distance and travel time.  
+*Valid values: US (United States), NA (North America), EU (Europe), IL (Isreal). Default: US*  
+  
+**travel_time_factor**  
+When using Waze and the distance from your current location to home is more than 3 kilometers/miles, the polling interval is calculated by multiplying the driving time to home by the `travel_time_factor`.  
+*Default: .75*  
+
+*Note:* Using the default value, the next update will be 3/4 of the time it takes to drive home from your current location. The one after that will be 3/4 of the time from that point. The result is a smaller interval as you get closer to home and a larger one as you get further away.  
  
 
 ### ABOUT YOUR ICLOUD ACCOUNT
