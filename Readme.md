@@ -60,7 +60,7 @@ device_tracker:
 *(Required)* The password for the username. 
 
 **account_name**  
-The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (the part before the  `@`  in the email address).
+The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (the part before the `@` in the email address).
 
 **include_device_types**  (or  **include_device_type**)  
 **exclude_device_types**  (or  **exclude_device_type**)  
@@ -80,7 +80,7 @@ include_device_types:
 
 **include_devices**  (or  **include_device**)  
 **exclude_devices**  (or  **exclude_device**)  
-Include or exclude devices that should be tracked. 
+Include or exclude devices that should be tracked.  
 *Default: Include all devices associated with the account*  
 
 ```
@@ -110,7 +110,7 @@ The unit of measure for distances in miles or kilometers.
 iCloud3 uses two methods of determining the distance between home and your current location — by calculating the straight line distance using geometry formulas (like the Proximity sensor) and by using the Waze Route Tracker to determine the distance based on the driving route.   
 *Valid values: waze, calc. Default: waze*  
   
-*Note:* The Waze distance becomes less accurate when you are close to home. At distances less than 1 kilometer or 1 mile, the calculation method is used.  
+*Note:* The Waze distance becomes less accurate when you are close to home. The calculation method is used at distances less than 1 mile or 1 kilometer.  
   
 **waze_min_distance, waze_max_distance**  
 These values are also used to determine if the polling internal should be based on the Waze distance. The calculated distance must be between these values for the Waze distance to be used.  
@@ -132,6 +132,22 @@ When using Waze and the distance from your current location to home is more than
 
 *Note:* Using the default value, the next update will be 3/4 of the time it takes to drive home from your current location. The one after that will be 3/4 of the time from that point. The result is a smaller interval as you get closer to home and a larger one as you get further away.  
  
+### ATTRIBUTES
+
+There are numerous attributes that are available for use in automations or to monitor the location of your device. They are shown in following table.  
+
+
+| Attribute  |  Description  |
+------------------------------
+| **interval** | The current interval between update requests to your iCloud account for the location and other information. They increase as you get further away and decrease as you get closer to home. |
+| **distance** | The distance from home being used by the interval calculator. This will be either the Waze distance or the calculated distance. |
+| **waze_distance** | The distance from home returned by Waze. |
+| **calculated_distance** | The calculated distance. |
+
+
+
+
+
 
 ### ABOUT YOUR ICLOUD ACCOUNT
 
