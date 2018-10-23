@@ -192,6 +192,22 @@ How the the `Home Assistant IOS App` located the device. This includes gps, beac
 Automations can access the attribute value directly using the state_attr function. The following will trigger an automation when value `garyiphone` arrives home:  
 
 ```
+# Example yaml 
+- alias: gary_arrives_home
+  trigger:
+ 
+    - platform: state
+      entity_id: device_tracker.garyiphone
+      to: 'home'
+ 
+    - platform: state
+      entity_id: device_tracker.garyiphone
+      to: 'near_home'
+ 
+    - platform: numeric_state
+      entity_id: device_tracker.garyiphone
+      value_template: '{{float(state.attributes.distance)}}'
+      below: .25
 
 ```  
   
