@@ -189,7 +189,7 @@ How the the `Home Assistant IOS App` located the device. This includes gps, beac
   
 ### Accessing Attributes in Automations and in Lovelace
 
-Automations can access the attribute value directly using the state_attr function. The following will trigger an automation when value `garyiphone` arrives home:  
+Automations can access the attribute value directly using the `states.attributes.attributename` statement. The third trigger in the example below will trigger the `gary_arrives_home` automation when distance goes below .25:  
 
 ```
 # Example yaml (automation.yaml)
