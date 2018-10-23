@@ -187,7 +187,7 @@ The location of the device.
 **source_type**  
 How the the `Home Assistant IOS App` located the device. This includes gps, beacon, router.  
   
-##Accessing Attributes in Automations and in Lovelace
+###Accessing Attributes in Automations and in Lovelace
 
 Automations can access the attribute value directly using the state_attr function. The following will trigger an automation when value `garyiphone` arrives home:  
 
@@ -220,6 +220,15 @@ The attribute values cannot be directly displayed on the Lovelace cards, only th
     garyiphone_distance:
       value_template: '{{float(state_attr("device_tracker.garyiphone","distance"))}}'
       unit_of_measurement: 'mi'
+
+```
+
+And on a Lovelace card:
+```
+#Example yaml
+- entity: sensor.garyiphone_distance
+  name: Distance
+  icon: mdi:map-marker-distance 
 
 ```
   
