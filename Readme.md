@@ -149,7 +149,7 @@ The distance from home being used by the interval calculator. This will be eithe
 The driving distance from home returned by Waze based on the shortest route.  
   
 **calculated_distance**  
-The calculated distance using geometric formulas. This is the direct line distance.  
+The 'straight line' distance that is calculated using the latitude and longitude of home and your current location using geometric formulas.  
   
 **dir_of_travel**  
 The direction you are traveling — towards home, away from home, near home, or stationary. This is determined by calculating the difference between the distance from home on this location update and the last one. Stationary can be a little difficult to determine at times and sometimes needs several updates to get right.  
