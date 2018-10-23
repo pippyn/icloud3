@@ -187,7 +187,7 @@ The location of the device.
 **source_type**  
 How the the `Home Assistant IOS App` located the device. This includes gps, beacon, router.  
   
-###Accessing Attributes in Automations and in Lovelace
+#### Accessing Attributes in Automations and in Lovelace
 
 Automations can access the attribute value directly using the state_attr function. The following will trigger an automation when value `garyiphone` arrives home:  
 
@@ -214,7 +214,7 @@ Automations can access the attribute value directly using the state_attr functio
 The attribute values cannot be directly displayed on the Lovelace cards, only the state of the entity can be displayed. A sensor template can be set up that mirrors the attribute value that gets around this.  The following example will display the `distance` attribute:  
   
 ```
-#Example yaml (sensor.yaml)
+# Example yaml (sensor.yaml)
 - platform: template
   sensors:
     garyiphone_distance:
@@ -225,7 +225,7 @@ The attribute values cannot be directly displayed on the Lovelace cards, only th
 
 And on a Lovelace card:
 ```
-#Example yaml
+# Example yaml
 - entity: sensor.garyiphone_distance
   name: Distance
   icon: mdi:map-marker-distance 
