@@ -136,13 +136,60 @@ When using Waze and the distance from your current location to home is more than
 
 There are numerous attributes that are available for use in automations or to monitor the location of your device. They are shown in following table.  
 
+**interval**  
+The current interval between update requests to your iCloud account for the location and other information. They increase as you get further away and decrease as you get closer to home.  
+  
+**travel_time**  
+The Waze travel time to return home from your current location.  
+  
+**distance**  
+The distance from home being used by the interval calculator. This will be either the Waze distance or the calculated distance.  
+  
+**waze_distance**  
+The distance from home returned by Waze.  
+  
+**calculated_distance**  
+The calculated distance.  
+  
+**dir_of_travel**  
+The direction you are traveling — towards home, away from home, near home, or stationary. This is calculated based on the distance from home on this location update and the last one. Stationary can be a little difficult to determine at times and sometimes needs several updates to get right.  
+  
+**last_located**  
+The last time your iCloud account successfully located the device. Normally, this will be a few seconds after the update time, however, if you are in a dead zone or the GPS accuracy exceeds the threshold, the time will be older. In this case, a description of the issues is displayed in the `info` attribute field.  
+  
+**last update**  
+The time of the last iCloud location update.  
+  
+**next_update**  
+The time of three next iCloud location update.  
+  
+**poll_count**
+The number of iCloud location updates done that day.  
+  
+**info**  
+A message area that displays information about the device. This includes the battery level, Waze status, GPS accuracy issues, how long the device has been stationary, etc.  
+  
+**battery**  
+The battery level.  
+  
+**tracked_devices**
+The devices that are being tracked based on the 'includes' and 'excludes' specified in the configuration.yaml file.  This will be the same for all devices tracked.  
+  
+**device_status**  
+The status of the device — online if the device is located and offline if polling has been paused or it can not be located.  
+  
+**battery_status**
+Charging or NotCharging.  
+  
+**latitude, longitude, altitude**
+The location of the device.  
+  
+**source_type**  
+How the device was located to include gps, beacon, router.  
+  
 
-| Attribute  |  Description  |
-------------------------------
-| **interval** | The current interval between update requests to your iCloud account for the location and other information. They increase as you get further away and decrease as you get closer to home. |
-| **distance** | The distance from home being used by the interval calculator. This will be either the Waze distance or the calculated distance. |
-| **waze_distance** | The distance from home returned by Waze. |
-| **calculated_distance** | The calculated distance. |
+  
+
 
 
 
