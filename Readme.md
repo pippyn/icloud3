@@ -57,7 +57,7 @@ device_tracker:
 *(Required)* The username (email address) for the iCloud account. 
 
 **password**  
-*(Required)* The password for the username. 
+*(Required)* The password for the account.
 
 **account_name**  
 The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (the part before the `@` in the email address).
@@ -189,7 +189,7 @@ How the the `Home Assistant IOS App` located the device. This includes gps, beac
   
 ### Accessing Attributes in Automations and in Lovelace
 
-Automations can access the attribute value directly using the `states.attributes.attributename` statement. The third trigger in the example below will trigger the `gary_arrives_home` automation when distance goes below .25:  
+Automations can access the attribute's value using the `states.attributes.attributename` statement. The third trigger in the example below will trigger the `gary_arrives_home` automation when the distance goes below .25.  
 
 ```
 # Example yaml (automation.yaml)
@@ -211,7 +211,7 @@ Automations can access the attribute value directly using the `states.attributes
 
 ```  
   
-The attribute values cannot be directly displayed on the Lovelace cards, only the state of the entity can be displayed. A sensor template can be set up that mirrors the attribute value that gets around this.  The following example will display the `distance` attribute:  
+An entity's state can be displayed on a Lovelace card but the attribute's value cannot. To display the attribute's value, a sensor template can be used that will be updated when the attribute's value changes. The following example will display the `distance` attribute.  
   
 ```
 # Example yaml (sensor.yaml)
@@ -232,32 +232,43 @@ And on a Lovelace card:
 
 ```
   
-*Note:* It is better to access the attributes directly in automation rather than using a template sensor. The reason is that when the attribute changes value, it will trigger the automation immediately rather than the changing the template sensor value and then triggering the action.  
+*Note:* It is better to access the attribute's value in automation rather than using a template sensor. The reason is that when the attribute changes value, it will trigger the automation immediately. If the template sensor is used, the automation becomes a two step process; the sensor must be changed before the automation will be triggered.  
   
-
-
+### DEVICE TRACKER SERVICES 
   
+Four services are available for the iCloud3 device tracker component that are used in automations. The services are:
+  1. `icloud_update` — used to send commands to iCloud3 that change the way it is running (pause, resume, Waze commands, etc.).
+  2. `set_interval` — used to override the dynamic interval.calculated by iCloud3.
+  3. `icloud_lost_phone` — used to find your phone.
+  4. `icloud_reset` — used to iCloud3.
 
+More information about each service follows.
 
-
-
-
+**icloud_update**  
+This service can be used to ask for an update of a certain iDevice. The  `account_name`  and  `device_name`  are optional. Request will result in new Home Assistant  [state_changed](https://www.home-assistant.io/docs/configuration/events/#event-state_changed)  event describing current iphone location. Can be used in automations when manual location update is needed, e.g., to check if anyone is home when door’s been opened  
+  
+**icloud_set_interval**  
+This service will change the dynamic interval of an iDevice. The  `account_name`  and  `device_name`  are optional. If  `interval`  is used in the service_data, the iDevice will be updated with that new interval. That interval will be fixed until the iDevice changes zone or if this service is called again. If  `interval`isn’t used in the service_data, the interval for that iDevice will revert back to its default dynamic interval based on its current zone, its distance towards home and its battery level.  
+  
+**icloud_reset_account**  
+This service can be used to reset an iCloud account. This is helpful when not all devices are being found by the component or if you have added a new iDevice to your account. The  `account_name`  is optional.
+  
+**icloud_lost_iphone**  
+This service will play the Lost iPhone sound on a certain iDevice. The  `account_name`  and  `device_name`  are optional.  
 
 
 ### ABOUT YOUR ICLOUD ACCOUNT
 
-You may receive an email from Apple stating that someone has logged into your account.
+You may receive an email from Apple stating that someone has logged into your account.  
 
-To disable the drainage of the battery, a dynamic interval is being used for each individual device instead of a fixed interval for all devices linked to one account. The dynamic interval is based on the current zone of a device, the distance towards home and the battery level of the device.
+'2 Step Authentication' is enabled for the iCloud account. When your account needs to be authorized, the Notification symbol (the bell in the upper right of the Home Assistant screen) will be highlighted. Take the following steps to complete the process:  
+  1. Press the Notification Bell.
+  2. A window is displayed asking for the device associated with your account (phone/ipad) that will be used as the Trusted Device; the device that will be sent the 2 Step Authentication code number used to authenticate the computer running Home Assistant (your Raspberry Pi for example). Type the number next to the device to be used (0 or 1 for example).
+  3. Type the authentication code you receive in the next window that is displayed.
 
-2 Steps Authentication is enabled for iCloud. The component will ask which device you want to use as Trusted Device and then you can enter the code that has been sent to that device. The duration of this authentication is determined by Apple, but is now at 2 months, so you will only need to verify your account each two months, even after restarting Home Assistant. 2 Factor Authentication is the improved version of 2 Steps Authentication, this is still not supported by the pyicloud library. Therefore it’s not possible to use it with the device_tracker yet.
+The duration of this authentication is determined by Apple, but is now at 2 months, so you will only need to verify your account every two months, even after restarting Home Assistant. 2 Factor Authentication, the improved version of 2 Steps Authentication, is not supported by the pyicloud library so it cannot be used with the iCloud device_tracker.
 
-4 services are available for this component:
 
--   **icloud_update**: This service can be used to ask for an update of a certain iDevice. The  `account_name`  and  `device_name`  are optional. Request will result in new Home Assistant  [state_changed](https://www.home-assistant.io/docs/configuration/events/#event-state_changed)  event describing current iphone location. Can be used in automations when manual location update is needed, e.g., to check if anyone is home when door’s been opened.
--   **icloud_lost_iphone**: This service will play the Lost iPhone sound on a certain iDevice. The  `account_name`  and  `device_name`  are optional.
--   **icloud_set_interval**: This service will change the dynamic interval of an iDevice. The  `account_name`  and  `device_name`  are optional. If  `interval`  is used in the service_data, the iDevice will be updated with that new interval. That interval will be fixed until the iDevice changes zone or if this service is called again. If  `interval`isn’t used in the service_data, the interval for that iDevice will revert back to its default dynamic interval based on its current zone, its distance towards home and its battery level.
--   **icloud_reset_account**: This service can be used to reset an iCloud account. This is helpful when not all devices are being found by the component or if you have added a new iDevice to your account. The  `account_name`  is optional.
 
 
 <!--stackedit_data:
