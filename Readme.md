@@ -7,6 +7,7 @@ iCloud3 is an improved version of the iCloud device_tracker component installed 
   
 It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. 
 
+### INTRODUCTION
 
 **How it works**
 
@@ -27,7 +28,7 @@ Note: The `pyicloud.py` Python component is part of Home Assistant and used to p
 
 **What other programs do I need**
 
-The ``Home Assistant IOS App`` is all. You do not need `OwnTracks` or other location based trackers and you do not need `nmap`, `netgear`, `ping` or any network monitor. The `Home Assistant IOS App` will notify Home Assistant when you leave home and iCloud3 device tracker will start keeping up with the device's location, the distance to home and the time it will take to get there.  
+The `Home Assistant IOS App` is all. You do not need `OwnTracks` or other location based trackers and you do not need `nmap`, `netgear`, `ping` or any network monitor. The `Home Assistant IOS App` will notify Home Assistant when you leave home and iCloud3 device tracker will start keeping up with the device's location, the distance to home and the time it will take to get there.  
    
 *Note:* The IOS App settings `Zone enter/exit`, `Background fetch` and `Significant location change` location settings need to be enabled. 
 
@@ -50,6 +51,19 @@ device_tracker:
 
 ```
 
+**About Your Apple iCloud Account**
+  
+Apple has enabled '2 Step Authentication' for iCloud accounts. To permit Home Assistant, and iCloud3, to access your iCloud account,  you need to have an authentication code sent via a text message to a trusted device, which is then entered in Home Assistant. The duration of this authentication is determined by Apple, but is now at 2 months.  
+  
+*Note:* `pyicloud`, the Python program used to access your iCloud account, does not support 2 Factor Authentication, the improved version of 2 Steps Authentication.
+
+When your account needs to be authorized, or reauthorized, you will be notified and the Notification symbol (the bell in the upper right of the Home Assistant screen) will be highlighted. Take the following steps to complete the process:  
+  1. Press the Notification Bell.
+  2. A window is displayed, listing the trusted devices associated with your account. It will list an number (0, 1, 2, etc.) next to the phone number that can receive the text message containing the 2 Step Authentication code number used to authenticate the computer running Home Assistant (your Raspberry Pi for example).
+  3. Type the number.
+  4. A text message is sent. Type the authentication code you receive in the next window that is displayed.
+  
+*Note:* When you use iCloud account is accessed on a new device, you may receive an email from Apple stating that someone has logged into your account.  
 
 ### CONFIGURATION VARIABLES
 
@@ -257,16 +271,7 @@ This service can be used to reset an iCloud account. This is helpful when not al
 This service will play the Lost iPhone sound on a certain iDevice. The  `account_name`  and  `device_name`  are optional.  
 
 
-### ABOUT YOUR ICLOUD ACCOUNT
 
-You may receive an email from Apple stating that someone has logged into your account.  
-
-'2 Step Authentication' is enabled for the iCloud account. When your account needs to be authorized, the Notification symbol (the bell in the upper right of the Home Assistant screen) will be highlighted. Take the following steps to complete the process:  
-  1. Press the Notification Bell.
-  2. A window is displayed asking for the device associated with your account (phone/ipad) that will be used as the Trusted Device; the device that will be sent the 2 Step Authentication code number used to authenticate the computer running Home Assistant (your Raspberry Pi for example). Type the number next to the device to be used (0 or 1 for example).
-  3. Type the authentication code you receive in the next window that is displayed.
-
-The duration of this authentication is determined by Apple, but is now at 2 months, so you will only need to verify your account every two months, even after restarting Home Assistant. 2 Factor Authentication, the improved version of 2 Steps Authentication, is not supported by the pyicloud library so it cannot be used with the iCloud device_tracker.
 
 
 
