@@ -7,7 +7,7 @@ iCloud3 is an improved version of the iCloud device_tracker component installed 
   
 It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. 
 
-### INTRODUCTION
+## INTRODUCTION
 
 **How it works**
 
@@ -65,7 +65,7 @@ When your account needs to be authorized, or reauthorized, you will be notified 
   
 *Note:* When you use iCloud account is accessed on a new device, you may receive an email from Apple stating that someone has logged into your account.  
 
-### CONFIGURATION VARIABLES
+## CONFIGURATION VARIABLES
 
 **username**  
 *(Required)* The username (email address) for the iCloud account. 
@@ -147,7 +147,7 @@ When using Waze and the distance from your current location to home is more than
 
 *Note:* Using the default value, the next update will be 3/4 of the time it takes to drive home from your current location. The one after that will be 3/4 of the time from that point. The result is a smaller interval as you get closer to home and a larger one as you get further away.  
  
-### ATTRIBUTES
+## ATTRIBUTES
 
 There are numerous attributes that are available for use in automations or to monitor the location of your device. They are shown in following table.  
 
