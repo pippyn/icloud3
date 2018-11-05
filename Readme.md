@@ -273,16 +273,80 @@ The following commands are available:.
   
 | Command |  Parameter | Description |
 |---------|------------|-------------|
+| pause |  | Stop updating/locating a device (or all devices). You might do this if you are out of the country or won't be home for awhile and it makes no sense to continue taking your devices location |
+| resume |  | Start updating/locating a device (or all devices) again |  
+| resume |  | Reset the update interval if it was overridden the 'set_interval' service |
+| pause-resume |  | Toggle pause and resume commands |
+| zone | zonename | Change iCloud3 state to 'zonename' (like the device_tracker.see service call) and immediately update the device interval and location data. Note: Using the device_tracker.see service call will be delayed until the next 15-second update iteration rather than immediately. |
 | waze | on | Turn on Waze. Use the 'waze' method to determine the update interval |
 | waze | off | Turn off Waze. Use the 'calc' method to determine the update interval |
 | waze | toggle | Toggle waze on or off |
-| pause |  | Stop updating/locating a device (or all devices). You might do this if you are out of the country or won't be home for awhile and it makes no sense to continue taking your devices location |
-| resume |  | Start updating/locating a device (or all devices) again. |  
-| resume |  | Reset the update interval if it was overridden the 'set_interval' service. |
-| debug | info| Show how the update interval is determined |
+|  waze | reset_range | Reset the Waze range to the default distances (min=1, max=99999) |
+
+| debug | interval | Show how the update interval is determined |
   
 
+```
+#Example Automations.yaml
+icloud_command_pause_resume_polling:
+  alias: 'Toggle Pause/Resume Polling'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: pause-resume
+ 
+icloud_command_resume_polling:
+  alias: 'Resume Polling'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: resume
+        
+icloud_command_pause_polling:
+  alias: 'Pause Polling'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: pause
 
+icloud_command_pause_polling_gary:
+  alias: 'Pause (Gary)'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        device_name: garyiphone
+        command: pause
+
+icloud_command_toggle_waze:
+  alias: 'Toggle Waze On/Off'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: waze toggle
+
+icloud_command_garyiphone_zone_home:
+  alias: 'Gary - Zone Home'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        device_name: garyiphone
+        command: zone home
+        
+icloud_command_garyiphone_zone_not_home:
+  alias: 'Gary - Zone not_home'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        device_name: garyiphone
+        command: zone not_home
+```
 
 
 **interval**
@@ -307,10 +371,119 @@ This service will play the Lost iPhone sound on a certain iDevice. The  `account
 
 
 
+#-------------------------------------------------------------
+icloud_command_reset:
+  alias: 'Reset iCloud'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: reset
+ 
 
+ 
 
+        
+icloud_command_reset_waze_range:
+  alias: 'Reset Waze Range'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: waze reset_range
+        
+icloud_set_interval_15_sec:
+  alias: 'Set interval to 15 sec'
+  sequence:
+    - service: device_tracker.icloud_set_interval
+      data:
+        account_name: gary_icloud
+        interval: '15 sec'
+        
+icloud_set_interval_1_min:
+  alias: 'Set interval to 1 min'
+  sequence:
+    - service: device_tracker.icloud_set_interval
+      data:
+        account_name: gary_icloud
+        interval: 1
+               
+icloud_set_interval_5_min:
+  alias: 'Set interval to 5 hrs'
+  sequence:
+    - service: device_tracker.icloud_set_interval
+      data:
+        account_name: gary_icloud
+        interval: '5 hr'
+ 
+icloud_set_interval_10_min:
+  alias: 'Set interval to 10 min'
+  sequence:
+    - service: device_tracker.icloud_set_interval
+      data:
+        account_name: gary_icloud
+        interval: '10 min'
+        
+#--------------------------------------------------------------
+#   Set iCloud polling interval for Gary
+#--------------------------------------------------------------
+icloud_command_resume_polling_gary:
+  alias: 'Resume (Gary)'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        device_name: garyiphone
+        command: resume
+        
 
+              
+icloud_set_interval_15_sec_gary:
+  alias: 'Set Gary to 15 sec'
+  sequence:
+    - service: device_tracker.icloud_set_interval
+      data:
+        account_name: gary_icloud
+        device_name: garyiphone
+        interval: '15 sec'
+ 
+icloud_set_interval_1_min_gary:
+  alias: 'Set Gary to 1 min'
+  sequence:
+    - service: device_tracker.icloud_set_interval
+      data:
+        account_name: gary_icloud
+        device_name: garyiphone
+        interval: 1
+#--------------------------------------------------------------
+#   DEBUG COMMANDS
+#--------------------------------------------------------------
+icloud_command_debug_interval_formula:
+  alias: 'Display Interval Formula'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: debug interval
+        
+icloud_command_debug_test_gps:
+  alias: 'Test GPS Accuracy'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: debug gps
+              
+icloud_command_debug_test_old:
+  alias: 'Test Old Location'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: debug old
+#--------------------------------------------------------------
+#   ZONE COMMANDS
+#--------------------------------------------------------------
+ 
 
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU1MjQwMDUwMl19
--->
+  
