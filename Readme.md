@@ -276,9 +276,9 @@ The following commands are available:.
 |---------|------------|-------------|
 | waze | on | Turn on Waze. Use the 'waze' method to determine the update interval |
 | waze | off | Turn off Waze. Use the 'calc' method to determine the update interval |
-| waze | | toggle | Toggle waze |
-| pause | -- | Stop updating a device (or all devices). You might do this if you are out of the country or won't be home for awhile and it makes no sense to continue taking your devices location |
-| resume | -- | Start updating your devices (or all devices) again |
+| waze | toggle | Toggle waze on or off |
+| pause |  | Stop updating a device (or all devices). You might do this if you are out of the country or won't be home for awhile and it makes no sense to continue taking your devices location |
+| resume |  | Start updating your devices (or all devices) again |
 | debug | info| Show how the update interval is determined |
   
 
