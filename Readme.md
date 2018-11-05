@@ -267,9 +267,9 @@ This service allows you to change the way iCloud3 operates. The following parame
 
 | Parameter | Description |
 |-----------|-------------|
-| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. |
-| device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. |
-| command | The action to be performed (see below). |
+| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. *(Required)*|
+| device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. *(Optional)* |
+| command | The action to be performed (see below). *(Required)* |
 | parameter | Additional parameters for the command. |
   
 The following describe the commands that are available. 
@@ -356,9 +356,9 @@ This service allows you to override the interval between location updates to a f
 
 | Parameter | Description |
 |-----------|-------------|
-| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. |
-| device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. |
-| interval | The interval between location updates. This can be in seconds, minutes or hours. Examples are 30 sec, 45 min, 1 hr,  hrs, 30 (minutes are assumed if no time descriptor is specified). |
+| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. *(Required)* |
+| device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. *(Optional)* |
+| interval | The interval between location updates. This can be in seconds, minutes or hours. Examples are 30 sec, 45 min, 1 hr,  hrs, 30 (minutes are assumed if no time descriptor is specified). *(Required)* |
 
 ```
 #Example Automations.yaml           
@@ -395,15 +395,15 @@ This service will play the Lost iPhone sound on a certain iDevice.
 
 | Parameter | Description |
 |-----------|-------------|
-| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. |
-| device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. |
+| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. *(Required)* |
+| device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. *(Optional)* |
   
 #### SERVICE — icloud_reset
 This service will reset an iCloud3 device data in the same manner when Home Assistant is started. This is helpful when not all devices are being found by the iCloud3 component or if you have added a new iDevice to your account.
   
 | Parameter | Description |
 |-----------|-------------|
-| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. |
+| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. *(Required)* |
 
 
 
