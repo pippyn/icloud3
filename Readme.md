@@ -409,8 +409,7 @@ This service will reset an iCloud3 device data in the same manner when Home Assi
 ## TECHNICAL INFORMATION - HOW THE INTERVAL IS DETERMINED
 The iCloud3 device tracked uses data from several sources to determine the time interval between the iCloud Find my Friends location update requests.  The purpose is to provide accurate location data without exceeding Apple's limit on the number of requests in a time period and to limit the drain on the device's battery.
 
-The algorithm uses a sequence of tests to determine the interval.
-The following is for the nerd who wants to know how this is done. 
+The algorithm uses a sequence of tests to determine the interval. If the test is true, it's interval value is used and no further tests are done. The following is for the nerd who wants to know how this is done. 
 
           
 | Test | Interval | Method Name|
@@ -422,7 +421,7 @@ The following is for the nerd who wants to know how this is done.
 | In a Zone | 1-hr or `inzone_interval` parameter | 5-InZone |
 | Distance < 2.5km/1.5mi | 15 seconds | 6-Dist<2.5km/1.5mi |
 | Distance < 3.5km/2mi | 30 seconds | 7-Dist<3.5km/2mi |
-| Waze used and Waze time < 5 minutes | time*‘travel_time_factor` | 8-WazeTime |
+| Waze used and Waze time < 5 min. | time * `travel_time_factor` | 8-WazeTime |
 | Distance < 5km/3mi | 1 minute | 9-Dist<5km/3mi |
 | Distance < 8km/5mi | 3 minutes | 10-Dist<8km/5mi |
 | Distance < 12km/7.5mi | 15 seconds | 11-Dist<12km/7.5mi |
@@ -432,7 +431,7 @@ The following is for the nerd who wants to know how this is done.
 | Distance > 150km/90mi | distance/1.5 | 15-Calculated |
 
 *Notes:* The interval is then multiplied by a value based on other conditions. The conditions are:
-1. If Stationary, keep track of the number of polls when you are stationary (the stationary count reported in the`info` attribute). Multiply the interval time by 2 when the stationary count is an even number and by 3 when it is divisible by 3.
+1. If Stationary, keep track of the number of polls when you are stationary (the stationary count reported in the `info` attribute). Multiply the interval time by 2 when the stationary count is an even number and by 3 when it is divisible by 3.
 2. If the direction of travel is Away, multiply the interval time by 2.
 3. Is the battery is low, the GPS accuracy is poor or the location data is old, don't make any of the above adjustments to the interval.
 
