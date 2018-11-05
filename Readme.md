@@ -266,7 +266,7 @@ This service allows you to change the way iCloud3 operates. The following parame
 |-----------|-------------|
 | account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section at the beginning of this document. |
 | devicename | Name of the device to be updated. All devices will be updated if this parameter is not specified. |
-| command | The action to be performed |
+| command | The action to be performed (see below)|
 | parameter | Additional parameters for the command |
   
 The following commands are available:. 
@@ -277,7 +277,7 @@ The following commands are available:.
 | waze | off | Turn off Waze. Use the 'calc' method to determine the update interval |
 | waze | toggle | Toggle waze on or off |
 | pause |  | Stop updating a device (or all devices). You might do this if you are out of the country or won't be home for awhile and it makes no sense to continue taking your devices location |
-| resume |  | Start updating your devices (or all devices) again |
+| resume |  | 1. Start updating your devices (or all devices) again. 2. Reset the update interval if it was overridden my the 'set_interval service.|
 | debug | info| Show how the update interval is determined |
   
 
