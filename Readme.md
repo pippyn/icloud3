@@ -251,21 +251,24 @@ And on a Lovelace card:
   
 ## DEVICE TRACKER SERVICES 
   
-Four services are available for the iCloud3 device tracker component that are used in automations. The services are:
-  1. `icloud_update` — Send commands to iCloud3 that change the way it is running (pause, resume, Waze commands, etc.).
-  2. `set_interval` — Override the dynamic interval calculated by iCloud3.
-  3. `icloud_lost_phone` — Play the Lost Phone sound.
-  4. `icloud_reset` — Reset the iCloud3 custom component.
+Four services are available for the iCloud3 device tracker component that are used in automations. 
 
-The following parameters are used by these services to identify the device to be used.
+| Service | Description |
+|---------|-------------|
+| icloud_update | Send commands to iCloud3 that change the way it is running (pause, resume, Waze commands, etc.) |
+| icloud_set_interval | Override the dynamic interval calculated by iCloud3. |
+| icloud_lost_phone | Play the Lost Phone sound  |
+| icloud_reset | Reset the iCloud3 custom component  |
+
+Description of each service follows.
   
 #### SERVICE — icloud_update
 This service allows you to change the way iCloud3 operates. The following parameters are used:
 
 | Parameter | Description |
 |-----------|-------------|
-| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section at the beginning of this document. |
-| devicename | Name of the device to be updated. All devices will be updated if this parameter is not specified. |
+| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. |
+| device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. |
 | command | The action to be performed (see below)|
 | parameter | Additional parameters for the command |
   
@@ -273,7 +276,7 @@ The following commands are available:.
   
 | Command |  Parameter | Description |
 |---------|------------|-------------|
-| pause |  | Stop updating/locating a device (or all devices). You might do this if you are out of the country or won't be home for awhile and it makes no sense to continue taking your devices location |
+| pause |  | Stop updating/locating a device (or all devices). You
 | resume |  | Start updating/locating a device (or all devices) again |  
 | resume |  | Reset the update interval if it was overridden the 'set_interval' service |
 | pause-resume |  | Toggle pause and resume commands |
@@ -282,7 +285,6 @@ The following commands are available:.
 | waze | off | Turn off Waze. Use the 'calc' method to determine the update interval |
 | waze | toggle | Toggle waze on or off |
 |  waze | reset_range | Reset the Waze range to the default distances (min=1, max=99999) |
-
 | debug | interval | Show how the update interval is determined |
   
 
@@ -348,96 +350,18 @@ icloud_command_garyiphone_zone_not_home:
         command: zone not_home
 ```
 
-
-**interval**
-
-
-
-More information about each service follows.
-
-
   
-  
-This service can be used to ask for an update of a certain iDevice. The  `account_name`  and  `device_name`  are optional. Request will result in new Home Assistant  [state_changed](https://www.home-assistant.io/docs/configuration/events/#event-state_changed)  event describing current iphone location. Can be used in automations when manual location update is needed, e.g., to check if anyone is home when door’s been opened  
-  
-**icloud_set_interval**  
-This service will change the dynamic interval of an iDevice. The  `account_name`  and  `device_name`  are optional. If  `interval`  is used in the service_data, the iDevice will be updated with that new interval. That interval will be fixed until the iDevice changes zone or if this service is called again. If  `interval`isn’t used in the service_data, the interval for that iDevice will revert back to its default dynamic interval based on its current zone, its distance towards home and its battery level.  
-  
-**icloud_reset_account**  
-This service can be used to reset an iCloud account. This is helpful when not all devices are being found by the component or if you have added a new iDevice to your account. The  `account_name`  is optional.
-  
-**icloud_lost_iphone**  
-This service will play the Lost iPhone sound on a certain iDevice. The  `account_name`  and  `device_name`  are optional.  
+#### SERVICE — icloud_set_interval  
+This service allows you to override the interval between location updates to a fixed time. It is reset when a zone is entered or when the icloud_update service call is processed with the 'resume'command. The following parameters are used:
 
+| Parameter | Description |
+|-----------|-------------|
+| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. |
+| device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. |
+| interval | The interval between location updates. This can be in seconds, minutes or hours. Examples are 30 sec, 45 min, 1 hr,  hrs, 30 (minutes are assumed if no time descriptor is specified). |
 
-
-#-------------------------------------------------------------
-icloud_command_reset:
-  alias: 'Reset iCloud'
-  sequence:
-    - service: device_tracker.icloud_update
-      data:
-        account_name: gary_icloud
-        command: reset
- 
-
- 
-
-        
-icloud_command_reset_waze_range:
-  alias: 'Reset Waze Range'
-  sequence:
-    - service: device_tracker.icloud_update
-      data:
-        account_name: gary_icloud
-        command: waze reset_range
-        
-icloud_set_interval_15_sec:
-  alias: 'Set interval to 15 sec'
-  sequence:
-    - service: device_tracker.icloud_set_interval
-      data:
-        account_name: gary_icloud
-        interval: '15 sec'
-        
-icloud_set_interval_1_min:
-  alias: 'Set interval to 1 min'
-  sequence:
-    - service: device_tracker.icloud_set_interval
-      data:
-        account_name: gary_icloud
-        interval: 1
-               
-icloud_set_interval_5_min:
-  alias: 'Set interval to 5 hrs'
-  sequence:
-    - service: device_tracker.icloud_set_interval
-      data:
-        account_name: gary_icloud
-        interval: '5 hr'
- 
-icloud_set_interval_10_min:
-  alias: 'Set interval to 10 min'
-  sequence:
-    - service: device_tracker.icloud_set_interval
-      data:
-        account_name: gary_icloud
-        interval: '10 min'
-        
-#--------------------------------------------------------------
-#   Set iCloud polling interval for Gary
-#--------------------------------------------------------------
-icloud_command_resume_polling_gary:
-  alias: 'Resume (Gary)'
-  sequence:
-    - service: device_tracker.icloud_update
-      data:
-        account_name: gary_icloud
-        device_name: garyiphone
-        command: resume
-        
-
-              
+```
+#Example Automations.yaml           
 icloud_set_interval_15_sec_gary:
   alias: 'Set Gary to 15 sec'
   sequence:
@@ -455,35 +379,32 @@ icloud_set_interval_1_min_gary:
         account_name: gary_icloud
         device_name: garyiphone
         interval: 1
-#--------------------------------------------------------------
-#   DEBUG COMMANDS
-#--------------------------------------------------------------
-icloud_command_debug_interval_formula:
-  alias: 'Display Interval Formula'
+
+icloud_set_interval_5_hrs_all:
+  alias: 'Set interval to 5 hrs (all devices)'
   sequence:
-    - service: device_tracker.icloud_update
+    - service: device_tracker.icloud_set_interval
       data:
         account_name: gary_icloud
-        command: debug interval
-        
-icloud_command_debug_test_gps:
-  alias: 'Test GPS Accuracy'
-  sequence:
-    - service: device_tracker.icloud_update
-      data:
-        account_name: gary_icloud
-        command: debug gps
-              
-icloud_command_debug_test_old:
-  alias: 'Test Old Location'
-  sequence:
-    - service: device_tracker.icloud_update
-      data:
-        account_name: gary_icloud
-        command: debug old
-#--------------------------------------------------------------
-#   ZONE COMMANDS
-#--------------------------------------------------------------
+        interval: '5 hrs'
  
+```
+  
+#### SERVICE — icloud_lost_iphone 
+This service will play the Lost iPhone sound on a certain iDevice. 
+
+| Parameter | Description |
+|-----------|-------------|
+| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. |
+| device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. |
+  
+#### SERVICE — icloud_reset
+This service will reset an iCloud3 device data in the same manner when Home Assistant is started. This is helpful when not all devices are being found by the iCloud3 component or if you have added a new iDevice to your account.
+  
+| Parameter | Description |
+|-----------|-------------|
+| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. |
+
+
 
   
