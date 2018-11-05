@@ -266,20 +266,20 @@ This service allows you to change the way iCloud3 operates. The following parame
 
 | Parameter | Description |
 |-----------|-------------|
-| devicename | Name of the device to be updated.  
-`Note:‘All devices will be updated if this parameter is not specified. |
+| devicename | Name of the device to be updated. All devices will be updated if this parameter is not specified. |
 | command | The action to be performed |
 | parameter | Additional parameters for the command |
   
-The following commands are available:
+The following commands are available:. 
+  
 | Command |  Parameter | Description |
 |---------|------------|-------------|
 | waze | on | Turn on Waze. Use the 'waze' method to determine the update interval |
 | waze | off | Turn off Waze. Use the 'calc' method to determine the update interval |
 | waze | | toggle | Toggle waze |
-| pause | | Stop updating a device (or all devices).  
+| pause | -- | Stop updating a device (or all devices).  
 `Note:`You might do this if you are out of the country or won't be home for awhile and it makes no sense to continue taking your devices location |
-| resume | | Start updating your devices (or all devices) again |
+| resume | -- | Start updating your devices (or all devices) again |
 | debug | info| Show how the update interval is determined |
   
 
