@@ -277,7 +277,8 @@ The following commands are available:.
 | waze | off | Turn off Waze. Use the 'calc' method to determine the update interval |
 | waze | toggle | Toggle waze on or off |
 | pause |  | Stop updating a device (or all devices). You might do this if you are out of the country or won't be home for awhile and it makes no sense to continue taking your devices location |
-| resume |  | 1. Start updating your devices (or all devices) again. 2. Reset the update interval if it was overridden my the 'set_interval service.|
+| resume |  | 1. Start updating your devices (or all devices) again.  
+2. Reset the update interval if it was overridden my the 'set_interval service.|
 | debug | info| Show how the update interval is determined |
   
 
