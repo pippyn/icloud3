@@ -419,53 +419,22 @@ The following is for the nerd who wants to know how this is done.
 | Poor GPS | 60 seconds | 2-PoorGPS |
 | Interval Override | value | 3-Override |
 | Old Location Data | 15 seconds | 4-OldLocationData |
-| In a Zone | 1-hr or time specified on the inzone_interval parameter | 5-InZone |
+| In a Zone | 1-hr or `inzone_interval` parameter | 5-InZone |
 | Distance < 2.5km/1.5mi | 15 seconds | 6-Dist<2.5km/1.5mi |
 | Distance < 3.5km/2mi | 30 seconds | 7-Dist<3.5km/2mi |
-| Waze used and Waze time < 5 minutes | time*travel_time_factor | 8-WazeTime |
+| Waze used and Waze time < 5 minutes | time*‘travel_time_factor` | 8-WazeTime |
 | Distance < 5km/3mi | 1 minute | 9-Dist<5km/3mi |
 | Distance < 8km/5mi | 3 minutes | 10-Dist<8km/5mi |
 | Distance < 12km/7.5mi | 15 seconds | 11-Dist<12km/7.5mi |
 | Distance < 20km/12mi | 10 minutes | 12-Dist<20km/12mi |
 | Distance < 40km/25mi | 15 minutes | 13-Dist<40km/25mi |
 | Distance < 150km/90mi | 1 hour | 14-Dist<150km/90mi |
-| Distance > 150km/90mi | distance/1.5 | 15-Caalculated |
-| zone Changed | 15 seconds |
+| Distance > 150km/90mi | distance/1.5 | 15-Calculated |
+
+*Notes:* The interval is then multiplied by a value based on other conditions. The conditions are:
+1. If Stationary, keep track of the number of polls when you are stationary (the stationary count reported in the`info` attribute). Multiply the interval time by 2 when the stationary count is an even number and by 3 when it is divisible by 3.
+2. If the direction of travel is Away, multiply the interval time by 2.
+3. Is the battery is low, the GPS accuracy is poor or the location data is old, don't make any of the above adjustments to the interval.
 
 
 
-
-
-
-        #set stationary & away_from interval multiplier
-        if 'stationary' in direction_of_travel:
-            stationary_cnt = self.stationary_cnt.get(devicename) + 1
-            direction_of_travel = 'Stationary'
-            if stationary_cnt % 3 == 0:
-                interval_multiplier = 3    #calc-increase timer every 3rd poll
-                log_method_im = '21-Stationry mod 3'.format(log_method)
-            elif stationary_cnt % 2 == 0:
-                interval_multiplier = 2    #calc-increase timer every 2nd poll
-                log_method_im = '22-Stationry mod 2'
-        elif 'away_from' in direction_of_travel and distance_method == 'calc':
-            interval_multiplier = 2    #calc-increase timer
-            log_method_im = '24-Away+Calc'
-
-        self.stationary_cnt[devicename] = stationary_cnt
-
-        #if changed zones on this poll, clear flags and reset multiplier
-        if self.zone_change_flag.get(devicename):         
-            self.zone_change_flag[devicename] = False
-            interval_multiplier = 1
-            
-        #Check accuracy again to make sure nothing changed, update counter
-        if self.poor_gps_accuracy_flag.get(devicename):
-            interval_multiplier = 1
-            gps_cnt = self.poor_gps_accuracy_cnt.get(devicename) + 1
-            self.poor_gps_accuracy_cnt[devicename] = gps_cnt
-            
-        #Real close, final check to make sure interval is not adjusted
-        if interval <= 60 or \
-                (battery > 0 and battery <= 33 and interval >= 120):
-            interval_multiplier = 1
-  
