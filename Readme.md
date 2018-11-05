@@ -421,7 +421,7 @@ The algorithm uses a sequence of tests to determine the interval. If the test is
 | In a Zone | 1-hr or `inzone_interval` parameter | 5-InZone |
 | Distance < 2.5km/1.5mi | 15 seconds | 6-Dist<2.5km/1.5mi |
 | Distance < 3.5km/2mi | 30 seconds | 7-Dist<3.5km/2mi |
-| Waze used and Waze time < 5 min. | time * `travel_time_factor` parm. | 8-WazeTime |
+| Waze used and Waze time < 5 min. | time * `travel_time_factor` parmeter | 8-WazeTime |
 | Distance < 5km/3mi | 1 minute | 9-Dist<5km/3mi |
 | Distance < 8km/5mi | 3 minutes | 10-Dist<8km/5mi |
 | Distance < 12km/7.5mi | 15 minutes | 11-Dist<12km/7.5mi |
