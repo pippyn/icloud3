@@ -249,7 +249,7 @@ And on a Lovelace card:
   
 *Note:* It is better to access the attribute's value in automation rather than using a template sensor. The reason is that when the attribute changes value, it will trigger the automation immediately. If the template sensor is used, the automation becomes a two step process; the sensor must be changed before the automation will be triggered.  
   
-### DEVICE TRACKER SERVICES 
+## DEVICE TRACKER SERVICES 
   
 Four services are available for the iCloud3 device tracker component that are used in automations. The services are:
   1. `icloud_update` — Send commands to iCloud3 that change the way it is running (pause, resume, Waze commands, etc.).
@@ -259,7 +259,7 @@ Four services are available for the iCloud3 device tracker component that are us
 
 The following parameters are used by these services to identify the device to be used.
   
-## SERVICE — icloud_update
+#### SERVICE — icloud_update
 This service allows you to change the way iCloud3 operates. The following parameters are used:
 
 | Parameter | Description |
