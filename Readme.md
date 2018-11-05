@@ -74,7 +74,7 @@ When your account needs to be authorized, or reauthorized, you will be notified 
 *(Required)* The password for the account.
 
 **account_name**  
-The friendly name for the account_name. If this isn’t given, it will use the account_name of the username (the part before the `@` in the email address).
+The friendly name for the account_name. If this isn’t given, it will use the account_name part of the username (the part before the `@` in the email address).
 
 **include_device_types**  (or  **include_device_type**)  
 **exclude_device_types**  (or  **exclude_device_type**)  
@@ -251,14 +251,34 @@ And on a Lovelace card:
 ### DEVICE TRACKER SERVICES 
   
 Four services are available for the iCloud3 device tracker component that are used in automations. The services are:
-  1. `icloud_update` — used to send commands to iCloud3 that change the way it is running (pause, resume, Waze commands, etc.).
-  2. `set_interval` — used to override the dynamic interval.calculated by iCloud3.
-  3. `icloud_lost_phone` — used to find your phone.
-  4. `icloud_reset` — used to iCloud3.
+  1. `icloud_update` — Send commands to iCloud3 that change the way it is running (pause, resume, Waze commands, etc.).
+  2. `set_interval` — Override the dynamic interval calculated by iCloud3.
+  3. `icloud_lost_phone` — Play the Lost Phone sound.
+  4. `icloud_reset` — Reset the iCloud3 custom component.
+
+The following parameters are used by these services to identify the device to be used.
+
+**account_name**  
+*(Required)*The friendly name used to identify the iCloud 3 custom component. This is described in the Configuration section above.  
+  
+**icloud_update**  
+This service allows you to change the way iCloud3 operates. The following parameters are used.
+
+| Parameter | Description |
+|------------|----------------|
+| devicename | Name of the device to be updated. All devices will be updated if this parameter is not specified. |
+| command    | The action to be performed  |
+| parameter   | Additional parameters |
+  
+**interval**
+
+
 
 More information about each service follows.
 
-**icloud_update**  
+
+  
+  
 This service can be used to ask for an update of a certain iDevice. The  `account_name`  and  `device_name`  are optional. Request will result in new Home Assistant  [state_changed](https://www.home-assistant.io/docs/configuration/events/#event-state_changed)  event describing current iphone location. Can be used in automations when manual location update is needed, e.g., to check if anyone is home when door’s been opened  
   
 **icloud_set_interval**  
