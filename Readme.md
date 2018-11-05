@@ -74,11 +74,12 @@ When your account needs to be authorized, or reauthorized, you will be notified 
 *(Required)* The password for the account.
 
 **account_name**  
-The friendly name for the account_name. If this isn’t given, it will use the account_name part of the username (the part before the `@` in the email address).
+The friendly name for the account_name.  
+*Note:*If this isn’t specified, the account_name part of the username (the part before the `@` in the email address) will be used.
 
 **include_device_types**  (or  **include_device_type**)  
 **exclude_device_types**  (or  **exclude_device_type**)  
-Include or exclude device type(s) that should be tracked.  
+Include or exclude device type(s) that should* be tracked.  
 *Default: Include all device types associated with the account*  
 
 ```
@@ -257,15 +258,13 @@ Four services are available for the iCloud3 device tracker component that are us
   4. `icloud_reset` — Reset the iCloud3 custom component.
 
 The following parameters are used by these services to identify the device to be used.
-
-**account_name**  
-*(Required)*The friendly name used to identify the iCloud 3 custom component. This is described in the Configuration section above.  
   
 **icloud_update**  
 This service allows you to change the way iCloud3 operates. The following parameters are used:
 
 | Parameter | Description |
 |-----------|-------------|
+| account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section at the beginning of this document. |
 | devicename | Name of the device to be updated. All devices will be updated if this parameter is not specified. |
 | command | The action to be performed |
 | parameter | Additional parameters for the command |
