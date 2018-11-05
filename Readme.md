@@ -276,8 +276,8 @@ The following describe the commands that are available.
   
 | Command |  Parameter | Description |
 |---------|------------|-------------|
-| pause |  | Stop updating/locating a device (or all devices). You
-| resume |  | Start updating/locating a device (or all devices) again |  
+| pause |  | Stop updating/locating a device (or all devices). Note: You may want to pause location updates for a device if you are a long way from home or out of the country and it doesn't make sense to continue locating your device.
+| resume |  | Start updating/locating a device (or all devices) after it has been paused. |  
 | resume |  | Reset the update interval if it was overridden the 'icloud_set_interval' service |
 | pause-resume |  | Toggle pause and resume commands |
 | zone | zonename | Change iCloud3 state to 'zonename' (like the device_tracker.see service call) and immediately update the device interval and location data. Note: Using the device_tracker.see service call instead will update the device state but the new interval and location data will be delayed until the next 15-second polling iteration (rather than immediately). |
@@ -285,7 +285,7 @@ The following describe the commands that are available.
 | waze | off | Turn off Waze. Use the 'calc' method to determine the update interval |
 | waze | toggle | Toggle waze on or off |
 |  waze | reset_range | Reset the Waze range to the default distances (min=1, max=99999) |
-| debug | interval | Show how the interval is determined by iCloud3. This is displayed real time in the`info` attribute field. |
+| debug | interval | Show how the interval is determined by iCloud3. This is displayed real time in the `info` attribute field. |
   
 
 ```
