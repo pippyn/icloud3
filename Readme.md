@@ -259,7 +259,7 @@ Four services are available for the iCloud3 device tracker component that are us
 
 The following parameters are used by these services to identify the device to be used.
   
-**icloud_update**  
+## SERVICE — icloud_update
 This service allows you to change the way iCloud3 operates. The following parameters are used:
 
 | Parameter | Description |
