@@ -1,4 +1,4 @@
-# iCloud3 (doc. v1.3)
+# iCloud3 (doc. v1.4)
 [\](https://github.com/gcobb321/icloud3/blob/master/README.md)]
 
 ----------
