@@ -151,12 +151,12 @@ When using Waze and the distance from your current location to home is more than
   
 There are two zones that are special to the iCloud3 device tracker - the Dynamic Stationary Zone and the NearZone zone.
 
-**Dynamic Stationary Zone**
+**Dynamic Stationary Zone**  
 When a device has not moved for XXXkm/XXXmi in 2 polling cycles, it is considered to be stationary. Examples might be when you are at a mall, doctor's office, restaurant, friend's house, etc. If the device is stationary, it's Stationary Zone location (latitude and longitude) is automatically updated with the current values, the device state is changed and the interval time is set to the *inzone_interval* value (default is 2 hrs). This almost eliminates the number of times the device must be polled to see how far it is from home when you haven't moved for a while. When you leave the Stationary Zone, the IOS App notifies Home Assistant that the Stationary Zone has been exited and the device tracking begins again.
 
 *Note:* You do not have to create the Stationary Zone in the zones.yaml file, the iCloud3 device tracker automatically creates one for every device being tracked when Home Assistant is started. It's name is *devicename_Stationary*.  
   
-**NearZone Zone**
+**NearZone Zone**  
 There may be times when the Home Zone's (or another zone's) cell service is poor and does not track the device adequately when the device nears a zone. This can create problems triggering automations when the device enters the zone since the Find-My-Friends location service has problems monitoring it's location.  
   
 To solve this, a special 'NearZone' zone can be created that is a short distance from the real zone that will wake the device up. The IOS App stores the zone's location on the device and will trigger a zone enter/exit notification which will then change the device's device_tracker state to the NearZone zone and change the polling interval to every 15-secs. It is not perfect and might not work every time but it is better than utomations never being triggered when they should.
