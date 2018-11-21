@@ -109,7 +109,7 @@ exclude_device:
 
 **inzone_interval**  
 The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified).  
-*Default: 1 hr*
+*Default: 2 hrs*
 
 **gps_accuracy_threshold**  
 iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried again in 2 minutes to see if the accuracy has improved. After 5 retries, the normal interval that is based on the distance from home, the waze travel time and the direction will be used.  
@@ -147,6 +147,22 @@ When using Waze and the distance from your current location to home is more than
 
 *Note:* Using the default value, the next update will be 3/4 of the time it takes to drive home from your current location. The one after that will be 3/4 of the time from that point. The result is a smaller interval as you get closer to home and a larger one as you get further away.  
  
+## SPECIAL ZONES  
+  
+There are two zones that are special to the iCloud3 device tracker - the Dynamic Stationary Zone and the NearZone zone.
+
+**Dynamic Stationary Zone**
+When a device has not moved for XXXkm/XXXmi in 2 polling cycles, it is considered to be stationary. Examples might be when you are at a mall, doctor's office, restaurant, friend's house, etc. If the device is stationary, it's Stationary Zone location (latitude and longitude) is automatically updated with the current values, the device state is changed and the interval time is set to the *inzone_interval* value (default is 2 hrs). This almost eliminates the number of times the device must be polled to see how far it is from home when you haven't moved for a while. When you leave the Stationary Zone, the IOS App notifies Home Assistant that the Stationary Zone has been exited and the device tracking begins again.
+
+*Note:* You do not have to create the Stationary Zone in the zones.yaml file, the iCloud3 device tracker automatically creates one for every device being tracked when Home Assistant is started. It's name is *devicename_Stationary*.  
+  
+**NearZone Zone**
+There may be times when the Home Zone's (or another zone's) cell service is poor and does not track the device adequately when the device nears a zone. This can create problems triggering automations when the device enters the zone since the Find-My-Friends location service has problems monitoring it's location.  
+  
+To solve this, a special 'NearZone' zone can be created that is a short distance from the real zone that will wake the device up. The IOS App stores the zone's location on the device and will trigger a zone enter/exit notification which will then change the device's device_tracker state to the NearZone zone and change the polling interval to every 15-secs. It is not perfect and might not work every time but it is better than utomations never being triggered when they should.
+  
+*Note:* You can have more than one NearZone zone in the zones.yaml file. Set them up with a unique name that starts with NearZone;, e.g., NearZone-Home, NearZone-Quail, NearZone-Work, etc. The *friendly_name* attribute should be NearZone for each one.
+
 ## ATTRIBUTES
 
 There are numerous attributes that are available for use in automations or to monitor the location of your device. They are shown in following table.  
