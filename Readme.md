@@ -11,16 +11,14 @@ It is installed as a custom device_tracker component in the config/custom_compon
 
 **How it works**
 
-iCloud3 polls the device on a dynamic schedule based on:
- - The device in a zone or not in a zone.
- - The distance from 'home' to your current location. Two methods are used to determine the distance:
-    1. A calculation giving the 'line-of-sight' distance based on the GPS coordinates of both locations.
-    2. From [Waze](http://www.waze.com), the map/driving/direction service, to get the driving distance based on the most direct route. 
- - The travel time to 'home' if the Waze service is being used. 
+iCloud3 polls the device on a dynamic schedule and determines the polling interval time based on:
+ - If the device in a zone or not in a zone.
+ - A 'line-of-sight' calculated distance from 'home' to your current location using the GPS coordinates.
+ - The driving time and distance between 'home' and your current location using the [Waze](http://www.waze.com) map/driving/direction service. 
  - The direction you are going — towards home, away from home or stationary.
  - The battery level.
  - The accuracy of the GPS location or if the last poll returned a location that the iCloud service determined was 'old'.
-
+  
 The above analysis results in a polling interval. The further away from home and the longer the travel time back to home, the longer the interval; the closer to home, the shorter the interval. The polling interval checks each device being tracked every 15 seconds to see if it's location should be updated. If so, it and all of the other devices being tracked with iCloud3 are updated (more about this below). With a 15 second interval, you track the distance down 1/10 of a mile/kilometer. This gives a much more accurate distance number that can used to trigger automations. You no longer limited to entering or exiting a zone. 
 
 Note: The `pyicloud.py` Python component is part of Home Assistant and used to poll the device, requesting location and other information. If the iCloud account is associated with multiple devices, all of the devices are polled, whether or not the device is being tracked by Home Assistant. This is a limitation of pyicloud.py. 
