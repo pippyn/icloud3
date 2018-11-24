@@ -57,32 +57,32 @@ icloud_command_reset_waze_range:
         account_name: gary_icloud
         command: waze reset_range
         
-icloud_set_interval_15_sec:
-  alias: 'Set interval to 15 sec'
+icloud_set_interval_15_sec_all:
+  alias: 'Set interval to 15 sec (all)'
   sequence:
     - service: device_tracker.icloud_set_interval
       data:
         account_name: gary_icloud
         interval: '15 sec'
         
-icloud_set_interval_1_min:
-  alias: 'Set interval to 1 min'
+icloud_set_interval_1_min_all:
+  alias: 'Set interval to 1 min (all)'
   sequence:
     - service: device_tracker.icloud_set_interval
       data:
         account_name: gary_icloud
         interval: 1
                
-icloud_set_interval_5_min:
-  alias: 'Set interval to 5 hrs'
+icloud_set_interval_5_hrs_all:
+  alias: 'Set interval to 5 hrs (all)'
   sequence:
     - service: device_tracker.icloud_set_interval
       data:
         account_name: gary_icloud
         interval: '5 hr'
 
-icloud_set_interval_10_min:
-  alias: 'Set interval to 10 min'
+icloud_set_interval_10_min_all:
+  alias: 'Set interval to 10 min (all)'
   sequence:
     - service: device_tracker.icloud_set_interval
       data:
