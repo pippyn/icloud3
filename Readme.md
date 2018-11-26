@@ -12,12 +12,12 @@ It is installed as a custom device_tracker component in the config/custom_compon
 **How it works**
 
 iCloud3 polls the device on a dynamic schedule and determines the polling interval time based on:
- - If the device in a zone or not in a zone.
+ - If the device in a zone or not in a zone. The zones include the ones you have set up in zone.yaml and a special Dynamic Stationary Zone that is created by iCloud3 when you haven't changed your location in a while (shopping center, friends house, doctors office, etc.)
  - A 'line-of-sight' calculated distance from 'home' to your current location using the GPS coordinates.
  - The driving time and distance between 'home' and your current location using the [Waze](http://www.waze.com) map/driving/direction service. 
  - The direction you are going — towards home, away from home or stationary.
- - The battery level.
- - The accuracy of the GPS location or if the last poll returned a location that the iCloud service determined was 'old'.
+ - The battery level of the device.
+ - The accuracy of the GPS location and if the last poll returned a location that the iCloud service determined was 'old'.
   
 The above analysis results in a polling interval. The further away from home and the longer the travel time back to home, the longer the interval; the closer to home, the shorter the interval. The polling interval checks each device being tracked every 15 seconds to see if it's location should be updated. If so, it and all of the other devices being tracked with iCloud3 are updated (more about this below). With a 15 second interval, you track the distance down 1/10 of a mile/kilometer. This gives a much more accurate distance number that can used to trigger automations. You no longer limited to entering or exiting a zone. 
 
