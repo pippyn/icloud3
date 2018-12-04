@@ -9,6 +9,22 @@ It is installed as a custom device_tracker component in the config/custom_compon
 
 ## INTRODUCTION
 
+**What's different**
+
+iCloud3 has many features not in the base iCloud device_tracker that is part of Home Assistant. It exposes many new attributes, provides many new features, is based on enhanced route tracking methods, is much more accurate, and includes additional service calls. Lets look at the differences.
+
+| Feature | original iCloud | iCloud3 |
+|---------|-----------------|---------|
+| Minimum Poll Interval | 1 minute | 15 second |
+| Distance Accuracy | 1 km/mile | .01 km/mile |
+| Variable Polling | Yes - Based on distance from home, battery level, GPS Accuracy | Yes - Based on distance from home, Waze travel time to home, direction of travel, if the device is in a zone, battery level, GPS Accuracy, 'old location' status |
+| Detects zone changes | No - Also requires other device_trackers (OwnTracks, Nmap, ping, etc. | Yes - No other programs are needed |
+ | Integrates with Waze route/map tracker | No | Yes - Uses Waze travel time to home |
+ | Device Poll Interval when close to home | 1 minute | 15-seconds |
+ 
+
+| device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. *(Optional)* |
+
 **How it works**
 
 iCloud3 polls the device on a dynamic schedule and determines the polling interval time based on:
