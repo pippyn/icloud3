@@ -15,16 +15,15 @@ iCloud3 has many features not in the base iCloud device_tracker that is part of 
 
 | Feature | original iCloud | iCloud3 |
 |---------|-----------------|---------|
+| Device Selection | None | Include and/or exclude device by type (iPhone, iPad, etc) or by device name (garyiphone, lillianiphone, etc) |
 | Minimum Poll Interval | 1 minute | 15 second |
 | Distance Accuracy | 1 km/mile | .01 km/mile |
 | Variable Polling | Yes - Based on distance from home, battery level, GPS Accuracy | Yes - Based on distance from home, Waze travel time to home, direction of travel, if the device is in a zone, battery level, GPS Accuracy, 'old location' status |
 | Detects zone changes | No - Also requires other device_trackers (OwnTracks, Nmap, ping, etc. | Yes - No other programs are needed |
- | Integrates with Waze route/map tracker | No | Yes - Uses Waze travel time to home |
- | Device Poll Interval when close to home | 1 minute | 15-seconds |
+| Integrates with Waze route/map tracker | No | Yes - Uses Waze travel time to home |
+| Device Poll Interval when close to home | 1 minute | 15-seconds |
+| Service call commands | Set polling interval, Reset devices | Set polling interval, Reset devices, Pause/restart polling, Change zone, Enable/disable Waze Route information usage (some commands can be for all devices or for a specific device) |
  
-
-| device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. *(Optional)* |
-
 **How it works**
 
 iCloud3 polls the device on a dynamic schedule and determines the polling interval time based on:
@@ -61,7 +60,7 @@ device_tracker:
     username: USERNAME 
     password: PASSWORD
     account_name: accountname
-    include_devive_type: iphone
+    include_device_type: iphone
 
 ```
 
@@ -421,20 +420,20 @@ icloud_set_interval_5_hrs_all:
 ```
   
 #### SERVICE — icloud_lost_iphone 
-This service will play the Lost iPhone sound on a certain iDevice. 
+This service will play the Lost iPhone sound on a specific device. 
 
 | Parameter | Description |
 |-----------|-------------|
 | account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. *(Required)* |
-| device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. *(Optional)* |
+| device_name | Name of the device *(Required)* |
   
 #### SERVICE — icloud_reset
-This service will reset an iCloud3 device data in the same manner when Home Assistant is started. This is helpful when not all devices are being found by the iCloud3 component or if you have added a new iDevice to your account.
+This service will refresh all of the devices being handled by iCloud3 and can be used when you have added a new device to your Apple account. You will have to restart Home Assist if you have made changes to the platform parameters (new device type, new device name, etc.) 
   
 | Parameter | Description |
 |-----------|-------------|
 | account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. *(Required)* |
-
+  
   
 ## TECHNICAL INFORMATION - HOW THE INTERVAL IS DETERMINED
 The iCloud3 device tracked uses data from several sources to determine the time interval between the iCloud Find my Friends location update requests.  The purpose is to provide accurate location data without exceeding Apple's limit on the number of requests in a time period and to limit the drain on the device's battery.
