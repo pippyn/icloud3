@@ -9,7 +9,7 @@ It is installed as a custom device_tracker component in the config/custom_compon
 
 ## INTRODUCTION
 
-**What's different**
+### What's different
 
 iCloud3 has many features not in the base iCloud device_tracker that is part of Home Assistant. It exposes many new attributes, provides many new features, is based on enhanced route tracking methods, is much more accurate, and includes additional service calls. Lets look at the differences.
 
@@ -24,7 +24,7 @@ iCloud3 has many features not in the base iCloud device_tracker that is part of 
 | Device Poll Interval when close to home | 1 minute | 15-seconds |
 | Service call commands | Set polling interval, Reset devices | Set polling interval, Reset devices, Pause/restart polling, Change zone, Enable/disable Waze Route information usage (some commands can be for all devices or for a specific device) |
  
-**How it works**
+### How it works
 
 iCloud3 polls the device on a dynamic schedule and determines the polling interval time based on:
  - If the device in a zone or not in a zone. The zones include the ones you have set up in zone.yaml and a special Dynamic Stationary Zone that is created by iCloud3 when you haven't changed your location in a while (shopping center, friends house, doctors office, etc.)
@@ -39,7 +39,7 @@ The above analysis results in a polling interval. The further away from home and
 Note: The `pyicloud.py` Python component is part of Home Assistant and used to poll the device, requesting location and other information. If the iCloud account is associated with multiple devices, all of the devices are polled, whether or not the device is being tracked by Home Assistant. This is a limitation of pyicloud.py. 
 
 
-**What other programs do I need**
+### What other programs do I need
 
 The `Home Assistant IOS App` is all. You do not need `OwnTracks` or other location based trackers and you do not need `nmap`, `netgear`, `ping` or any network monitor. The `Home Assistant IOS App` will notify Home Assistant when you leave home and iCloud3 device tracker will start keeping up with the device's location, the distance to home and the time it will take to get there.  
    
@@ -49,7 +49,7 @@ The `Home Assistant IOS App` is all. You do not need `OwnTracks` or other locati
 The `iCloud` platform allows you to detect presence using the  [iCloud](https://www.icloud.com/) service. iCloud allows users to track their location on iOS devices. Your device needs to be registered with “Find My iPhone”.
   
   
-**Home Assistant Configuration**
+### Home Assistant Configuration
 
 To integrate iCloud in Home Assistant, add the following section to your `configuration.yaml` file:
 
@@ -64,7 +64,7 @@ device_tracker:
 
 ```
 
-**About Your Apple iCloud Account**
+### About Your Apple iCloud Account
   
 Apple has enabled '2 Step Authentication' for iCloud accounts. To permit Home Assistant, and iCloud3, to access your iCloud account,  you need to have an authentication code sent via a text message to a trusted device, which is then entered in Home Assistant. The duration of this authentication is determined by Apple, but is now at 2 months.  
   
@@ -231,7 +231,7 @@ The location of the device.
 **source_type**  
 How the the `Home Assistant IOS App` located the device. This includes gps, beacon, router.  
   
-### Accessing Attributes in Automations and in Lovelace
+## Accessing Attributes in Automations and in Lovelace
 
 Automations can access the attribute's value using the `states.attributes.attributename` statement. The third trigger in the example below will trigger the `gary_arrives_home` automation when the distance goes below .25.  
 
