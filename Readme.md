@@ -291,7 +291,7 @@ Four services are available for the iCloud3 device tracker component that are us
 
 Description of each service follows.
   
-#### SERVICE — icloud_update
+### SERVICE — icloud_update
 This service allows you to change the way iCloud3 operates. The following parameters are used:
 
 | Parameter | Description |
@@ -380,7 +380,7 @@ icloud_command_garyiphone_zone_not_home:
 ```
 
   
-#### SERVICE — icloud_set_interval  
+### SERVICE — icloud_set_interval  
 This service allows you to override the interval between location updates to a fixed time. It is reset when a zone is entered or when the icloud_update service call is processed with the 'resume'command. The following parameters are used:
 
 | Parameter | Description |
@@ -419,7 +419,7 @@ icloud_set_interval_5_hrs_all:
  
 ```
   
-#### SERVICE — icloud_lost_iphone 
+### SERVICE — icloud_lost_iphone 
 This service will play the Lost iPhone sound on a specific device. 
 
 | Parameter | Description |
@@ -427,7 +427,7 @@ This service will play the Lost iPhone sound on a specific device.
 | account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. *(Required)* |
 | device_name | Name of the device *(Required)* |
   
-#### SERVICE — icloud_reset
+### SERVICE — icloud_reset
 This service will refresh all of the devices being handled by iCloud3 and can be used when you have added a new device to your Apple account. You will have to restart Home Assist if you have made changes to the platform parameters (new device type, new device name, etc.) 
   
 | Parameter | Description |
