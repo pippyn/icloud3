@@ -1,4 +1,4 @@
-# iCloud3 (doc. v0.6)
+# iCloud3 (doc. v0.7.5)
 [\](https://github.com/gcobb321/icloud3/blob/master/README.md)]
 
 ----------
@@ -118,6 +118,7 @@ exclude_device:
   - gary_iphone
 ```
 *Note:* The Device Name field of the device (Settings App>General>About>Name field on the iPhone, iPad, etc.) is stored in the iCloud account and is used by Home Assistant to identify the device. Home Assistant v0.86+ converts any secial characters found in the Device Name field to an underscore ( _ ) (HA v0.85 and earlier droped the special caracters altogether).  For example, a device name of 'Gary-iPhone' becomes 'gary_iphone' in Home Assistant v0.86+ (known_devices.yaml, automations, sensors, scripts, etc.). The Home Assistant IOS App would have 'gary_iphone' in the Settings>Device ID field.  
+
 *Note:* It is recommended that to you specify the devices or the device types you want to track to avoid confusion or errors. All of the devices you are tracking are shown in the `devices_tracked ` attribute.  
 
 **inzone_interval**  
