@@ -76,7 +76,13 @@ When your account needs to be authorized, or reauthorized, you will be notified 
   3. Type the number.
   4. A text message is sent. Type the authentication code you receive in the next window that is displayed.
   
+**Associating the iPhone Device Name with Home Assistant using the Home Assistant IOS App**   
+The Device Name field of the device in Settings App>General>About>Name field on the iPhone and iPad and in the Apple Watch App for the iWatch is stored in the iCloud account and used by Home Assistant to identify the device. HA v0.86+ converts any secial characters found in the Device Name field to an underscore ( _ ) while HA v0.85 and earlier droped the special caracters altogether; e.g., 'Gary-iPhone' becomes 'gary_iphone' in known_devices.yaml, automations, sensors, scripts, etc. The value, 'gary_iphone', in the Device ID field in the Home Assistant IOS App>Settings ties everything together. 
+  
 *Note:* When you use iCloud account is accessed on a new device, you may receive an email from Apple stating that someone has logged into your account.  
+  
+ 
+
 
 ## CONFIGURATION VARIABLES
 
@@ -116,8 +122,7 @@ include_device_type:
   - iphone
 exclude_device:
   - gary_iphone
-```
-*Note:* The Device Name field of the device (Settings App>General>About>Name field on the iPhone, iPad, etc.) is stored in the iCloud account and is used by Home Assistant to identify the device. Home Assistant v0.86+ converts any secial characters found in the Device Name field to an underscore ( _ ) (HA v0.85 and earlier droped the special caracters altogether).  For example, a device name of 'Gary-iPhone' becomes 'gary_iphone' in Home Assistant v0.86+ (known_devices.yaml, automations, sensors, scripts, etc.). The Home Assistant IOS App would have 'gary_iphone' in the Settings>Device ID field.  
+```  
 
 *Note:* It is recommended that to you specify the devices or the device types you want to track to avoid confusion or errors. All of the devices you are tracking are shown in the `devices_tracked ` attribute.  
 
@@ -181,6 +186,12 @@ To solve this, a special 'NearZone' zone can be created that is a short distance
 
 There are numerous attributes that are available for use in automations or to monitor the location of your device. They are shown in following table.  
 
+**battery**  
+The battery level of the device..  
+  
+**authenticated**  
+When the device's iCloud account was last authenticated.  
+  
 **interval**  
 The current interval between update requests to your iCloud account for the location and other information. They increase as you get further away and decrease as you get closer to home.  
   
@@ -213,9 +224,6 @@ The number of iCloud location updates done that day.
   
 **info**  
 A message area displaying information about the device. This includes the battery level, Waze status, GPS accuracy issues, how long the device has been stationary, etc.  
-  
-**battery**  
-The battery level.  
   
 **tracked_devices**  
 The devices that are being tracked based on the 'includes' and 'excludes' specified in the configuration.yaml file.  This will be the same for all devices tracked.  
