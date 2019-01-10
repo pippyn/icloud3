@@ -88,12 +88,12 @@ When your account needs to be authorized, or reauthorized, you will be notified 
 
 **account_name**  
 The friendly name for the account_name.  
-*Note:*If this isn’t specified, the account_name part of the username (the part before the `@` in the email address) will be used.
+*Note:* If this isn’t specified, the account_name part of the username (the part before the `@` in the email address) will be used.
 
 **include_device_types**  (or  **include_device_type**)  
 **exclude_device_types**  (or  **exclude_device_type**)  
 Include or exclude device type(s) that should* be tracked.  
-*Default: Include all device types associated with the account*  
+*Default: Include all device types associated with the account*
 
 ```
 # Example yaml
@@ -116,8 +116,9 @@ Include or exclude devices that should be tracked.
 include_device_type:
   - iphone
 exclude_device:
-  - lillianiphone
+  - gary-iphone
 ```
+*Note:* The Device Name field of the device (Settings App>General>About>Name field on the iPhone, iPad, etc.) is stored in the iCloud account and is used by Home Assistant to identify the device. Home Assistant v0.86+ converts any secial characters found in the Device Name field to an underscore ( _ ) (HA v0.85 and earlier droped the special caracters altogether).  For example, a device name of 'Gary-iPhone' becomes 'gary_iphone' in Home Assistant v0.86+ (known_devices.yaml, automations, sensors, scripts, etc.). The Home Assistant IOS App would have 'gary_iphone' in the Settings>Device ID field.
 *Note:* It is recommended that to you specify the devices or the device types you want to track to avoid confusion or errors. All of the devices you are tracking are shown in the `devices_tracked ` attribute.  
 
 **inzone_interval**  
@@ -241,17 +242,13 @@ Automations can access the attribute's value using the `states.attributes.attrib
   trigger:
  
     - platform: state
-      entity_id: device_tracker.garyiphone
-      to: 'home'
- 
-    - platform: state
-      entity_id: device_tracker.garyiphone
-      to: 'near_home'
- 
+      entity_id: device_tracker.gary_iphone
+      to: 'home
+      
     - platform: numeric_state
-      entity_id: device_tracker.garyiphone
+      entity_id: device_tracker.gary_iphone
       value_template: '{{float(state.attributes.distance)}}'
-      below: .25
+      below: .21
 
 ```  
   
@@ -261,8 +258,8 @@ An entity's state can be displayed on a Lovelace card but the attribute's value 
 # Example yaml (sensor.yaml)
 - platform: template
   sensors:
-    garyiphone_distance:
-      value_template: '{{float(state_attr("device_tracker.garyiphone","distance"))}}'
+    gary_iphone_distance:
+      value_template: '{{float(state_attr("device_tracker.gary_iphone","distance"))}}'
       unit_of_measurement: 'mi'
 
 ```
@@ -270,7 +267,7 @@ An entity's state can be displayed on a Lovelace card but the attribute's value 
 And on a Lovelace card:
 ```
 # Example yaml
-- entity: sensor.garyiphone_distance
+- entity: sensor.gary_iphone_distance
   name: Distance
   icon: mdi:map-marker-distance 
 
@@ -349,7 +346,7 @@ icloud_command_pause_polling_gary:
     - service: device_tracker.icloud_update
       data:
         account_name: gary_icloud
-        device_name: garyiphone
+        device_name: gary_iphone
         command: pause
 
 icloud_command_toggle_waze:
@@ -366,7 +363,7 @@ icloud_command_garyiphone_zone_home:
     - service: device_tracker.icloud_update
       data:
         account_name: gary_icloud
-        device_name: garyiphone
+        device_name: gary_iphone
         command: zone home
         
 icloud_command_garyiphone_zone_not_home:
@@ -375,7 +372,7 @@ icloud_command_garyiphone_zone_not_home:
     - service: device_tracker.icloud_update
       data:
         account_name: gary_icloud
-        device_name: garyiphone
+        device_name: gary_iphone
         command: zone not_home
 ```
 
@@ -397,7 +394,7 @@ icloud_set_interval_15_sec_gary:
     - service: device_tracker.icloud_set_interval
       data:
         account_name: gary_icloud
-        device_name: garyiphone
+        device_name: gary_iphone
         interval: '15 sec'
  
 icloud_set_interval_1_min_gary:
@@ -406,7 +403,7 @@ icloud_set_interval_1_min_gary:
     - service: device_tracker.icloud_set_interval
       data:
         account_name: gary_icloud
-        device_name: garyiphone
+        device_name: gary_iphone
         interval: 1
 
 icloud_set_interval_5_hrs_all:
