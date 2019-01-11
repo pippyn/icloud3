@@ -18,6 +18,7 @@ iCloud3 has many features not in the base iCloud device_tracker that is part of 
 | Device Selection | None | Include and/or exclude device by type (iPhone, iPad, etc) or by device name (garyiphone, lillianiphone, etc) |
 | Minimum Poll Interval | 1 minute | 15 second |
 | Distance Accuracy | 1 km/mile | .01 km/mile |
+| Hide location if not in a zone | No | Yes |
 | Variable Polling | Yes - Based on distance from home, battery level, GPS Accuracy | Yes - Based on distance from home, Waze travel time to home, direction of travel, if the device is in a zone, battery level, GPS Accuracy, 'old location' status |
 | Detects zone changes | No - Also requires other device_trackers (OwnTracks, Nmap, ping, etc. | Yes - No other programs are needed |
 | Integrates with Waze route/map tracker | No | Yes - Uses Waze travel time to home |
@@ -135,6 +136,11 @@ iCloud location updates come with some gps_accuracy varying from 10 to 5000 mete
 *Default: 1000*
 
 *Note:* The accuracy and retry count are displayed in the `info` attribute field (*GPS.Accuracy-263(2)*) and on the `poll_count`  attribute field (*2-GPS*). In this example, the accuracy has been poor for 2 polling cycles.  
+
+**hide_gps_coordinates**
+Hide the latitude and longitude of the device if not in a zone. 
+*Note: This option provided enhanced security by only reporting the devices location when it is in a zone.*
+*Valid values: True, False. Default: False* 
 
 **unit_of_measurement**  
 The unit of measure for distances in miles or kilometers.   
