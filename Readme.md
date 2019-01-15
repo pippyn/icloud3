@@ -1,6 +1,9 @@
 # iCloud3 (doc. v0.7.5)
-[\](https://github.com/gcobb321/icloud3/blob/master/README.md)]
+[\](https://github.com/gcobb321/icloud3/blob/master/README.md)]()
 
+[![Version](https://img.shields.io/badge/Version-0.85-blue.svg)]()
+[![Download Dev](https://img.shields.io/badge/download-development-yellow.svg)](http://thehackbox.org/tasmota/)
+[![Build Status](https://img.shields.io/travis/arendst/Sonoff-Tasmota.svg)](https://travis-ci.org/arendst/Sonoff-Tasmota)
 ----------
 
 iCloud3 is an improved version of the iCloud device_tracker component installed with Home Assistant.  
