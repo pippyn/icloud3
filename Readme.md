@@ -7,11 +7,13 @@
 [![Licensed](https://img.shields.io/badge/Licesned-MIT-green.svg "License")](https://github.com/gcobb321/icloud3)
 
 ----------
-
+  
 iCloud3 is an improved version of the iCloud device_tracker component installed with Home Assistant.  
   
 It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. 
-
+  
+![Screenshots](Screenshots/Screenshots.png)
+  
 ## INTRODUCTION
 
 ### What's different
@@ -180,7 +182,7 @@ The area used by Waze to determine the distance and travel time.
   
 **travel_time_factor**  
 When using Waze and the distance from your current location to home is more than 3 kilometers/miles, the polling interval is calculated by multiplying the driving time to home by the `travel_time_factor`.  
-*Default: .75*  
+*Default: .60*  
 
 *Note:* Using the default value, the next update will be 3/4 of the time it takes to drive home from your current location. The one after that will be 3/4 of the time from that point. The result is a smaller interval as you get closer to home and a larger one as you get further away.  
  
@@ -189,7 +191,7 @@ When using Waze and the distance from your current location to home is more than
 There are two zones that are special to the iCloud3 device tracker - the Dynamic Stationary Zone and the NearZone zone.
 
 **Dynamic Stationary Zone**  
-When a device has not moved for 600m/200ft in 2 polling cycles, it is considered to be stationary. Examples might be when you are at a mall, doctor's office, restaurant, friend's house, etc. If the device is stationary, it's Stationary Zone location (latitude and longitude) is automatically updated with the current values, the device state is changed and the interval time is set to the *inzone_interval* value (default is 2 hrs). This almost eliminates the number of times the device must be polled to see how far it is from home when you haven't moved for a while. When you leave the Stationary Zone, the IOS App notifies Home Assistant that the Stationary Zone has been exited and the device tracking begins again.
+When a device has not moved for 60m/200ft in 2 polling cycles, it is considered to be stationary. Examples might be when you are at a mall, doctor's office, restaurant, friend's house, etc. If the device is stationary, it's Stationary Zone location (latitude and longitude) is automatically updated with the current values, the device state is changed and the interval time is set to the *inzone_interval* value (default is 2 hrs). This almost eliminates the number of times the device must be polled to see how far it is from home when you haven't moved for a while. When you leave the Stationary Zone, the IOS App notifies Home Assistant that the Stationary Zone has been exited and the device tracking begins again.
 
 *Note:* You do not have to create the Stationary Zone in the zones.yaml file, the iCloud3 device tracker automatically creates one for every device being tracked when Home Assistant is started. It's name is *devicename_Stationary*.  
   
