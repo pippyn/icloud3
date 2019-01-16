@@ -1,7 +1,6 @@
-# iCloud3 (doc. v0.7.5)
-[\](https://github.com/gcobb321/icloud3/blob/master/README.md)]()
+# iCloud3 (doc. v0.8.5)
 
-[![Version](https://img.shields.io/badge/Version-0.85-blue.svg "Version")](Blank)
+[![Version](https://img.shields.io/badge/Version-0.85-blue.svg "Version")](https://github.com/gcobb321/icloud3/master/README.md)
 [![Download Dev](https://img.shields.io/badge/download-development-yellow.svg)](http://thehackbox.org/tasmota/)
 [![Build Status](https://img.shields.io/travis/arendst/Sonoff-Tasmota.svg)](https://travis-ci.org/arendst/Sonoff-Tasmota)
 ----------
