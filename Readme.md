@@ -1,11 +1,13 @@
-# iCloud3 (doc. v0.8.5)
+#iCloud3  Device Tracker Custom Component
 
 [![Version](https://img.shields.io/badge/Version-0.85-blue.svg "Version")](https://github.com/gcobb321/icloud3)
-[![Download Dev](https://img.shields.io/badge/download-development-yellow.svg)](http://thehackbox.org/tasmota/)
-[![Build Status](https://img.shields.io/travis/arendst/Sonoff-Tasmota.svg)](https://travis-ci.org/arendst/Sonoff-Tasmota)
-----------
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+[![Released](https://img.shields.io/badge/Released-1/31/2019-brightgreen.svg "Released")](https://github.com/gcobb321/icloud3)
+[![Licensed](https://img.shields.io/badge/Licesned-MIT-green.svg "License")](https://github.com/gcobb321/icloud3)
+ 
+[![Project Stage](https://img.shields.io/badge/Project Stage-Development-yellow.svg "Project Stage")](https://github.com/gcobb321/icloud3)
+[![Type](https://img.shields.io/badge/Type]-Custom Component-yellow.svg "Type]")](https://github.com/gcobb321/icloud3)
 
+----------
 
 iCloud3 is an improved version of the iCloud device_tracker component installed with Home Assistant.  
   
