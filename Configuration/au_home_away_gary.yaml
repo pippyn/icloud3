@@ -1,0 +1,210 @@
+#########################################################
+#
+#   AUTOMATIONS_OLD
+#
+#   SET HOME/AWAY FLAGS 
+#       - Home/Away Flags
+#       - Driving Flags (more than .5 miles)
+#       - Far Away Flags (more than 5 miles)
+#
+################################################################
+
+################################################################
+#
+#       GARY HOME/AWAY ACTIONS
+#
+################################################################
+#
+#   Gary Arrives/ 'Home' actions:
+#       - Set/reset flags
+#       - Open Garage Door
+#--------------------------------------------------------------
+- alias: gary_arrives_home
+  trigger:
+    - platform: state
+      entity_id: device_tracker.gary_iphone
+      to: 'home'
+
+    - platform: numeric_state
+      entity_id: device_tracker.gary_iphone
+      value_template: '{{float(state.attributes.distance)}}'
+      below: .21
+      
+  condition: 
+    # If first triggered by distance, make sure not again when state changes 
+    - condition: state
+      entity_id: device_tracker.gary_iphone
+      state: 'not_home'
+      
+  action:
+    - service: script.icloud_command_gary_iphone_zone_home
+    
+    - service: notify.ios_gary_iphone
+      data_template:
+        title: 'Location Change'
+        message: 'Gary Arrives Home, Zone={{states.device_tracker.gary_iphone.state}}, 
+            Distance={{states.device_tracker.gary_iphone.attributes.distance}}'
+
+    - service: mqtt.publish
+      data_template:
+        topic: 'location/gary' 
+        payload: 'home'
+
+    # Open garage door if driving flag is set
+    - service: script.open_garage_door
+
+    # Turn off 'Away' flags
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.gary_driving_flag
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.gary_far_away_flag
+    
+#--------------------------------------------------------------
+#   Gary leaves a zone
+#--------------------------------------------------------------
+- alias: gary_leaves_zone
+  trigger:
+    - platform: state
+      entity_id: device_tracker.gary_iphone
+      to: 'not_home'
+      
+  condition: 
+    - condition: template
+      value_template: '{{trigger.from_state.state != "not_home"}}'
+      
+  action:
+    - service: script.gary_leaves_home
+    - service: script.icloud_command_gary_iphone_zone_not_home
+    - service: mqtt.publish
+      data_template:
+        topic: 'location/gary' 
+        payload: '{{trigger.to_state.state}}'
+    
+#    - service: notify.ios_gary_iphone
+#      data_template:
+#        title: 'Location Change'
+#        message: 'Gary Leaves Zone, {{trigger.from_state.state}}-->{{trigger.to_state.state}}'
+
+
+#--------------------------------------------------------------
+#   Turn on Gary's Driving Flag
+#--------------------------------------------------------------
+- alias: gary_driving_flag_turn_on
+  trigger:
+    - platform: numeric_state
+      entity_id: device_tracker.gary_iphone
+      value_template: '{{float(state.attributes.distance)}}'
+      above: 1
+      
+    - platform: numeric_state
+      entity_id: device_tracker.gary_iphone
+      value_template: '{{float(state.attributes.distance)}}'
+      above: 3
+ 
+  condition:
+    - condition: state
+      entity_id: input_boolean.gary_driving_flag
+      state: 'off'
+      
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.gary_driving_flag
+      
+    - service: notify.ios_gary_iphone
+      data_template:
+        title: 'Set Driving Flag - Gary'
+        message: 'Zone={{states.device_tracker.gary_iphone.state}}, 
+                  Distance={{states.device_tracker.gary_iphone.attributes.distance}}'
+
+#--------------------------------------------------------------
+#   Turn off Gary's Driving Flag if Home for 15 minutes and still on
+#--------------------------------------------------------------
+- alias: gary_driving_flag_turn_off
+  trigger:
+    - platform: state
+      entity_id: device_tracker.gary_iphone
+      to: 'home'
+      for:
+        minutes: 15
+    
+  condition:
+    - condition: state
+      entity_id: input_boolean.gary_driving_flag
+      state: 'on'
+      
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.gary_driving_flag
+
+#--------------------------------------------------------------
+#   Turn on/off Gary's Far Away Flag
+#--------------------------------------------------------------
+- alias: gary_far_away_flag_turn_on
+  trigger:
+    - platform: numeric_state
+      entity_id: device_tracker.gary_iphone
+      value_template: '{{float(state.attributes.distance)}}'
+      above: 5
+      
+  condition:
+    - condition: state
+      entity_id: input_boolean.gary_far_away_flag
+      state: 'off'
+    
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.gary_driving_flag
+
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.gary_far_away_flag
+#--------------------------------------------------------------
+- alias: gary_far_away_flag_turn_off
+  trigger:
+    - platform: numeric_state
+      entity_id: device_tracker.gary_iphone
+      value_template: '{{float(state.attributes.distance)}}'
+      below: 5
+    
+  condition:
+    - condition: state
+      entity_id: input_boolean.gary_far_away_flag
+      state: 'on'
+      
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.gary_far_away_flag
+
+#--------------------------------------------------------------
+#   Gary Leaves 'Home' actions:
+#       - Set/reset flags
+#       - Change gary_iphone poll interval to 0
+#--------------------------------------------------------------
+#- alias: gary_leaves_home
+#  trigger:
+#    - platform: state
+#      entity_id: device_tracker.gary_iphone
+#      to: 'not_home'
+#      
+#    - platform: numeric_state
+#      entity_id: device_tracker.gary_iphone
+#      value_template: '{{float(state.attributes.distance)}}'
+#      above: .25
+#      
+#  condition:
+#    - condition: template
+#      value_template: '{{states.device_tracker.gary_iphone.state|lower() == "home"}}'
+#
+#  action:
+#    - service: script.icloud_command_gary_iphone_zone_not_home
+#    
+#    - service: notify.ios_gary_iphone
+#      data_template:
+#        title: 'Location Change'
+#        message: 'Gary Leaves Home-dt.GiPhone={{trigger.from_state.state}}/, dt.Gary={{states.device_tracker.gary_iphone.state}}/, Dist={{states.device_tracker.gary_iphone.attributes.distance}}'
+
+#    - service: mqtt.publish
+#      data_template:
+#        topic: 'location/gary' 
+#        payload: 'not_home'
+
+    
