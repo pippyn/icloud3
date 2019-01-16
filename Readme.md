@@ -1,11 +1,10 @@
-#iCloud3  Device Tracker Custom Component
+# iCloud3  Device Tracker Custom Component  
 
 [![Version](https://img.shields.io/badge/Version-0.85-blue.svg "Version")](https://github.com/gcobb321/icloud3)
 [![Released](https://img.shields.io/badge/Released-1/31/2019-brightgreen.svg "Released")](https://github.com/gcobb321/icloud3)
+[![Project Stage](https://img.shields.io/badge/ProjectStage-Development-yellow.svg "Project Stage")](https://github.com/gcobb321/icloud3)
+[![Type](https://img.shields.io/badge/Type-CustomComponent-yellow.svg "Type")](https://github.com/gcobb321/icloud3)
 [![Licensed](https://img.shields.io/badge/Licesned-MIT-green.svg "License")](https://github.com/gcobb321/icloud3)
- 
-[![Project Stage](https://img.shields.io/badge/Project Stage-Development-yellow.svg "Project Stage")](https://github.com/gcobb321/icloud3)
-[![Type](https://img.shields.io/badge/Type]-Custom Component-yellow.svg "Type]")](https://github.com/gcobb321/icloud3)
 
 ----------
 
@@ -27,9 +26,16 @@ iCloud3 has many features not in the base iCloud device_tracker that is part of 
 | Hide location if not in a zone | No | Yes |
 | Variable Polling | Yes - Based on distance from home, battery level, GPS Accuracy | Yes - Based on distance from home, Waze travel time to home, direction of travel, if the device is in a zone, battery level, GPS Accuracy, 'old location' status |
 | Detects zone changes | No - Also requires other device_trackers (OwnTracks, Nmap, ping, etc. | Yes - No other programs are needed |
+| Detects when leaving Home Zone | Delayed to next poll | Automatic |
+| Fixes 'Not Home' issue when in Sleep Mode | No | Yes, on next 15-second cycle |
 | Integrates with Waze route/map tracker | No | Yes - Uses Waze travel time to home |
 | Device Poll Interval when close to home | 1 minute | 15-seconds |
+| Dynamic Stationary Zone | No | Yes |
 | Service call commands | Set polling interval, Reset devices | Set polling interval, Reset devices, Pause/restart polling, Change zone, Enable/disable Waze Route information usage (some commands can be for all devices or for a specific device) |
+| Device Filters | None | By device type or device name |
+| Number of Configuration variables available | 5 | 21 |
+| Number of Attribute variables returned | 20 | 33 |
+| Number of Service Call | 4  | 4 + 10 special commands |
  
 ### How it works
 
