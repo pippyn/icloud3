@@ -20,7 +20,7 @@ It is installed as a custom device_tracker component in the config/custom_compon
 
 iCloud3 has many features not in the base iCloud device_tracker that is part of Home Assistant. It exposes many new attributes, provides many new features, is based on enhanced route tracking methods, is much more accurate, and includes additional service calls. Lets look at the differences.
 
-| Feature | original iCloud | iCloud3 |
+| Feature | Original iCloud | iCloud3 |
 |---------|-----------------|---------|
 | Device Selection | None | Include and/or exclude device by type (iPhone, iPad, etc) or by device name (garyiphone, lillianiphone, etc) |
 | Minimum Poll Interval | 1 minute | 15 second |
