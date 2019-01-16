@@ -10,7 +10,7 @@
   
 iCloud3 is an improved version of the iCloud device_tracker component installed with Home Assistant.  
   
-It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. 
+It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. Below are some sample screen images in a Lovelace format (top row) and in the old-style format (bottomleft). An image of the attributes is also shown. *Note: Se the Lovelace folder for the sample yam files.*
   
 ![Screenshots](Screenshots/Screenshots.png)
   
