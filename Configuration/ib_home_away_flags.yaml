@@ -1,21 +1,22 @@
-#########################################################
-#
-#   ICLOUD3 DEVICE_TRACKER INPUT_BOOLEANS
-#
-#########################################################
 
-#input_boolean:
-
-#--------------------------------------------------------------
-#   Gary - Driving Flags
-#-------------------------------------------------------------
-
-#Set in au_home_away.
-#Used in au_home_away>gary_arrives_home to know if gary wad driving
+#----- Gary/Lillian Home Flags -------------------
+#   This is set in Automation_old>home_away>Set Gary/Lillian Driving Flag (Turn On)
+#   and reset in Automation_old>home_away>Set Gary/Lillian Arrive Home
 gary_driving_flag:
   name: Gary Driving Flag
-
-#Set in au_home_away. 
-#Used au_how_water_heater to turn hot water on/off when 5mi from home.
+  
+lillian_driving_flag:
+  name: Lillian Driving Flag
+  
 gary_far_away_flag:
   name: Gary Far Away Flag
+  
+lillian_far_away_flag:
+  name: Lillian Far Away Flag
+
+gary_home_homekit_flag:
+  name: Gary Home Homekit Flag
+  
+lillian_home_homekit_flag:
+  name: Lillian Home Homekit Flag
+  

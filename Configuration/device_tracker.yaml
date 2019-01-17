@@ -12,24 +12,15 @@
   unit_of_measurement: mi
   gps_accuracy_threshold: 75
   include_device: 
-    - garyiphone
-    - lillianiphone
+    - gary_iphone
+    - lillian_iphone
     
-    
-    
-  #include_device:
-  #  -  ipadmini
+  #The following are examples of device inclusion/exclusion:
+  #include_device_type: iphone
   #include_device_types: 
   #  - iphone
   #exclude_devices: 
-  #  - lillianiphone
-  #  - conniesipad
+  #  - lillian_iphone
+  #  - connies_ipad
   #exclude_device_types: ipad
-  #inzone_interval: 45
-  #travel_time_factor: .8
 
-  #waze_region: US
-  #waze_min_distance: .5
-  #waze_max_distance: 200
-  #waze_realtime: False
-  #distance_method: calc

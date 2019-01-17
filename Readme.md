@@ -1,19 +1,26 @@
-# iCloud3 (doc. v0.7.5)
-[\](https://github.com/gcobb321/icloud3/blob/master/README.md)]
+# iCloud3  Device Tracker Custom Component  
+
+[![Version](https://img.shields.io/badge/Version-0.85-blue.svg "Version")](https://github.com/gcobb321/icloud3)
+[![Released](https://img.shields.io/badge/Released-1/31/2019-brightgreen.svg "Released")](https://github.com/gcobb321/icloud3)
+[![Project Stage](https://img.shields.io/badge/ProjectStage-Development-yellow.svg "Project Stage")](https://github.com/gcobb321/icloud3)
+[![Type](https://img.shields.io/badge/Type-CustomComponent-yellow.svg "Type")](https://github.com/gcobb321/icloud3)
+[![Licensed](https://img.shields.io/badge/Licesned-MIT-green.svg "License")](https://github.com/gcobb321/icloud3)
 
 ----------
-
+  
 iCloud3 is an improved version of the iCloud device_tracker component installed with Home Assistant.  
   
-It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. 
-
+It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. Below are some sample screen images in a Lovelace format (top row) and in the old-style format (bottomleft). An image of the attributes is also shown. *Note: Se the Lovelace folder for the sample yam files.*
+  
+![Screenshots](Screenshots/Screenshots.png)
+  
 ## INTRODUCTION
 
 ### What's different
 
 iCloud3 has many features not in the base iCloud device_tracker that is part of Home Assistant. It exposes many new attributes, provides many new features, is based on enhanced route tracking methods, is much more accurate, and includes additional service calls. Lets look at the differences.
 
-| Feature | original iCloud | iCloud3 |
+| Feature | Original iCloud | iCloud3 |
 |---------|-----------------|---------|
 | Device Selection | None | Include and/or exclude device by type (iPhone, iPad, etc) or by device name (garyiphone, lillianiphone, etc) |
 | Minimum Poll Interval | 1 minute | 15 second |
@@ -21,9 +28,16 @@ iCloud3 has many features not in the base iCloud device_tracker that is part of 
 | Hide location if not in a zone | No | Yes |
 | Variable Polling | Yes - Based on distance from home, battery level, GPS Accuracy | Yes - Based on distance from home, Waze travel time to home, direction of travel, if the device is in a zone, battery level, GPS Accuracy, 'old location' status |
 | Detects zone changes | No - Also requires other device_trackers (OwnTracks, Nmap, ping, etc. | Yes - No other programs are needed |
+| Detects when leaving Home Zone | Delayed to next poll | Automatic |
+| Fixes 'Not Home' issue when in Sleep Mode | No | Yes, on next 15-second cycle |
 | Integrates with Waze route/map tracker | No | Yes - Uses Waze travel time to home |
 | Device Poll Interval when close to home | 1 minute | 15-seconds |
+| Dynamic Stationary Zone | No | Yes |
 | Service call commands | Set polling interval, Reset devices | Set polling interval, Reset devices, Pause/restart polling, Change zone, Enable/disable Waze Route information usage (some commands can be for all devices or for a specific device) |
+| Device Filters | None | By device type or device name |
+| Number of Configuration variables available | 5 | 21 |
+| Number of Attribute variables returned | 20 | 33 |
+| Number of Service Call | 4  | 4 + 10 special commands |
  
 ### How it works
 
@@ -133,7 +147,7 @@ The interval between location upates when the device is in a zone. This can be i
 
 **gps_accuracy_threshold**  
 iCloud location updates come with some gps_accuracy varying from 10 to 5000 meters. This setting defines the accuracy threshold in meters for a location updates. This allows more precise location monitoring and fewer false positive zone changes. If the gps_accuracy is above this threshold, a location update will be retried again in 2 minutes to see if the accuracy has improved. After 5 retries, the normal interval that is based on the distance from home, the waze travel time and the direction will be used.  
-*Default: 1000*
+*Default: 100*
 
 *Note:* The accuracy and retry count are displayed in the `info` attribute field (*GPS.Accuracy-263(2)*) and on the `poll_count`  attribute field (*2-GPS*). In this example, the accuracy has been poor for 2 polling cycles.  
 
@@ -149,16 +163,15 @@ The unit of measure for distances in miles or kilometers.
 **distance_method**  
 iCloud3 uses two methods of determining the distance between home and your current location — by calculating the straight line distance using geometry formulas (like the Proximity sensor) and by using the Waze Route Tracker to determine the distance based on the driving route.   
 *Valid values: waze, calc. Default: waze*  
-  
-*Note:* The Waze distance becomes less accurate when you are close to home. The calculation method is used at distances less than 1 mile or 1 kilometer.  
-  
+   
 **waze_min_distance, waze_max_distance**  
-These values are also used to determine if the polling internal should be based on the Waze distance. The calculated distance must be between these values for the Waze distance to be used.  
-*Default: min=0, max=1000*  
+These values are also used to determine if the polling internal should be based on the Waze distance. If the calculated straght-line distance is between these values, the Waze distance will be requested from the Waze mapping service. Otherwise, the calculated distane is used to determine the polling interval. 
+*Default: min=1, max=1000*  
 
+*Note:* The Waze distance becomes less accurate when you are close to home. The calculation method is better when the distances less than 1 mile or 1 kilometer.  
 *Note:* If you are a long way from home, it probably doesn't make sense to use the Waze distance. You probably don't have any automations that would be triggered from that far away. 
   
-**waze_real_time**  
+**waze_realtime**  
 Waze reports the travel time estimate two ways — by taking the current, real time traffic conditions into consideration (True) or as an average travel time for the time of day (False).  
 *Valid values: True, False. Default: False*  
   
@@ -168,7 +181,7 @@ The area used by Waze to determine the distance and travel time.
   
 **travel_time_factor**  
 When using Waze and the distance from your current location to home is more than 3 kilometers/miles, the polling interval is calculated by multiplying the driving time to home by the `travel_time_factor`.  
-*Default: .75*  
+*Default: .60*  
 
 *Note:* Using the default value, the next update will be 3/4 of the time it takes to drive home from your current location. The one after that will be 3/4 of the time from that point. The result is a smaller interval as you get closer to home and a larger one as you get further away.  
  
@@ -177,7 +190,7 @@ When using Waze and the distance from your current location to home is more than
 There are two zones that are special to the iCloud3 device tracker - the Dynamic Stationary Zone and the NearZone zone.
 
 **Dynamic Stationary Zone**  
-When a device has not moved for 600m/200ft in 2 polling cycles, it is considered to be stationary. Examples might be when you are at a mall, doctor's office, restaurant, friend's house, etc. If the device is stationary, it's Stationary Zone location (latitude and longitude) is automatically updated with the current values, the device state is changed and the interval time is set to the *inzone_interval* value (default is 2 hrs). This almost eliminates the number of times the device must be polled to see how far it is from home when you haven't moved for a while. When you leave the Stationary Zone, the IOS App notifies Home Assistant that the Stationary Zone has been exited and the device tracking begins again.
+When a device has not moved for 60m/200ft in 2 polling cycles, it is considered to be stationary. Examples might be when you are at a mall, doctor's office, restaurant, friend's house, etc. If the device is stationary, it's Stationary Zone location (latitude and longitude) is automatically updated with the current values, the device state is changed and the interval time is set to the *inzone_interval* value (default is 2 hrs). This almost eliminates the number of times the device must be polled to see how far it is from home when you haven't moved for a while. When you leave the Stationary Zone, the IOS App notifies Home Assistant that the Stationary Zone has been exited and the device tracking begins again.
 
 *Note:* You do not have to create the Stationary Zone in the zones.yaml file, the iCloud3 device tracker automatically creates one for every device being tracked when Home Assistant is started. It's name is *devicename_Stationary*.  
   
