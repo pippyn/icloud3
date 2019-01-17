@@ -118,7 +118,7 @@ icloud_command_pause_polling_gary:
         command: pause
               
 icloud_set_interval_15_sec_gary:
-  alias: 'Set Gary to 15 sec'
+  alias: 'Set interval to 15 sec (Gary)'
   sequence:
     - service: device_tracker.icloud_set_interval
       data:
@@ -127,13 +127,71 @@ icloud_set_interval_15_sec_gary:
         interval: '15 sec'
 
 icloud_set_interval_1_min_gary:
-  alias: 'Set Gary to 1 min'
+  alias: 'Set interval to 1 min (Gary)'
   sequence:
     - service: device_tracker.icloud_set_interval
       data:
         account_name: gary_icloud
         device_name: gary_iphone
         interval: 1
+
+#--------------------------------------------------------------
+#   ZONE COMMANDS
+#--------------------------------------------------------------
+
+icloud_command_gary_iphone_zone_home:
+  alias: 'Set Zone Home (Gary)'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        device_name: gary_iphone
+        command: 'zone home'
+
+icloud_command_gary_iphone_zone_quail:
+  alias: 'Set Zone Quail (Gary)'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        device_name: gary_iphone
+        command: 'zone Quail'
+        
+icloud_command_gary_iphone_zone_not_home:
+  alias: 'Set Zone Away (Gary)'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        device_name: gary_iphone
+        command: 'zone not_home'
+        
+icloud_command_lillian_iphone_zone_home:
+  alias: 'Set Zone Home (Lillian)'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        device_name: lillian_iphone
+        command: 'zone home'
+        
+icloud_command_lillian_iphone_zone_not_home:
+  alias: Set Zone Away (Lillian)'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        device_name: lillian_iphone
+        command: 'zone not_home'
+        
+icloud_gary_iphone_see_away:
+  alias: 'Set Away via device_tracker.see svc call (Gary)'
+  sequence:
+    - service: device_tracker.see
+      data:
+        dev_id: gary_iphone
+        location_name: 'not_home'
+
 #--------------------------------------------------------------
 #   DEBUG COMMANDS
 #--------------------------------------------------------------
@@ -160,63 +218,6 @@ icloud_command_debug_test_old:
       data:
         account_name: gary_icloud
         command: debug old
-
-#--------------------------------------------------------------
-#   ZONE COMMANDS
-#--------------------------------------------------------------
-
-icloud_command_gary_iphone_zone_home:
-  alias: 'Gary - iCloud Cmd - Zone Home'
-  sequence:
-    - service: device_tracker.icloud_update
-      data:
-        account_name: gary_icloud
-        device_name: gary_iphone
-        command: 'zone home'
-
-icloud_command_gary_iphone_zone_quail:
-  alias: 'Gary - iCloud Cmd - Zone Quail'
-  sequence:
-    - service: device_tracker.icloud_update
-      data:
-        account_name: gary_icloud
-        device_name: gary_iphone
-        command: 'zone Quail'
-        
-icloud_command_gary_iphone_zone_not_home:
-  alias: 'Gary - iCloud Cmd - Zone not_home'
-  sequence:
-    - service: device_tracker.icloud_update
-      data:
-        account_name: gary_icloud
-        device_name: gary_iphone
-        command: 'zone not_home'
-        
-icloud_command_lillian_iphone_zone_home:
-  alias: 'Lillian - iCloud Cmd - Zone Home'
-  sequence:
-    - service: device_tracker.icloud_update
-      data:
-        account_name: gary_icloud
-        device_name: lillian_iphone
-        command: 'zone home'
-        
-icloud_command_lillian_iphone_zone_not_home:
-  alias: 'Lillian - iCloud Cmd - Zone not_home'
-  sequence:
-    - service: device_tracker.icloud_update
-      data:
-        account_name: gary_icloud
-        device_name: lillian_iphone
-        command: 'zone not_home'
-        
-icloud_gary_iphone_see_away:
-  alias: 'Gary - iCloud Cmd - Away (see service call)'
-  sequence:
-    - service: device_tracker.see
-      data:
-        dev_id: gary_iphone
-        location_name: 'not_home'
         
 icloud_gary_iphone_data_notification:
   alias: 'Gary - iCloud Cmd - Data Notification'

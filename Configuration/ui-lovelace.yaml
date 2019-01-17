@@ -1,0 +1,174 @@
+ 
+title: Home
+views:
+  - title: Main
+    icon: mdi:star-outline
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: glance
+            title: Status
+            column_width: 20%
+            entities:
+              - entity: sensor.gary_badge
+                name: Gary
+              - entity: sensor.garage_door_badge
+                name: GarageState
+
+              - entity: cover.garage_door
+                name: Garage
+                tap_action: 
+                  action: toggle
+
+              - entity: input_boolean.gary_driving_flag
+                name: DrivingFlag
+                tap_action:  
+                  action: toggle
+              - entity: input_boolean.gary_far_away_flag
+                name: FarAwayFlag
+                tap_action:  
+                  action: toggle     
+      - type: map
+        entities:
+          - device_tracker.gary_iphone
+          - zone.home
+          - zone.quail
+          - zone.whse
+
+  - title: Location
+    icon: mdi:cellphone-iphone
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: glance
+            title: Location Info - Gary
+            column_width: 25%
+            entities:
+              - entity: device_tracker.gary_iphone
+                name: Gary
+              - entity: sensor.gary_iphone_interval
+                name: Interval
+                icon: mdi:clock-start
+                tap_action: call-service
+                service: script.icloud_command_display_interval_formula
+              - entity: sensor.gary_iphone_travel_time
+                name: TravTime
+                icon: mdi:clock-outline
+              - entity: sensor.gary_iphone_distance
+                name: Distance
+                icon: mdi:map-marker-distance 
+         
+          - type: glance
+            column_width: 25%
+            entities:
+              - entity: sensor.gary_iphone_waze_distance
+                name: WazeDist
+                icon: mdi:map-marker-distance
+              - entity: sensor.gary_iphone_calc_distance
+                name: CalcDist
+                icon: mdi:map-marker-distance
+              - entity: sensor.gary_iphone_dir_of_travel
+                name: Direction
+                icon: mdi:compass-outline
+              - entity: input_boolean.gary_driving_flag
+                name: Driving
+                tap_action:  
+                  action: toggle
+
+          - type: glance
+            column_width: 25%
+            entities:
+              - entity: sensor.gary_iphone_last_located
+                name: Located
+                icon: mdi:restore-clock
+              - entity: sensor.gary_iphone_last_update
+                name: LastUpdt
+                icon: mdi:restore-clock
+              - entity: sensor.gary_iphone_next_update
+                name: NextUpdt
+                icon: mdi:update
+              - entity: sensor.gary_iphone_poll_count
+                name: PollCount
+                icon: mdi:counter
+
+          - type: entities
+            entities:
+              - entity: sensor.gary_iphone_info
+                name: Info
+                icon: mdi:information-outline
+
+      - type: entities
+        title: Location Info - Gary
+        show_header_toggle: false
+        entities:
+          - device_tracker.gary_iphone
+          - sensor.gary_iphone_interval
+          - sensor.gary_iphone_travel_time
+          - sensor.gary_iphone_distance
+          - type: divider
+          - sensor.gary_iphone_waze_distance
+          - sensor.gary_iphone_calc_distance
+          - sensor.gary_iphone_dir_of_travel
+          - input_boolean.gary_driving_flag
+          - type: divider
+          - sensor.gary_iphone_last_located
+          - sensor.gary_iphone_last_update
+          - sensor.gary_iphone_next_update
+          - sensor.gary_iphone_poll_count
+          - type: divider
+          - sensor.gary_iphone_info
+          
+  - title: iCloud Commands
+    icon: mdi:cloud-upload-outline
+    cards: 
+      - type: entities
+        title: iCloud Device Tracker
+        show_header_toggle: false
+        entities:
+          - script.icloud_command_resume_polling
+          - script.icloud_command_pause_polling
+          - script.icloud_command_pause_resume_polling
+          - script.icloud_command_toggle_waze
+          - script.icloud_command_reset_waze_range
+          - script.icloud_command_reset
+          - type: divider
+          - script.icloud_set_interval_15_sec
+          - script.icloud_set_interval_10_min
+          - script.icloud_set_interval_5_hrs
+
+      - type: entities
+        title: iCloud Commands - Gary
+        show_header_toggle: false
+        entities:
+          - script.icloud_command_resume_polling_gary
+          - script.icloud_command_pause_polling_gary
+          - type: divider
+          - script.icloud_command_gary_iphone_zone_home
+          - script.icloud_command_gary_iphone_zone_not_home
+          - script.icloud_command_gary_iphone_zone_quail
+          - type: divider
+          - script.icloud_set_interval_15_sec_gary
+          - script.icloud_set_interval_1_min_gary
+          - type: divider
+          - script.icloud_gary_iphone_see_away
+         
+      - type: entities
+        title: iCloud Commands via Input Select
+        show_header_toggle: false
+        entities:
+          - input_select.icloud_set_interval
+          - input_select.icloud_commands
+          - input_select.icloud_debug_commands
+          
+      #      - type: entities
+      #        entities:
+      #       - entity: script.icloud_command_debug_interval_formula
+      #          name: Display Interval Formula
+      #        - entity: script.icloud_command_debug_test_gps
+      #          name: Test GPS Accuracy
+      #        - entity: script.icloud_command_debug_test_old
+      #          name: Test Old Location
+
+
+
+
