@@ -12,7 +12,7 @@ iCloud3 is an improved version of the iCloud device_tracker component installed 
   
 It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. Below are some sample screen images in a Lovelace format (top row) and in the old-style format (bottomleft). An image of the attributes is also shown. *Note: Se the Lovelace folder for the sample yam files.*
   
-![Screenshots](Screenshots/Screenshots.png)
+![Screenshots](screenshots/screenshots.png)
   
 ## INTRODUCTION
 
@@ -25,19 +25,23 @@ iCloud3 has many features not in the base iCloud device_tracker that is part of 
 | Device Selection | None | Include and/or exclude device by type (iPhone, iPad, etc) or by device name (garyiphone, lillianiphone, etc) |
 | Minimum Poll Interval | 1 minute | 15 second |
 | Distance Accuracy | 1 km/mile | .01 km/mile |
-| Hide location if not in a zone | No | Yes |
+| Hide location (gps coordinates) if not in a zone | No | Yes |
 | Variable Polling | Yes - Based on distance from home, battery level, GPS Accuracy | Yes - Based on distance from home, Waze travel time to home, direction of travel, if the device is in a zone, battery level, GPS Accuracy, 'old location' status |
 | Detects zone changes | No - Also requires other device_trackers (OwnTracks, Nmap, ping, etc. | Yes - No other programs are needed |
-| Detects when leaving Home Zone | Delayed to next poll | Automatic |
+| Detects when leaving Home Zone | Delayed to next polling cycle (default of 30-minutes) | Detects when the Home Assistant IOS app issues a Zone Enter/Exit notification |
+| Retries polling if location data is old or GPS Accuracy is above limits | No | Yes. Repolls device on next 15-second polling cycle until good location data is received |
 | Fixes 'Not Home' issue when in Sleep Mode | No | Yes, on next 15-second cycle |
 | Integrates with Waze route/map tracker | No | Yes - Uses Waze travel time to home |
-| Device Poll Interval when close to home | 1 minute | 15-seconds |
-| Dynamic Stationary Zone | No | Yes |
+| Device Polling Interval when close to home | 1+ minutes (?) | 15-seconds |
+| Dynamic Stationary Zone | No | Yes, A Stationary Zone is created if no movement has been detected in 2 polling cycles. Polling interval is set to 2-hours (default) until zone exit notification is recieved |
 | Service call commands | Set polling interval, Reset devices | Set polling interval, Reset devices, Pause/restart polling, Change zone, Enable/disable Waze Route information usage (some commands can be for all devices or for a specific device) |
 | Device Filters | None | By device type or device name |
-| Number of Configuration variables available | 5 | 21 |
-| Number of Attribute variables returned | 20 | 33 |
-| Number of Service Call | 4  | 4 + 10 special commands |
+| | | |
+| Geekster Statistics: | | |
+| .... Number of Configuration variables available | 4 | 20 |
+| .... Number of Attribute variables returned | 20 | 33 |
+| .... Number of Service Calls | 4 | 4 + 10 special commands |
+| .... Number of lines of code | 425 | 2500+ |
  
 ### How it works
 

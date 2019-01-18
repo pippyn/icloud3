@@ -145,7 +145,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_ACCOUNTNAME): cv.slugify,
     vol.Optional(ATTR_AUTHENTICATED): cv.string,
     #-----►►General Attributes ----------
-    vol.Optional(CONF_UNIT_OF_MEASUREMENT, default='km'): cv.slugify,
+    vol.Optional(CONF_UNIT_OF_MEASUREMENT, default='mi'): cv.slugify,
     vol.Optional(CONF_INZONE_INTERVAL, default='2 hrs'): cv.string,
     vol.Optional(CONF_MAX_INTERVAL, default=0): cv.string,
     vol.Optional(CONF_TRAVEL_TIME_FACTOR, default=.60): cv.string,
@@ -173,7 +173,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     #-----►►Waze Attributes ----------
     vol.Optional(CONF_DISTANCE_METHOD, default='waze'): cv.string,
     vol.Optional(CONF_WAZE_REGION, default='US'): cv.string,
-    vol.Optional(CONF_WAZE_MAX_DISTANCE, default=99999): cv.string,
+    vol.Optional(CONF_WAZE_MAX_DISTANCE, default=1000): cv.string,
     vol.Optional(CONF_WAZE_MIN_DISTANCE, default=1): cv.string,
     vol.Optional(CONF_WAZE_REALTIME, default=False): cv.boolean,
     vol.Optional(CONF_COMMAND): cv.string

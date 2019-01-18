@@ -1,0 +1,115 @@
+
+#########################################################
+#
+#   GARAGE DOOR ENTITIES
+#
+#########################################################
+sensor.garage_door_badge:
+  friendly_name: Garage Door
+  icon: mdi:garage
+sensor.garage_door_battery:
+  friendly_name: Garage Door Battery Level
+  icon: mdi:battery
+  unit_of_measurement: '%'
+  
+sensor.garage_door:
+  friendly_name: Garage Door
+  icon: mdi:garage
+  homebridge_visible: false
+  
+switch.garage_door:
+  friendly_name: Garage Door Switch
+  emulated_hue_hidden: false
+
+cover.garage_door:
+  friendly_name: Garage Door
+  emulated_hue_hidden: false
+  templates:
+   icon_color: "if (entities['switch.garage_door'].state === 'on') return 'red'; else if (entities['sensor.garage_door'].state === 'Open') return 'red'; else return 'dodgerblue';"
+   state:      "if (entities['sensor.garage_door'].state === 'Open') return 'Lower'; else return 'Raise';"
+   icon:       "if (entities['switch.garage_door'].state === 'on') return 'mdi:cached'; else if (entities['sensor.garage_door'].state === 'Open') return 'mdi:arrow-expand-down'; else return 'mdi:arrow-expand-up';"
+
+#########################################################
+#
+#   LOCATION AND DEVICE TRACKER ENTITIES
+#
+#########################################################
+device_tracker.gary:
+  friendly_name: Gary
+  entity_picture: /local/gary.png
+device_tracker.gary_iphone:
+  friendly_name: Gary
+sensor.gary_badge:
+  friendly_name: Gary
+   
+#---- iPhone Device Tracker Attribute Templates ----- Gary -----------
+sensor.gary_iphone_formatted:
+  friendly_name: Gary
+  icon: mdi:cellphone-iphone
+sensor.gary_iphone_battery:
+  friendly_name: Gary iPhone Battery Level
+  icon: mdi:battery
+sensor.gary_iphone_distance:
+  friendly_name: Distance
+  icon: mdi:map-marker-distance
+sensor.gary_iphone_waze_distance:
+  friendly_name: Waze Distance
+  icon: mdi:map-marker-distance
+sensor.gary_iphone_travel_time:
+  friendly_name: Travel Time
+  icon: mdi:clock-outline
+sensor.gary_iphone_calc_distance:
+  friendly_name: Calculated Distance
+  icon: mdi:map-marker-distance
+
+sensor.gary_iphone_last_update:
+  friendly_name: Last Updat
+  icon: mdi:restore-clock
+sensor.gary_iphone_next_update:
+  friendly_name: Next Update
+  icon: mdi:update
+sensor.gary_iphone_interval:
+  friendly_name: Polling Interval
+  icon: mdi:clock-start
+sensor.gary_iphone_poll_count:
+  friendly_name: Poll Count
+  icon: mdi:counter
+sensor.gary_iphone_last_located:
+  friendly_name: Last Located
+  icon: mdi:restore-clock
+sensor.gary_iphone_driving_flag:
+  friendly_name: Driving Flag
+  icon: mdi:car
+sensor.gary_iphone_dir_of_travel:
+  friendly_name: Direction
+  icon: mdi:compass-outline
+sensor.gary_iphone_gps_accuracy:
+  friendly_name: Accuracy
+  icon: mdi:map-marker-radius
+  templates:
+    icon_color: "if (state > 50) return 'indianred'; else if (state > 100) return 'red';"
+
+sensor.gary_iphone_dir_of_travel_formatted:
+  friendly_name: Direction (G)
+  icon: mdi:compass-outline
+sensor.gary_iphone_info:
+  friendly_name: Info (G)
+  icon: mdi:information-outline
+
+input_boolean.gary_driving_flag:
+  friendly_name: Gary Driving Flag
+  templates:
+    icon_color: "if (state === 'on') return 'red'; else return 'dodgerblue';"
+    icon:       "if (state === 'on') return 'mdi:checkbox-marked-outline'; else return 'mdi:close-box-outline';"
+
+input_boolean.gary_far_away_flag:
+  friendly_name: Gary Far Away Flag
+  templates:
+    icon_color: "if (state === 'on') return 'red'; else return 'dodgerblue';"
+    icon:       "if (state === 'on') return 'mdi:checkbox-marked-outline'; else return 'mdi:close-box-outline';"
+
+sensor.someone_home_flag_formatted:
+  friendly_name: Someone Home Flag
+  icon: mdi:home
+  
+ 

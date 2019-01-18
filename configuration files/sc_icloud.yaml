@@ -55,7 +55,9 @@ icloud_command_reset_waze_range:
       data:
         account_name: gary_icloud
         command: waze reset_range
-        
+#--------------------------------------------------------------
+#  INTERVAL COMMANDS
+#-------------------------------------------------------------
 icloud_set_interval_15_sec:
   alias: 'Set interval to 15 sec'
   sequence:

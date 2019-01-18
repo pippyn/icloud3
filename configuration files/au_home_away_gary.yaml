@@ -19,7 +19,8 @@
 #       - Set/reset flags
 #       - Open Garage Door
 #--------------------------------------------------------------
-- alias: gary_arrives_home
+- alias: Gary Arrives Home
+  id: gary_arrives_home
   trigger:
     - platform: state
       entity_id: device_tracker.gary_iphone
@@ -62,7 +63,8 @@
 #--------------------------------------------------------------
 #   Gary leaves a zone
 #--------------------------------------------------------------
-- alias: gary_leaves_zone
+- alias: Gary Leaves Zone
+  id: gary_leaves_zone
   trigger:
     - platform: state
       entity_id: device_tracker.gary_iphone
@@ -89,7 +91,8 @@
 #--------------------------------------------------------------
 #   Turn on Gary's Driving Flag
 #--------------------------------------------------------------
-- alias: gary_driving_flag_turn_on
+- alias: Gary Driving Flag Turn On
+  id: gary_driving_flag_turn_on
   trigger:
     - platform: numeric_state
       entity_id: device_tracker.gary_iphone
@@ -119,7 +122,8 @@
 #--------------------------------------------------------------
 #   Turn off Gary's Driving Flag if Home for 15 minutes and still on
 #--------------------------------------------------------------
-- alias: gary_driving_flag_turn_off
+- alias: Gary Driving Flag Turn Off
+  id: gary_driving_flag_turn_off
   trigger:
     - platform: state
       entity_id: device_tracker.gary_iphone
@@ -139,7 +143,8 @@
 #--------------------------------------------------------------
 #   Turn on/off Gary's Far Away Flag
 #--------------------------------------------------------------
-- alias: gary_far_away_flag_turn_on
+- alias: Gary Far Away Flag Turn On
+  id: gary_far_away_flag_turn_on
   trigger:
     - platform: numeric_state
       entity_id: device_tracker.gary_iphone
@@ -158,7 +163,8 @@
     - service: input_boolean.turn_on
       entity_id: input_boolean.gary_far_away_flag
 #--------------------------------------------------------------
-- alias: gary_far_away_flag_turn_off
+- alias: Gary Far Away Flag Turn Off
+  id: gary_far_away_flag_turn_off
   trigger:
     - platform: numeric_state
       entity_id: device_tracker.gary_iphone
@@ -174,37 +180,3 @@
     service: input_boolean.turn_off
     entity_id: input_boolean.gary_far_away_flag
 
-#--------------------------------------------------------------
-#   Gary Leaves 'Home' actions:
-#       - Set/reset flags
-#       - Change gary_iphone poll interval to 0
-#--------------------------------------------------------------
-#- alias: gary_leaves_home
-#  trigger:
-#    - platform: state
-#      entity_id: device_tracker.gary_iphone
-#      to: 'not_home'
-#      
-#    - platform: numeric_state
-#      entity_id: device_tracker.gary_iphone
-#      value_template: '{{float(state.attributes.distance)}}'
-#      above: .25
-#      
-#  condition:
-#    - condition: template
-#      value_template: '{{states.device_tracker.gary_iphone.state|lower() == "home"}}'
-#
-#  action:
-#    - service: script.icloud_command_gary_iphone_zone_not_home
-#    
-#    - service: notify.ios_gary_iphone
-#      data_template:
-#        title: 'Location Change'
-#        message: 'Gary Leaves Home-dt.GiPhone={{trigger.from_state.state}}/, dt.Gary={{states.device_tracker.gary_iphone.state}}/, Dist={{states.device_tracker.gary_iphone.attributes.distance}}'
-
-#    - service: mqtt.publish
-#      data_template:
-#        topic: 'location/gary' 
-#        payload: 'not_home'
-
-    

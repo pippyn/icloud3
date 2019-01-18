@@ -9,18 +9,47 @@
   username: !secret icloud_username
   password: !secret icloud_password
   account_name: gary_icloud
-  unit_of_measurement: mi
-  gps_accuracy_threshold: 75
-  include_device: 
+   include_devices: 
     - gary_iphone
     - lillian_iphone
     
-  #The following are examples of device inclusion/exclusion:
-  #include_device_type: iphone
-  #include_device_types: 
-  #  - iphone
-  #exclude_devices: 
-  #  - lillian_iphone
-  #  - connies_ipad
-  #exclude_device_types: ipad
+#----- Other Configuration Variables (set to default values) ----
+#   include_device:
+#     -  ipad_mini
+#    include_device_types: 
+#       - iphone
+#   include_device: lillian_iwatch
+#   exclude_devices: 
+#    - lillian_iphone
+#       - gary_iphone
+#   exclude_devices: 
+#   - lillian_iphone
+#   - connies_ipad
+#   exclude_device_types: ipad
+
+#   unit_of_measurement: mi
+#   gps_accuracy_threshold: 75
+#   inzone_interval: '2 hrs'
+#   travel_time_factor: .6
+#   hide_gps_coordinates: false
+#   distance_method: waze
+#   waze_region: US
+#   waze_min_distance: 1
+#   waze_max_distance: 9999
+#   waze_realtime: False
+  
+
+#########################################################
+#
+#   DEVICE TRACKERS TO BE USED AS BADGE ENTITIES
+#   USING MQTT TRANSACTIONS
+#
+#########################################################
+   
+#     This is triggered by the automation_old>home_away>set_home_away
+- platform: mqtt
+  devices:
+    gary: 'location/gary'
+    lillian: 'location/lillian'
+  retain: true
 

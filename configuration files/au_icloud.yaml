@@ -3,7 +3,8 @@
 #   IPHONE/ICLOUD SELECTION AUTOMATIONS
 #
 #########################################################
-- alias: set_gary_iphone_interval
+- alias: Set Gary iPhone Interval
+  id: set_gary_iphone_interval
   trigger:
     - platform: state
       entity_id: input_select.icloud_set_interval
@@ -14,7 +15,8 @@
         device_name: gary_iphone
         interval: "{{ states.input_select.icloud_set_interval.state }}"
 
-- alias: icloud_command
+- alias: iCloud Command
+  id: icloud_command
   trigger:
     - platform: state
       entity_id: input_select.icloud_commands
@@ -24,7 +26,8 @@
         account_name: gary_icloud
         command: "{{ states.input_select.icloud_commands.state }}"        
 
-- alias: icloud_debug_command
+- alias: iCloud Debug Command
+  id: icloud_debug_command
   trigger:
     - platform: state
       entity_id: input_select.icloud_debug_commands
