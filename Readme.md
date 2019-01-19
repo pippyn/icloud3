@@ -1,19 +1,23 @@
 # iCloud3  Device Tracker Custom Component  
 
 [![Version](https://img.shields.io/badge/Version-0.85-blue.svg "Version")](https://github.com/gcobb321/icloud3)
-[![Released](https://img.shields.io/badge/Released-1/31/2019-brightgreen.svg "Released")](https://github.com/gcobb321/icloud3)
-[![Project Stage](https://img.shields.io/badge/ProjectStage-Development-yellow.svg "Project Stage")](https://github.com/gcobb321/icloud3)
+[![Released](https://img.shields.io/badge/Released-1/20/2019-brightgreen.svg "Released")](https://github.com/gcobb321/icloud3)
+[![Project Stage](https://img.shields.io/badge/ProjectStage-Prerelease.Testing-yellow.svg "Project Stage")](https://github.com/gcobb321/icloud3)
 [![Type](https://img.shields.io/badge/Type-CustomComponent-yellow.svg "Type")](https://github.com/gcobb321/icloud3)
 [![Licensed](https://img.shields.io/badge/Licesned-MIT-green.svg "License")](https://github.com/gcobb321/icloud3)
 
 ----------
-  
-iCloud3 is an improved version of the iCloud device_tracker component installed with Home Assistant.  
-  
-It is installed as a custom device_tracker component in the config/custom_component/device_tracker directory. Instructions are found at the end of this document. Below are some sample screen images in a Lovelace format (top row) and in the old-style format (bottomleft). An image of the attributes is also shown. *Note: Se the Lovelace folder for the sample yam files.*
-  
-![Screenshots](screenshots/Screenshots.png)
-  
+
+'iCloud3' is an improved version of the iCloud device_tracker component installed with Home Assistant.  It's  purpose is:
+
+- To provide easy-to-use presence detection that does not rely on any other program, other than Home Assistant and the Home Assistant IOS app.
+- To be report accurate information (location, distance from home, current zone) on a timely basis that can be used reliably in automations.
+- To conserve the devices battery. 
+
+Below are some sample Lovelace screenshots showing how iCloud3 information can be displayed (see *ui-lovelace-icloud3.yaml* in the *configuration files* directory). Example configuration files for sensors, switches, badges, automations and scripts are also found in the *configuration files* directory that report location information and device status, along with running automations (opening a garage door) when arriving home. Other uses (security, lighting, heating & cooling control, etc.) can be added to the automations to meet your needs. 
+
+![Screenshots](screenshots/Readme-Screenshots.jpg)
+
 ## INTRODUCTION
 
 ### What's different
@@ -37,12 +41,12 @@ iCloud3 has many features not in the base iCloud device_tracker that is part of 
 | Service call commands | Set polling interval, Reset devices | Set polling interval, Reset devices, Pause/restart polling, Change zone, Enable/disable Waze Route information usage (some commands can be for all devices or for a specific device) |
 | Device Filters | None | By device type or device name |
 | | | |
-| Geekster Statistics: | | |
-| .... Number of Configuration variables available | 4 | 20 |
-| .... Number of Attribute variables returned | 20 | 33 |
-| .... Number of Service Calls | 4 | 4 + 10 special commands |
-| .... Number of lines of code | 425 | 2500+ |
- 
+| <u>Geekster Statistics:</u> | | |
+| ● Config variables | 4 | 20 |
+| ● Attributes | 20 | 33 |
+| ● Service Calls | 4 | 4 + 10 special commands |
+| ● Lines of code | 425 | 2500+ |
+
 ### How it works
 
 iCloud3 polls the device on a dynamic schedule and determines the polling interval time based on:
@@ -52,7 +56,7 @@ iCloud3 polls the device on a dynamic schedule and determines the polling interv
  - The direction you are going — towards home, away from home or stationary.
  - The battery level of the device.
  - The accuracy of the GPS location and if the last poll returned a location that the iCloud service determined was 'old'.
-  
+
 The above analysis results in a polling interval. The further away from home and the longer the travel time back to home, the longer the interval; the closer to home, the shorter the interval. The polling interval checks each device being tracked every 15 seconds to see if it's location should be updated. If so, it and all of the other devices being tracked with iCloud3 are updated (more about this below). With a 15 second interval, you track the distance down 1/10 of a mile/kilometer. This gives a much more accurate distance number that can used to trigger automations. You no longer limited to entering or exiting a zone. 
 
 Note: The `pyicloud.py` Python component is part of Home Assistant and used to poll the device, requesting location and other information. If the iCloud account is associated with multiple devices, all of the devices are polled, whether or not the device is being tracked by Home Assistant. This is a limitation of pyicloud.py. 
@@ -61,16 +65,16 @@ Note: The `pyicloud.py` Python component is part of Home Assistant and used to p
 ### What other programs do I need
 
 The `Home Assistant IOS App` is all. You do not need `OwnTracks` or other location based trackers and you do not need `nmap`, `netgear`, `ping` or any network monitor. The `Home Assistant IOS App` will notify Home Assistant when you leave home and iCloud3 device tracker will start keeping up with the device's location, the distance to home and the time it will take to get there.  
-   
+
 *Note:* The IOS App settings `Zone enter/exit`, `Background fetch` and `Significant location change` location settings need to be enabled. 
 
 
 The `iCloud` platform allows you to detect presence using the  [iCloud](https://www.icloud.com/) service. iCloud allows users to track their location on iOS devices. Your device needs to be registered with “Find My iPhone”.
-  
-  
+
+
 ### Home Assistant Configuration
 
-To integrate iCloud in Home Assistant, add the following section to your `configuration.yaml` file:
+To integrate iCloud3 in Home Assistant, add the following section to your `configuration.yaml` file:
 
 ```
 # Example configuration.yaml entry
@@ -79,27 +83,32 @@ device_tracker:
     username: USERNAME 
     password: PASSWORD
     account_name: accountname
-    include_device_type: iphone
+    include_device_type: iphone      <<<<< Note: See Configuration below for more info
 
 ```
 
+iCloud3 is a Home Assistant custom component. Create a *config/custom_component/device_tracker* directory on the device (Raspberry Pi) running Home Assistant. Copy the  `icloud3.py ' file into that directory.
+
 ### About Your Apple iCloud Account
-  
+
 Apple has enabled '2 Step Authentication' for iCloud accounts. To permit Home Assistant, and iCloud3, to access your iCloud account,  you need to have an authentication code sent via a text message to a trusted device, which is then entered in Home Assistant. The duration of this authentication is determined by Apple, but is now at 2 months.  
-  
-*Note:* `pyicloud`, the Python program used to access your iCloud account, does not support 2 Factor Authentication, the improved version of 2 Steps Authentication.
 
 When your account needs to be authorized, or reauthorized, you will be notified and the Notification symbol (the bell in the upper right of the Home Assistant screen) will be highlighted. Take the following steps to complete the process:  
-  1. Press the Notification Bell.
+  1. Press the Notification Bell in the upper right-hand corner of your Home Assistant screen.
+
   2. A window is displayed, listing the trusted devices associated with your account. It will list an number (0, 1, 2, etc.) next to the phone number that can receive the text message containing the 2 Step Authentication code number used to authenticate the computer running Home Assistant (your Raspberry Pi for example).
+
   3. Type the number.
+
   4. A text message is sent. Type the authentication code you receive in the next window that is displayed.
-  
+
+*Note:* The Python program used to access your iCloud account, ` pyicloud `, does not support 2 Factor Authentication, the improved version of 2 Steps Authentication.
+
 **Associating the iPhone Device Name with Home Assistant using the Home Assistant IOS App**   
-The Device Name field of the device in Settings App>General>About>Name field on the iPhone and iPad and in the Apple Watch App for the iWatch is stored in the iCloud account and used by Home Assistant to identify the device. HA v0.86+ converts any secial characters found in the Device Name field to an underscore ( _ ) while HA v0.85 and earlier droped the special caracters altogether; e.g., 'Gary-iPhone' becomes 'gary_iphone' in known_devices.yaml, automations, sensors, scripts, etc. The value, 'gary_iphone', in the Device ID field in the Home Assistant IOS App>Settings ties everything together. 
-  
+The Device Name field of the device in Settings App>General>About>Name field on the iPhone and iPad and in the Apple Watch App for the iWatch is stored in the iCloud account and used by Home Assistant to identify the device. HA v0.86+ converts any special characters found in the Device Name field to an underscore ( _ ) while HA v0.85 and earlier dropped the special characters altogether; e.g., 'Gary-iPhone' becomes 'gary_iphone' in known_devices.yaml, automations, sensors, scripts, etc. The value, 'gary_iphone', in the Device ID field in the Home Assistant IOS App>Settings ties everything together. 
+
 *Note:* When you use iCloud account is accessed on a new device, you may receive an email from Apple stating that someone has logged into your account.  
-  
+
  
 
 
@@ -141,7 +150,7 @@ include_device_type:
   - iphone
 exclude_device:
   - gary_iphone
-```  
+```
 
 *Note:* It is recommended that to you specify the devices or the device types you want to track to avoid confusion or errors. All of the devices you are tracking are shown in the `devices_tracked ` attribute.  
 
@@ -163,46 +172,46 @@ Hide the latitude and longitude of the device if not in a zone.
 **unit_of_measurement**  
 The unit of measure for distances in miles or kilometers.   
 *Valid values: mi, km. Default: mi*
- 
+
 **distance_method**  
 iCloud3 uses two methods of determining the distance between home and your current location — by calculating the straight line distance using geometry formulas (like the Proximity sensor) and by using the Waze Route Tracker to determine the distance based on the driving route.   
 *Valid values: waze, calc. Default: waze*  
-   
+
 **waze_min_distance, waze_max_distance**  
 These values are also used to determine if the polling internal should be based on the Waze distance. If the calculated straght-line distance is between these values, the Waze distance will be requested from the Waze mapping service. Otherwise, the calculated distane is used to determine the polling interval. 
 *Default: min=1, max=1000*  
 
 *Note:* The Waze distance becomes less accurate when you are close to home. The calculation method is better when the distances less than 1 mile or 1 kilometer.  
 *Note:* If you are a long way from home, it probably doesn't make sense to use the Waze distance. You probably don't have any automations that would be triggered from that far away. 
-  
+
 **waze_realtime**  
 Waze reports the travel time estimate two ways — by taking the current, real time traffic conditions into consideration (True) or as an average travel time for the time of day (False).  
 *Valid values: True, False. Default: False*  
-  
+
 **waze_region**  
 The area used by Waze to determine the distance and travel time.  
 *Valid values: US (United States), NA (North America), EU (Europe), IL (Isreal). Default: US*  
-  
+
 **travel_time_factor**  
 When using Waze and the distance from your current location to home is more than 3 kilometers/miles, the polling interval is calculated by multiplying the driving time to home by the `travel_time_factor`.  
 *Default: .60*  
 
 *Note:* Using the default value, the next update will be 3/4 of the time it takes to drive home from your current location. The one after that will be 3/4 of the time from that point. The result is a smaller interval as you get closer to home and a larger one as you get further away.  
- 
+
 ## SPECIAL ZONES  
-  
+
 There are two zones that are special to the iCloud3 device tracker - the Dynamic Stationary Zone and the NearZone zone.
 
 **Dynamic Stationary Zone**  
 When a device has not moved for 60m/200ft in 2 polling cycles, it is considered to be stationary. Examples might be when you are at a mall, doctor's office, restaurant, friend's house, etc. If the device is stationary, it's Stationary Zone location (latitude and longitude) is automatically updated with the current values, the device state is changed and the interval time is set to the *inzone_interval* value (default is 2 hrs). This almost eliminates the number of times the device must be polled to see how far it is from home when you haven't moved for a while. When you leave the Stationary Zone, the IOS App notifies Home Assistant that the Stationary Zone has been exited and the device tracking begins again.
 
 *Note:* You do not have to create the Stationary Zone in the zones.yaml file, the iCloud3 device tracker automatically creates one for every device being tracked when Home Assistant is started. It's name is *devicename_Stationary*.  
-  
+
 **NearZone Zone**  
 There may be times when the Home Zone's (or another zone's) cell service is poor and does not track the device adequately when the device nears a zone. This can create problems triggering automations when the device enters the zone since the Find-My-Friends location service has problems monitoring it's location.  
-  
+
 To solve this, a special 'NearZone' zone can be created that is a short distance from the real zone that will wake the device up. The IOS App stores the zone's location on the device and will trigger a zone enter/exit notification which will then change the device's device_tracker state to the NearZone zone and change the polling interval to every 15-secs. It is not perfect and might not work every time but it is better than utomations never being triggered when they should.
-  
+
 *Note:* You can have more than one NearZone zone in the zones.yaml file. Set them up with a unique name that starts with NearZone;, e.g., NearZone-Home, NearZone-Quail, NearZone-Work, etc. The *friendly_name* attribute should be NearZone for each one.
 
 ## ATTRIBUTES
@@ -211,58 +220,58 @@ There are numerous attributes that are available for use in automations or to mo
 
 **battery**  
 The battery level of the device..  
-  
+
 **authenticated**  
 When the device's iCloud account was last authenticated.  
-  
+
 **interval**  
 The current interval between update requests to your iCloud account for the location and other information. They increase as you get further away and decrease as you get closer to home.  
-  
+
 **travel_time**  
 The Waze travel time to return home from your current location.  
-  
+
 **distance**  
 The distance from home being used by the interval calculator. This will be either the Waze distance or the calculated distance.  
-  
+
 **waze_distance**  
 The driving distance from home returned by Waze based on the shortest route.  
-  
+
 **calculated_distance**  
 The 'straight line' distance that is calculated using the latitude and longitude of home and your current location using geometric formulas.  
-  
+
 **dir_of_travel**  
 The direction you are traveling — towards home, away from home, near home, or stationary. This is determined by calculating the difference between the distance from home on this location update and the last one. Stationary can be a little difficult to determine at times and sometimes needs several updates to get right.  
-  
+
 **last_located**  
 The last time your iCloud account successfully located the device. Normally, this will be a few seconds after the update time, however, if you are in a dead zone or the GPS accuracy exceeds the threshold, the time will be older. In this case, a description of the issues is displayed in the `info` attribute field.  
-  
+
 **last_update**  
 The time of the last iCloud location update.  
-  
+
 **next_update**  
 The time of the next iCloud location update.  
-  
+
 **poll_count**  
 The number of iCloud location updates done that day.  
-  
+
 **info**  
 A message area displaying information about the device. This includes the battery level, Waze status, GPS accuracy issues, how long the device has been stationary, etc.  
-  
+
 **tracked_devices**  
 The devices that are being tracked based on the 'includes' and 'excludes' specified in the configuration.yaml file.  This will be the same for all devices tracked.  
-  
+
 **device_status**  
 The status of the device — online if the device is located or offline if polling has been paused or it can not be located.  
-  
+
 **battery_status**  
 Charging or NotCharging.  
-  
+
 **latitude, longitude, altitude**  
 The location of the device.  
-  
+
 **source_type**  
 How the the `Home Assistant IOS App` located the device. This includes gps, beacon, router.  
-  
+
 ## Accessing Attributes in Automations and in Lovelace
 
 Automations can access the attribute's value using the `states.attributes.attributename` statement. The third trigger in the example below will trigger the `gary_arrives_home` automation when the distance goes below .25.  
@@ -281,10 +290,10 @@ Automations can access the attribute's value using the `states.attributes.attrib
       value_template: '{{float(state.attributes.distance)}}'
       below: .21
 
-```  
-  
+```
+
 An entity's state can be displayed on a Lovelace card but the attribute's value cannot. To display the attribute's value, a sensor template can be used that will be updated when the attribute's value changes. The following example will display the `distance` attribute.  
-  
+
 ```
 # Example yaml (sensor.yaml)
 - platform: template
@@ -303,11 +312,11 @@ And on a Lovelace card:
   icon: mdi:map-marker-distance 
 
 ```
-  
+
 *Note:* It is better to access the attribute's value in automation rather than using a template sensor. The reason is that when the attribute changes value, it will trigger the automation immediately. If the template sensor is used, the automation becomes a two step process; the sensor must be changed before the automation will be triggered.  
-  
+
 ## DEVICE TRACKER SERVICES 
-  
+
 Four services are available for the iCloud3 device tracker component that are used in automations. 
 
 | Service | Description |
@@ -318,7 +327,7 @@ Four services are available for the iCloud3 device tracker component that are us
 | icloud_reset | Reset the iCloud3 custom component. |
 
 Description of each service follows.
-  
+
 ### SERVICE — icloud_update
 This service allows you to change the way iCloud3 operates. The following parameters are used:
 
@@ -328,13 +337,13 @@ This service allows you to change the way iCloud3 operates. The following parame
 | device_name | Name of the device to be updated. All devices will be updated if this parameter is not specified. *(Optional)* |
 | command | The action to be performed (see below). *(Required)* |
 | parameter | Additional parameters for the command. |
-  
+
 The following describe the commands that are available. 
-  
+
 | Command |  Parameter | Description |
 |---------|------------|-------------|
 | pause |  | Stop updating/locating a device (or all devices). Note: You may want to pause location updates for a device if you are a long way from home or out of the country and it doesn't make sense to continue locating your device. |
-| resume |  | Start updating/locating a device (or all devices) after it has been paused. |  
+| resume |  | Start updating/locating a device (or all devices) after it has been paused. |
 | resume |  | Reset the update interval if it was overridden the 'icloud_set_interval' service. |
 | pause-resume |  | Toggle pause and resume commands |
 | zone | zonename | Change iCloud3 state to 'zonename' (like the device_tracker.see service call) and immediately update the device interval and location data. Note: Using the device_tracker.see service call instead will update the device state but the new interval and location data will be delayed until the next 15-second polling iteration (rather than immediately). |
@@ -343,7 +352,7 @@ The following describe the commands that are available.
 | waze | toggle | Toggle waze on or off |
 |  waze | reset_range | Reset the Waze range to the default distances (min=1, max=99999). |
 | debug | interval | Show how the interval is determined by iCloud3. This is displayed real time in the `info` attribute field. |
-  
+
 
 ```
 #Example Automations.yaml
@@ -407,7 +416,7 @@ icloud_command_garyiphone_zone_not_home:
         command: zone not_home
 ```
 
-  
+
 ### SERVICE — icloud_set_interval  
 This service allows you to override the interval between location updates to a fixed time. It is reset when a zone is entered or when the icloud_update service call is processed with the 'resume'command. The following parameters are used:
 
@@ -446,7 +455,7 @@ icloud_set_interval_5_hrs_all:
         interval: '5 hrs'
  
 ```
-  
+
 ### SERVICE — icloud_lost_iphone 
 This service will play the Lost iPhone sound on a specific device. 
 
@@ -454,21 +463,21 @@ This service will play the Lost iPhone sound on a specific device.
 |-----------|-------------|
 | account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. *(Required)* |
 | device_name | Name of the device *(Required)* |
-  
+
 ### SERVICE — icloud_reset
 This service will refresh all of the devices being handled by iCloud3 and can be used when you have added a new device to your Apple account. You will have to restart Home Assist if you have made changes to the platform parameters (new device type, new device name, etc.) 
-  
+
 | Parameter | Description |
 |-----------|-------------|
 | account_name | account_name of the iCloud3 custom component specified in the Configuration Variables section described at the beginning of this document. *(Required)* |
-  
-  
+
+
 ## TECHNICAL INFORMATION - HOW THE INTERVAL IS DETERMINED
 The iCloud3 device tracked uses data from several sources to determine the time interval between the iCloud Find my Friends location update requests.  The purpose is to provide accurate location data without exceeding Apple's limit on the number of requests in a time period and to limit the drain on the device's battery.
 
 The algorithm uses a sequence of tests to determine the interval. If the test is true, it's interval value is used and no further tests are done. The following is for the nerd who wants to know how this is done. 
 
-          
+
 | Test | Interval | Method Name|
 |------|----------|------------|
 | Zone Changed | 15 seconds | 1-ZoneChanged |
