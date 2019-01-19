@@ -16,7 +16,7 @@
 
 Below are some sample Lovelace screenshots showing how iCloud3 information can be displayed (see *ui-lovelace-icloud3.yaml* in the *configuration files* directory). Example configuration files for sensors, switches, badges, automations and scripts are also found in the *configuration files* directory that report location information and device status, along with running automations (opening a garage door) when arriving home. Other uses (security, lighting, heating & cooling control, etc.) can be added to the automations to meet your needs. 
 
-*Special Note: I want to thank Walt Howd, (iCloud2 fame) who inspired me to tackle this project...Gary Cobb aka GeeksterGary)*
+*Special Note: I want to thank Walt Howd, (iCloud2 fame) who inspired me to tackle this project...Gary Cobb aka GeeksterGary.*
 
 ![Screenshots](screenshots/Readme-Screenshots.jpg)
 
