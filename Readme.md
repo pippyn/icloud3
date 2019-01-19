@@ -154,9 +154,9 @@ exclude_device:
   - gary_iphone
 ```
 
-*Note:* It is recommended that to you specify the devices or the device types you want to track to avoid confusion or errors. All of the devices you are tracking are shown in the `devices_tracked ` attribute.  
+*Note:* It is recommended that to you specify the devices or the device types you want to track to avoid confusion or errors. All of the devices you are tracking are shown in the `devices_tracked ` attribute. 
 
-*Note:* If you have been using the  `iCloud2.py` custom component, the *filter_type* configuration variable must be converted to one of the above configuration variables. 
+*<u>Special Note for iCloud2 Users</u>:* It is recommended that the *filter_type* configuration entry be changed to *include_devices*.
 
 **inzone_interval**  
 The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified).  

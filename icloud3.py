@@ -47,6 +47,7 @@ CONF_INCLUDE_DEVICETYPE     = 'include_device_type'
 CONF_EXCLUDE_DEVICETYPE     = 'exclude_device_type'
 CONF_INCLUDE_DEVICE         = 'include_device'
 CONF_EXCLUDE_DEVICE         = 'exclude_device'
+CONF_FILTER_DEVICES         = 'filter_devices'
 CONF_DEVICENAME             = 'device_name'
 CONF_UNIT_OF_MEASUREMENT    = 'unit_of_measurement'
 CONF_INTERVAL               = 'interval'
@@ -163,6 +164,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_EXCLUDE_DEVICETYPE): vol.All(cv.ensure_list, [cv.string]),
     vol.Optional(CONF_EXCLUDE_DEVICES): vol.All(cv.ensure_list, [cv.string]),
     vol.Optional(CONF_EXCLUDE_DEVICE): vol.All(cv.ensure_list, [cv.string]),
+    vol.Optional(CONF_FILTER_DEVICES): cv.slugify,
     vol.Optional(ATTR_TRACKED_DEVICES): cv.string,
     #-----►►Location Attributes  ----------
     vol.Optional(ATTR_LAST_UPDATE_TIME): cv.slugify,
@@ -217,6 +219,7 @@ def setup_scanner(hass, config: dict, see, discovery_info=None):
     exclude_devices = combine_config_filter_parms(
             config.get(CONF_EXCLUDE_DEVICES),
             config.get(CONF_EXCLUDE_DEVICE))
+    filter_devices = config.get(CONF_FILTER_DEVICES) 
 
     if config.get(CONF_MAX_INTERVAL) == '0':
         inzone_interval = config.get(CONF_INZONE_INTERVAL)
@@ -244,7 +247,7 @@ def setup_scanner(hass, config: dict, see, discovery_info=None):
 
     icloudaccount = Icloud(hass, see, username, password, account,
         include_device_types, include_devices,
-        exclude_device_types, exclude_devices,
+        exclude_device_types, exclude_devices, filter_devices,
         inzone_interval, gps_accuracy_threshold, hide_gps_coordinates,
         unit_of_measurement, travel_time_factor, distance_method,
         waze_region, waze_realtime, waze_max_distance, waze_min_distance)
@@ -318,7 +321,7 @@ class Icloud(DeviceScanner):
 
     def __init__(self, hass, see, username, password, account,
         include_device_types, include_devices,
-        exclude_device_types, exclude_devices,
+        exclude_device_types, exclude_devices, filter_devices,
         inzone_interval, gps_accuracy_threshold, hide_gps_coordinates,
         unit_of_measurement, travel_time_factor, distance_method,
         waze_region, waze_realtime, waze_max_distance, waze_min_distance):
@@ -344,7 +347,12 @@ class Icloud(DeviceScanner):
 
         self.include_device_types = include_device_types
         self.exclude_device_types = exclude_device_types
-        self.include_devices      = include_devices
+        if filter_devices:      #for iCloud2 compatiblity
+            self.include_devices      = filter_devices
+        else:
+            self.include_devices      = include_devices
+            not filter_devices
+
         self.exclude_devices      = exclude_devices
 
         self.tracked_devices       = {}
