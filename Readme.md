@@ -16,6 +16,8 @@
 
 Below are some sample Lovelace screenshots showing how iCloud3 information can be displayed (see *ui-lovelace-icloud3.yaml* in the *configuration files* directory). Example configuration files for sensors, switches, badges, automations and scripts are also found in the *configuration files* directory that report location information and device status, along with running automations (opening a garage door) when arriving home. Other uses (security, lighting, heating & cooling control, etc.) can be added to the automations to meet your needs. 
 
+*Special Note: I want to thank Walt Howd, (iCloud2 fame) who inspired me to tackle this project...Gary Cobb aka GeeksterGary)*
+
 ![Screenshots](screenshots/Readme-Screenshots.jpg)
 
 ## INTRODUCTION
@@ -153,6 +155,8 @@ exclude_device:
 ```
 
 *Note:* It is recommended that to you specify the devices or the device types you want to track to avoid confusion or errors. All of the devices you are tracking are shown in the `devices_tracked ` attribute.  
+
+*Note:* If you have been using the  `iCloud2.py` custom component, the *filter_type* configuration variable must be converted to one of the above configuration variables. 
 
 **inzone_interval**  
 The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified).  
