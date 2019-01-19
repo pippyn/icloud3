@@ -156,7 +156,7 @@ exclude_device:
 
 *Note:* It is recommended that to you specify the devices or the device types you want to track to avoid confusion or errors. All of the devices you are tracking are shown in the `devices_tracked ` attribute. 
 
-[Special Note for iCloud2 Users: It is recommended that the *filter_type* configuration  entry be changed to *include_devices*.]()
+[Special Note for iCloud2 Users: It is recommended that the *filter_type* configuration  entry be changed to *include_devices*.](https://github.com/gcobb321/icloud3)
 
 **inzone_interval**  
 The interval between location upates when the device is in a zone. This can be in seconds, minutes or hours, e.g., 30 secs, 1 hr, 45 min, or 30 (minutes are assumed if no time qualifier is specified).  
