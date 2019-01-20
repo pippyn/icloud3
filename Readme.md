@@ -8,7 +8,7 @@
 
 ----------
 
-'iCloud3' is an improved version of the iCloud device_tracker component installed with Home Assistant.  It's  purpose is:
+'iCloud3' is an improved version of the iCloud device_tracker component installed with Home Assistant.  It's  purpose is: 
 
 - To provide easy-to-use presence detection that does not rely on any other program, other than Home Assistant and the Home Assistant IOS app.
 - To be report accurate information (location, distance from home, current zone) on a timely basis that can be used reliably in automations.
