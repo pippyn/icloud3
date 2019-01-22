@@ -181,23 +181,25 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_COMMAND): cv.string
 })
 
-def combine_config_filter_parms(p1, p2):
+def combine_config_filter_parms(parm_devices, parm_device):
     '''
-    Return configuration parms based on the one specified.
-    The user may put in the singular version of the parameter or
-    a multiple version of the paramter. For example:
-        include_device_types: or include_device_type:
+    Return a concatinated configuration parms string. 
+        include_device + include_devices
+        exclude_device + exclude_devices
+        include_device_type + include_device_types
+        exclude_device + exclude_device_types
+        
+    Returned the combine the two lists (p1 & p2)
     '''
-    if p1:
-        p1_str = str(p1)
-        return_value = p1_str.lower()
-    elif p2:
-        p2_str = str(p2)
-        return_value = p2_str.lower()
-    else:
-        return_value = '_xxx'
+    combined_list = []
+    if parm_devices:
+        for item in parm_devices:
+            combined_list.append(item.lower())
+    if parm_device:
+        for item in parm_device:
+            combined_list.append(item.lower())
 
-    return  return_value
+    return  combined_list
 
 #--------------------------------------------------------------------
 def setup_scanner(hass, config: dict, see, discovery_info=None):
@@ -389,7 +391,8 @@ class Icloud(DeviceScanner):
         self.poll_count                  = {}
         self.poll_count_yesterday        = {}
         self.location_isold_cnt          = {}    # override interval while < 4
-        self.tracked_devicenames         = ''
+
+        self.tracked_devicenames_all     = ''
         self.immediate_retry_flag        = False
         self.time_zone_offset_seconds    = 0
         self.setinterval_cmd_devicename  = None
@@ -456,8 +459,8 @@ class Icloud(DeviceScanner):
         from pyicloud.exceptions import (
             PyiCloudFailedLoginException, PyiCloudNoDevicesException)
 
-        _LOGGER.info(("►►►►►► ICLOUD3.PY ACCOUNT/INITIALIZATION "
-                     "%s ►►►►►►"), self.username)
+        _LOGGER.info(("►►► ICLOUD3.PY INITIALIZING ACCOUNT  "
+                     "%s as %s"), self.username, self.accountname)
 
         self.time_zone_offset_seconds = self._calculate_time_zone_offset()
 
@@ -473,6 +476,9 @@ class Icloud(DeviceScanner):
             _LOGGER.error("Error logging into iCloud Service: %s", error)
             return
 
+        _LOGGER.info(("Authentication for %s as %s successful"),
+                        self.username, self.accountname)
+ 
         try:
             self.authenticated_time       = \
                             dt_util.now().strftime(self.date_time_format)
@@ -494,7 +500,7 @@ class Icloud(DeviceScanner):
             _LOGGER.info("Initializing Device Tracking for user %s",
                             self.username)
 
-            self.tracked_devicenames = ''
+            self.tracked_devicenames_all = ''
             for device in self.api.devices:
                 status      = device.status(DEVICESTATUSSET)
                 location    = status['location']
@@ -502,22 +508,23 @@ class Icloud(DeviceScanner):
                 device_type = status['deviceClass'].lower()
 
                 if location is None:
-                    _LOGGER.info(("Not tracking %s, No location "
+                    _LOGGER.info(("Not tracking %s/%s, No location "
                                  "information"),
-                                 devicename)
+                                 self.accountname, devicename)
                     tracking_flag = False
                 elif status['locationEnabled'] is False:
-                    _LOGGER.info(("Not tracking %s, Location Disabled"),
-                                 devicename)
+                    _LOGGER.info(("Not tracking %s/%s, Location Disabled"),
+                                 self.accountname, devicename)
                     tracking_flag = False
                 elif status['deviceStatus'] == '204':
-                    _LOGGER.info(("Not tracking %s, Unregistered "
-                                 "Device (Status=204)"), devicename)
+                    _LOGGER.info(("Not tracking %s/%s, Unregistered "
+                                 "Device (Status=204)"),
+                                 self.accountname, devicename)
                     tracking_flag = False
                 elif devicename in self.tracking_device_flag:
-                    _LOGGER.info(("Not tracking %s, Multiple "
+                    _LOGGER.info(("Not tracking %s/%s, Multiple "
                                  "devices with same name"),
-                                 devicename)
+                                 self.accountname, devicename)
                     tracking_flag = False
                 else:
                     tracking_flag = self._check_tracking_this_device(
@@ -527,8 +534,10 @@ class Icloud(DeviceScanner):
                 if tracking_flag is False:
                     continue
 
-                self.tracked_devicenames = '{} {},'.\
-                        format(self.tracked_devicenames, devicename)
+                self.tracked_devicenames_all = '{}{}/{}, '.\
+                            format(self.tracked_devicenames_all, self.accountname, 
+                            devicename)
+                       
                 self.tracked_devices[devicename] = device
                 self.device_type[devicename]     = device_type
 
@@ -592,7 +601,8 @@ class Icloud(DeviceScanner):
                 attrs[ATTR_POLL_COUNT]         = 0
                 attrs[ATTR_DIR_OF_TRAVEL]      = ''
                 attrs[ATTR_INFO]               = ''
-                attrs[ATTR_TRACKED_DEVICES]    = self.tracked_devicenames
+
+                attrs[ATTR_TRACKED_DEVICES]    = self.tracked_devicenames_all[:-2]
                 attrs[CONF_TRAVEL_TIME_FACTOR] = self.travel_time_factor
                 attrs[CONF_WAZE_MIN_DISTANCE]  = \
                         self._km_to_mi(self.waze_min_distance)
@@ -601,7 +611,7 @@ class Icloud(DeviceScanner):
 
                 self._update_device_attributes(devicename, kwargs, attrs)
 
-            _LOGGER.info(("Tracking Devices %s"), self.tracked_devicenames)
+            _LOGGER.info(("Tracking Devices %s"), self.tracked_devicenames_all[:-2])
 
         except PyiCloudNoDevicesException:
             _LOGGER.error('No iCloud Devices found!')
@@ -799,8 +809,8 @@ class Icloud(DeviceScanner):
                     _LOGGER.info(("Zone Change Detected for %s, "
                          "From=%s, To=%s"), devicename,
                          self.last_state.get(devicename), current_state)
-                    _LOGGER.debug(("►►►►DEVICE STATE CHANGED WARNING ~~%s~~, "
-                         "From=%s, To=%s"), devicename,
+                    _LOGGER.debug(("►►►►DEVICE STATE CHANGED ~~%s/%s~~, "
+                         "From=%s, To=%s WARN"), self.accountname, devicename,
                          self.last_state.get(devicename), current_state)
 
                     self.state_change_flag[devicename]   = True
@@ -872,7 +882,7 @@ class Icloud(DeviceScanner):
                     continue
 
                 _LOGGER.debug(("▼▼▼▼▼ UPDATE DEVICE <START> - "
-                        "%s (%s) ▼▼▼▼▼ WARN"),
+                        "%s/%s (%s) ▼▼▼▼▼ WARN"), self.accountname,
                         devicename, self.current_state.get(devicename))
 
                 try:
@@ -891,8 +901,8 @@ class Icloud(DeviceScanner):
                             dt_util.now().strftime(self.date_time_format)
                     device = self.tracked_devices.get(devicename)
                     status = device.status(DEVICESTATUSSET)
-                    _LOGGER.info(("Reauthenticated iCloud account for e %s"),
-                            devicename)
+                    _LOGGER.info(("Reauthenticated iCloud account for e %s/%s"),
+                            self.accountname, devicename)
 
                     if status is None:
                         _LOGGER.error(("iCloud Reauthentication Error,"
@@ -994,7 +1004,7 @@ class Icloud(DeviceScanner):
                                     status['deviceStatus'], 'error')
                     attrs[ATTR_LOWPOWERMODE]    = status['lowPowerMode']
                     attrs[ATTR_BATTERYSTATUS]   = status['batteryStatus']
-                    attrs[ATTR_TRACKED_DEVICES] = self.tracked_devicenames[:-1]
+                    attrs[ATTR_TRACKED_DEVICES] = self.tracked_devicenames_all[:-2]
 
                     if self.poor_gps_accuracy_cnt.get(devicename) > 0:
                         attrs[ATTR_POLL_COUNT]  = "{}-GPS".format(\
@@ -1034,7 +1044,7 @@ class Icloud(DeviceScanner):
                          attrs[ATTR_POLL_COUNT], attrs[ATTR_GPS_ACCURACY])
 
                 _LOGGER.debug(("▲▲▲▲▲ UPDATING DEVICE <END> - "
-                        "%s (%s) ▲▲▲▲▲ WARN"),
+                        "%s/%s (%s) ▲▲▲▲▲ WARN"), self.accountname,
                         devicename, self.current_state.get(devicename))
 
         except PyiCloudNoDevicesException:
@@ -1860,61 +1870,65 @@ class Icloud(DeviceScanner):
         # 'known_devices.yaml', but we need to see() it at least once
 
         entity_id = self._format_entity_id(devicename)
-
+        
         #devicename in 'excluded_devices' parameter ==> Don't Track
         if devicename in self.exclude_devices:
-            _LOGGER.info(("Not tracking %s, Did not pass "
-                         "'exclude_devices' filter (%s)"),
-                         devicename, self.exclude_devices)
+            _LOGGER.info(("Not tracking %s/%s, Failed "
+                        "'exclude_devices' filter (%s)"),
+                        self.accountname, devicename, self.exclude_devices)
             return False
 
         #devicename in 'include_devices' parameter ==> Track
         elif devicename in self.include_devices:
-            _LOGGER.info(("Tracking %s, Passed "
-                         "'include_devices' filter (%s)"),
-                         devicename, self.include_devices)
+            _LOGGER.info(("Tracking %s/%s, Passed "
+                        "'include_devices' filter (%s)"),
+                        self.accountname, devicename, self.include_devices)
             return True
 
         #devicetype in 'include_device_types' parameter ==> Track
         elif device_type in self.include_device_types:
-            _LOGGER.info(("Tracking %s, Passed "
-                         "'include_device_type' filter (%s)"),
-                         devicename, device_type)
+            _LOGGER.info(("Tracking %s/%s, Passed "
+                        "'include_device_type' filter (%s)"),
+                        self.accountname, devicename, device_type)
             return True
 
         #devicetype in 'exclude_device_types' parameter ==> Don't Track
         elif device_type in self.exclude_device_types:
-            _LOGGER.info(("Not tracking %s, Did not pass "
+            _LOGGER.info(("Not tracking %s/%s, Failed "
                          "'exclude_device_types' filter (%s)"),
-                         devicename, self.exclude_device_types)
+                         self.accountname, devicename,
+                         self.exclude_device_types)
             return False
 
         #neither 'include_device_types' nor 'exclude_device_types' parameter
         #and devicename not in 'include_devices' parameter    ==> Don't Track
-        elif ('_xxx' in self.include_device_types and
-                '_xxx' in self.exclude_device_types and
-                '_xxx' not in self.include_devices):
-            _LOGGER.info(("Not tracking %s, No "
-                         "'include/exclude_device_types' filter (%s)"),
-                         devicename, self.include_device_types)
+        elif (not self.include_device_types and
+                not self.exclude_device_types and
+                self.include_devices):
+            _LOGGER.info(("Not tracking %s/%s, Failed "
+                        "'include devices' filter (%s)"),
+                        self.accountname, devicename,
+                        self.include_devices)
             return False
 
         #'include_device_types parameter and
         #devicename in 'exclude_device'                    ==> Don't Track
-        elif ('_xxx' not in self.include_device_types and
-                    devicename in self.exclude_devices):
-            _LOGGER.info(("Not tracking %s, Did not pass "
-                         "'include_device_types' filter (%s)"),
-                         devicename, self.include_device_types)
+        elif (self.include_device_types and
+                devicename in self.exclude_devices):
+            _LOGGER.info(("Not tracking %s/%s, Failed "
+                        "'include_device_types' filter (%s)"),
+                        self.accountname, devicename,
+                        self.include_device_types)
             return False
 
         #unknown device ==> Don't Track
         elif entity_id is None:
-            _LOGGER.info("Not tracking %s, Unknown device", devicename)
+            _LOGGER.info(("Not tracking %s/%s, Unknown device"), 
+                        self.accountname, devicename)
             return False
 
-        _LOGGER.info(("Not tracking %s, Did not match any tracking "
-                    "filters, Type=%s"), devicename, device_type)
+        _LOGGER.info(("Not tracking %s/%s, Did not match any tracking "
+                    "filters, Type=%s"), self.accountname, devicename, device_type)
         return False
 
 #--------------------------------------------------------------------

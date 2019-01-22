@@ -1,6 +1,6 @@
 # iCloud3  Device Tracker Custom Component  
 
-[![Version](https://img.shields.io/badge/Version-0.85-blue.svg "Version")](https://github.com/gcobb321/icloud3)
+[![Version](https://img.shields.io/badge/Version-0.86-blue.svg "Version")](https://github.com/gcobb321/icloud3)
 [![Released](https://img.shields.io/badge/Released-1/20/2019-brightgreen.svg "Released")](https://github.com/gcobb321/icloud3)
 [![Project Stage](https://img.shields.io/badge/ProjectStage-Prerelease.Testing-yellow.svg "Project Stage")](https://github.com/gcobb321/icloud3)
 [![Type](https://img.shields.io/badge/Type-CustomComponent-yellow.svg "Type")](https://github.com/gcobb321/icloud3)
@@ -64,14 +64,27 @@ The above analysis results in a polling interval. The further away from home and
 Note: The `pyicloud.py` Python component is part of Home Assistant and used to poll the device, requesting location and other information. If the iCloud account is associated with multiple devices, all of the devices are polled, whether or not the device is being tracked by Home Assistant. This is a limitation of pyicloud.py. 
 
 
-### What other programs do I need
+#### What other programs do I need
 
 The `Home Assistant IOS App` is all. You do not need `OwnTracks` or other location based trackers and you do not need `nmap`, `netgear`, `ping` or any network monitor. The `Home Assistant IOS App` will notify Home Assistant when you leave home and iCloud3 device tracker will start keeping up with the device's location, the distance to home and the time it will take to get there.  
 
 *Note:* The IOS App settings `Zone enter/exit`, `Background fetch` and `Significant location change` location settings need to be enabled. 
 
-
 The `iCloud` platform allows you to detect presence using the  [iCloud](https://www.icloud.com/) service. iCloud allows users to track their location on iOS devices. Your device needs to be registered with “Find My iPhone”.
+
+#### What happens if I don't have the IOS app on my device
+
+The  `Home Assistant IOS App`  issues zone enter/exits and pushes location updates to HA; the iCloud Find-my-Friends issues location updates and other device information when asked by iCloud3. They both must map to the same device (see about assigning device_names a little later). If they do not, or if the IOS app is not installed on the device, the zone enter/exits will not be picked up when they actually happen.
+
+They will be updated, however, on the next poll by iCloud3. The problem with not having the IOS app installed is if you are in a zone and on a 2-hour polling interval, it could be 2-hours before the device goes to a not_home state. With the IOS app, it picks up the zone exit, pushes it to HA, gets picked up by iCloud3 and changes the state within a minute or two of exiting the zone.  
+
+```
+# Example device names:
+iPhone Settings -- General>About = Gary-iPhone
+IOS App name    -- gary_iphone (HA85+) (or garyiphone HA84 and earlier). 
+    
+Note: Special characters (’-’) get mapped to ‘_’ by HA and must be accounted for. I could have set the iPhone name to Gary_iPhone but didn’t
+```
 
 
 ### Home Assistant Configuration
@@ -82,12 +95,34 @@ To integrate iCloud3 in Home Assistant, add the following section to your `confi
 # Example configuration.yaml entry
 device_tracker:
   - platform: icloud3
-    username: USERNAME 
-    password: PASSWORD
-    account_name: accountname
+    username: gary_Apple_iCloud_Account_ID 
+    password: gary_Apple_iCloud_Account_Password
+    account_name: gary_icloud
     include_device_type: iphone      <<<<< Note: See Configuration below for more info
+```
+
+If you have several devices that are associated with different Apple iCloud accounts, add a second iCloud3 platform with the other iCloud account. Since there may be a chance that a device is associated with several accounts, you should add *include_device* or *exclude_device* statements to the other account configuration.   
+
+*Note:* It is recommended that you have only one account with the *include_device_type* statement.
 
 ```
+# Example configuration.yaml entry
+device_tracker:
+  - platform: icloud3
+    username: gary_Apple_iCloud_Account_ID 
+    password: gary_Apple_iCloud_Account_Password
+    account_name: gary_icloud
+    include_device_type: iphone
+    exclude_device: lillian_iphone
+
+- platform: icloud3
+    username: lillian_Apple_iCloud_Account_ID 
+    password: lillian_Apple_iCloud_Account_Password
+    account_name: lillian_icloud
+    include_device: lillian_iphone
+```
+
+  
 
 iCloud3 is a Home Assistant custom component. Create a *config/custom_component/device_tracker* directory on the device (Raspberry Pi) running Home Assistant. Copy the  `icloud3.py ' file into that directory.
 
