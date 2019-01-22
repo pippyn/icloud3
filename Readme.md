@@ -83,7 +83,8 @@ They will be updated, however, on the next poll by iCloud3. The problem with not
 iPhone Settings -- General>About = Gary-iPhone
 IOS App name    -- gary_iphone (HA85+) (or garyiphone HA84 and earlier). 
     
-Note: Special characters (’-’) get mapped to ‘_’ by HA and must be accounted for. I could have set the iPhone name to Gary_iPhone but didn’t
+Note: Special characters (’-’) get mapped to ‘_’ by HA and must be accounted for. 
+I could have set the iPhone name to Gary_iPhone but didn’t
 ```
 
 
