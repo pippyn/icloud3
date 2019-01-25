@@ -1,0 +1,19 @@
+#--------------------------------------------------------------
+i
+#   INFORMATION COMMANDS
+#--------------------------------------------------------------
+icloud_command_info_interval_formula:
+  alias: 'Display Interval Formula'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: info interval
+
+icloud_command_info_logging_toggle:
+  alias: 'Write Details to Log File (Toggle)'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: info logging

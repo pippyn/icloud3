@@ -1,7 +1,7 @@
 # iCloud3  Device Tracker Custom Component  
 
-[![Version](https://img.shields.io/badge/Version-0.86-blue.svg "Version")](https://github.com/gcobb321/icloud3)
-[![Released](https://img.shields.io/badge/Released-1/20/2019-brightgreen.svg "Released")](https://github.com/gcobb321/icloud3)
+[![Version](https://img.shields.io/badge/Version-0.86.1-blue.svg "Version")](https://github.com/gcobb321/icloud3)
+[![Released](https://img.shields.io/badge/Released-1/25/2019-brightgreen.svg "Released")](https://github.com/gcobb321/icloud3)
 [![Project Stage](https://img.shields.io/badge/ProjectStage-Prerelease.Testing-yellow.svg "Project Stage")](https://github.com/gcobb321/icloud3)
 [![Type](https://img.shields.io/badge/Type-CustomComponent-yellow.svg "Type")](https://github.com/gcobb321/icloud3)
 [![Licensed](https://img.shields.io/badge/Licesned-MIT-green.svg "License")](https://github.com/gcobb321/icloud3)
@@ -47,7 +47,7 @@ iCloud3 has many features not in the base iCloud device_tracker that is part of 
 | ● Config variables | 4 | 20 |
 | ● Attributes | 20 | 33 |
 | ● Service Calls | 4 | 4 + 10 special commands |
-| ● Lines of code | 425 | 2500+ |
+| ● Lines of code | 425 | 2700+ |
 
 ### How it works
 
@@ -209,6 +209,11 @@ Hide the latitude and longitude of the device if not in a zone.
 *Note: This option provided enhanced security by only reporting the devices location when it is in a zone.*
 *Valid values: True, False. Default: False* 
 
+**ignore_gps_accuracy_inzone**
+If the GPS accuracy reported by the iCloud Find-my-Friends service is greater than the *gps_accuracy_threshold* (bigger number means poorer accuracy), the device is repolled every minute to try to get an accurate location. This controls whether the device is repolled when in a zone (with a 2-hour polling interval)  
+
+*Valid values: True, False. Default: True* 
+
 **unit_of_measurement**  
 The unit of measure for distances in miles or kilometers.   
 *Valid values: mi, km. Default: mi*
@@ -245,7 +250,7 @@ There are two zones that are special to the iCloud3 device tracker - the Dynamic
 **Dynamic Stationary Zone**  
 When a device has not moved for 60m/200ft in 2 polling cycles, it is considered to be stationary. Examples might be when you are at a mall, doctor's office, restaurant, friend's house, etc. If the device is stationary, it's Stationary Zone location (latitude and longitude) is automatically updated with the current values, the device state is changed and the interval time is set to the *inzone_interval* value (default is 2 hrs). This almost eliminates the number of times the device must be polled to see how far it is from home when you haven't moved for a while. When you leave the Stationary Zone, the IOS App notifies Home Assistant that the Stationary Zone has been exited and the device tracking begins again.
 
-*Note:* You do not have to create the Stationary Zone in the zones.yaml file, the iCloud3 device tracker automatically creates one for every device being tracked when Home Assistant is started. It's name is *devicename_Stationary*.  
+*Note:* You do not have to create the Stationary Zone in the zones.yaml file, the iCloud3 device tracker automatically creates one for every device being tracked when Home Assistant is started. The initial location is latitude 0°, longitude 180° (where the international date line crosses the equator). It's name is *devicename_Stationary*.  
 
 **NearZone Zone**  
 There may be times when the Home Zone's (or another zone's) cell service is poor and does not track the device adequately when the device nears a zone. This can create problems triggering automations when the device enters the zone since the Find-My-Friends location service has problems monitoring it's location.  
@@ -391,11 +396,13 @@ The following describe the commands that are available.
 | waze | off | Turn off Waze. Use the 'calc' method to determine the update interval. |
 | waze | toggle | Toggle waze on or off |
 |  waze | reset_range | Reset the Waze range to the default distances (min=1, max=99999). |
-| debug | interval | Show how the interval is determined by iCloud3. This is displayed real time in the `info` attribute field. |
+| info | interval | Show how the interval is determined by iCloud3. This is displayed real time in the `info` attribute field. |
+| info | logging | Toggle writing detailed debug information records to the HA log file. |
 
 
 ```
-#Example Automations.yaml
+#Commands to Control Device Polling
+
 icloud_command_pause_resume_polling:
   alias: 'Toggle Pause/Resume Polling'
   sequence:
@@ -456,8 +463,30 @@ icloud_command_garyiphone_zone_not_home:
         command: zone not_home
 ```
 
+```
+#Commands to Generate Detailed Information on iCloud3's Operations
+
+icloud_command_info_interval_formula:
+  alias: 'Display Interval Formula'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: info interval
+
+icloud_command_info_logging_toggle:
+  alias: 'Write Details to Log File (Toggle)'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: info logging
+```
+
+
 
 ### SERVICE — icloud_set_interval  
+
 This service allows you to override the interval between location updates to a fixed time. It is reset when a zone is entered or when the icloud_update service call is processed with the 'resume'command. The following parameters are used:
 
 | Parameter | Description |
@@ -467,7 +496,8 @@ This service allows you to override the interval between location updates to a f
 | interval | The interval between location updates. This can be in seconds, minutes or hours. Examples are 30 sec, 45 min, 1 hr,  hrs, 30 (minutes are assumed if no time descriptor is specified). *(Required)* |
 
 ```
-#Example Automations.yaml           
+#Commands to Change Intervals
+
 icloud_set_interval_15_sec_gary:
   alias: 'Set Gary to 15 sec'
   sequence:
@@ -521,8 +551,8 @@ The algorithm uses a sequence of tests to determine the interval. If the test is
 | Test | Interval | Method Name|
 |------|----------|------------|
 | Zone Changed | 15 seconds | 1-ZoneChanged |
-| Poor GPS | 60 seconds | 2-PoorGPS |
-| Interval Override | value | 3-Override |
+| Poor GPS (unless in a zone) | 60 seconds | 2-PoorGPS |
+| Interval Override | specified value | 3-Override |
 | Old Location Data | 15 seconds | 4-OldLocationData |
 | In a Zone | 1-hr or `inzone_interval` parameter | 5-InZone |
 | Distance < 2.5km/1.5mi | 15 seconds | 6-Dist<2.5km/1.5mi |

@@ -1,6 +1,6 @@
-### iCloud3 Updates:
+### iCloud3 Change Log:
 
-##### Version .86 - 1/22/2019
+##### Version 0.86 - 1/22/2019
 
 1. Fixed a problem where devices were being excluded when they shouldn't have been. For example: if you had an *include_device: gary* and an *exclude_device: garyold* in the configuration file, gary was not being included in the devices being handled by iCloud3 when it should have been.
 2. Added better support for more than one iCloud3 platform for different Apple iCloud accounts. The attributes now show the correct devices being tracked and the accounts they are associated with.
