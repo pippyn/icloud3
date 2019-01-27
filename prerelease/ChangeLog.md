@@ -1,14 +1,17 @@
-### iCloud3 Change Log:
+### iCloud3 Prerelease Change Log:
 
 
+
+##### Known Issues:
+
+1. Possible problems when issuing commands for a specific device with more than one icloud account.
+2. Errors updating a device when the location information is old. An error message is written to the log file and the device is repolled constantly retried without successfully relocating the device. 
 
 ##### Version 0.86.2 - 1/27/2019
 
 1. The iCloud3 zone state was capitalized', i.e., *school* went to *School*, *HOMEZONE* went to *Homezone*. The zone's friendly_name  is now used without any reformatting. If there is no *zone.friendly_name* attribute, the state will be capitalized.
-
 2. If the location data was 'old', an "Error updating device_name" message was displayed in the log file due to inconsistent data. Additional error checking has been added.
-
-   
+3. Devices in a zone were repolled via Find-my-Friends if another device on the account needed to be repolled. If the device in a zone (that didn't need to be repolled) was experiencing poor GPS accuracy, that lead to device location errors and it would potentially drop in-and-out of the zone until the GPS accuracy was restored and may get into a relocate loop for several cycles. Now, the device in the zone will only be updated if there were no GPS accuracy issues.
 
 ##### Version 0.86.1 - 1/25/2019
 
