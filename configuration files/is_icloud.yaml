@@ -32,7 +32,8 @@ icloud_set_interval:
 icloud_debug_commands:
   name: iCloud Debug Command
   options:
-    - debug interval
+    - info logger
+    - info interval
     - debug gps
     - debug old
   icon: mdi:android-debug-bridge

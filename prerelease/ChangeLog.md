@@ -2,6 +2,14 @@
 
 
 
+##### Version 0.86.2 - 1/27/2019
+
+1. The iCloud3 zone state was capitalized', i.e., *school* went to *School*, *HOMEZONE* went to *Homezone*. The zone's friendly_name  is now used without any reformatting. If there is no *zone.friendly_name* attribute, the state will be capitalized.
+
+2. If the location data was 'old', an "Error updating device_name" message was displayed in the log file due to inconsistent data. Additional error checking has been added.
+
+   
+
 ##### Version 0.86.1 - 1/25/2019
 
 1. Fixed a problem where an error returning location data from the iCloud Find-my-Friends location request would crash iCloud3 and put it into an endless retry loop.

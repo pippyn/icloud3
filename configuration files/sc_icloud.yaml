@@ -55,9 +55,7 @@ icloud_command_reset_waze_range:
       data:
         account_name: gary_icloud
         command: waze reset_range
-#--------------------------------------------------------------
-#  INTERVAL COMMANDS
-#-------------------------------------------------------------
+        
 icloud_set_interval_15_sec:
   alias: 'Set interval to 15 sec'
   sequence:
@@ -195,16 +193,26 @@ icloud_gary_iphone_see_away:
         location_name: 'not_home'
 
 #--------------------------------------------------------------
-#   DEBUG COMMANDS
+#   INFORMATION COMMANDS
 #--------------------------------------------------------------
-icloud_command_display_interval_formula:
+icloud_command_info_interval_formula:
   alias: 'Display Interval Formula'
   sequence:
     - service: device_tracker.icloud_update
       data:
         account_name: gary_icloud
         command: info interval
-        
+
+icloud_command_info_logging_toggle:
+  alias: 'Write Details to Log File (Toggle)'
+  sequence:
+    - service: device_tracker.icloud_update
+      data:
+        account_name: gary_icloud
+        command: info logging
+#--------------------------------------------------------------
+#   DEBUG COMMANDS
+#--------------------------------------------------------------   
 icloud_command_debug_test_gps:
   alias: 'Test GPS Accuracy'
   sequence:
@@ -220,7 +228,7 @@ icloud_command_debug_test_old:
       data:
         account_name: gary_icloud
         command: debug old
-        
+
 icloud_gary_iphone_data_notification:
   alias: 'Gary - iCloud Cmd - Data Notification'
   sequence:

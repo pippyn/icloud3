@@ -1,0 +1,14 @@
+"icloud3": {
+  "version": "0.86.0",
+  "local_location": "custom_components/device_tracker/icloud3.py",
+  "remote_location": "https://raw.githubusercontent.com/gcobb321/icloud3/master/icloud3.py",
+  "visit_repo": "https://github.com/gcobb321/icloud3",
+  "changelog": "https://github.com/gcobb321/icloud3/blob/master/ChangeLog.md"
+  },
+"icloud3 (prelease)": {
+  "version": "0.86.1",
+  "local_location": "custom_components/device_tracker/icloud3.py",
+  "remote_location": "https://raw.githubusercontent.com/gcobb321/icloud3/master/prerelease/icloud3.py",
+  "visit_repo": "https://github.com/gcobb321/icloud3/tree/master/prerelease",
+  "changelog": "https://github.com/gcobb321/icloud3/blob/master/prerelease/ChangeLog.md"
+  },
